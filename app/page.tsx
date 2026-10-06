@@ -75,19 +75,34 @@ export default function HomePage() {
             Objectif du jour
           </h2>
           <Card elevated className="bg-gradient-to-r from-primary-light to-secondary-light">
-            <div className="text-center">
-              <p className="text-lg text-neutral-600 mb-2">
-                Bonjour {user.name}! <span aria-hidden="true">👋</span>
-              </p>
-              <p className="text-base text-neutral-600 mb-4">
-                Votre objectif d'aujourd'hui
-              </p>
-              <p className="text-5xl font-bold text-primary-dark mb-1">
-                {user.dailyGoalMinutes}
-              </p>
-              <p className="text-lg text-neutral-600">
-                minutes de marche
-              </p>
+            <div className="flex items-center justify-between gap-6">
+              {/* Gauche : Texte */}
+              <div className="flex-1">
+                <p className="text-base text-neutral-600 mb-1">
+                  Votre objectif du jour
+                </p>
+                <p className="text-lg font-semibold text-neutral-900">
+                  Bonjour {user.name}! <span aria-hidden="true">👋</span>
+                </p>
+              </div>
+
+              {/* Droite : Emoji + Nombre + Unité */}
+              <div className="flex items-center gap-3">
+                {/* Emoji marche (gros) */}
+                <span className="text-7xl" aria-hidden="true">
+                  🚶
+                </span>
+
+                {/* Nombre + Unité */}
+                <div className="text-right">
+                  <p className="text-5xl font-bold text-primary-dark leading-none">
+                    {user.dailyGoalMinutes}
+                  </p>
+                  <p className="text-sm text-neutral-600 mt-1">
+                    minutes
+                  </p>
+                </div>
+              </div>
             </div>
           </Card>
         </section>
