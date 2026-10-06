@@ -8,6 +8,7 @@ import { Card } from '@/app/components/Card';
 import { Button } from '@/app/components/Button';
 import { ProgressBar } from '@/app/components/ProgressBar';
 import { Modal } from '@/app/components/Modal';
+import { BottomNavigation } from '@/app/components/BottomNavigation';
 import { useAppState } from '@/app/lib/useAppState';
 
 type WalkState = 'idle' | 'running' | 'paused' | 'completed';
@@ -127,6 +128,33 @@ export default function WalkPage() {
   if (!user) {
     return null;
   }
+
+  const navigationItems = [
+    {
+      label: 'Accueil',
+      href: '/',
+      icon: '🏠',
+      ariaLabel: 'Accueil',
+    },
+    {
+      label: 'Marche',
+      href: '/walk',
+      icon: '🚶',
+      ariaLabel: 'Démarrer une marche',
+    },
+    {
+      label: 'Journal',
+      href: '/feelings',
+      icon: '📝',
+      ariaLabel: 'Mon journal des ressentis',
+    },
+    {
+      label: 'Paramètres',
+      href: '/settings',
+      icon: '⚙️',
+      ariaLabel: 'Paramètres et accessibilité',
+    },
+  ];
 
   // Écran de résultat
   if (showResultScreen) {
@@ -334,6 +362,8 @@ export default function WalkPage() {
         onCancel={() => setShowQuitModal(false)}
         isDangerous
       />
+
+      <BottomNavigation items={navigationItems} />
     </div>
   );
 }

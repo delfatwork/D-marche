@@ -5,6 +5,7 @@ import { Header } from '@/app/components/Header';
 import { Card } from '@/app/components/Card';
 import { Button } from '@/app/components/Button';
 import { StatsCard } from '@/app/components/StatsCard';
+import { BottomNavigation } from '@/app/components/BottomNavigation';
 import { useAppState } from '@/app/lib/useAppState';
 
 export default function WeeklyPage() {
@@ -101,6 +102,33 @@ export default function WeeklyPage() {
   };
 
   const weekDays = getWeekDays();
+
+  const navigationItems = [
+    {
+      label: 'Accueil',
+      href: '/',
+      icon: '🏠',
+      ariaLabel: 'Accueil',
+    },
+    {
+      label: 'Marche',
+      href: '/walk',
+      icon: '🚶',
+      ariaLabel: 'Démarrer une marche',
+    },
+    {
+      label: 'Journal',
+      href: '/feelings',
+      icon: '📝',
+      ariaLabel: 'Mon journal des ressentis',
+    },
+    {
+      label: 'Paramètres',
+      href: '/settings',
+      icon: '⚙️',
+      ariaLabel: 'Paramètres et accessibilité',
+    },
+  ];
 
   return (
     <div className="flex flex-col min-h-screen bg-[#FAFAF8]">
@@ -242,6 +270,8 @@ export default function WeeklyPage() {
           </Button>
         </Link>
       </main>
+
+      <BottomNavigation items={navigationItems} />
     </div>
   );
 }
