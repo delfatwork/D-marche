@@ -172,7 +172,7 @@ export default function WalkPage() {
             <p className="text-xl text-[#57564F] mb-6">
               Vous avez marché
             </p>
-            <p className="text-5xl font-bold text-[#D97706] mb-4">
+            <p className="text-5xl font-bold text-[#B45300] mb-4">
               {elapsedMinutes}
             </p>
             <p className="text-lg text-[#57564F]">

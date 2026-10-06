@@ -95,7 +95,7 @@ export default function FeelingsPage() {
                           {label}
                         </span>
                       </div>
-                      <span className="text-lg font-bold text-[#D97706]">
+                      <span className="text-lg font-bold text-[#B45300]">
                         {count}
                       </span>
                     </div>

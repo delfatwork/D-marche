@@ -121,7 +121,7 @@ export default function FeelingPage() {
           <p className="text-center text-[1.125rem] text-[#57564F] mb-2">
             Vous avez marché
           </p>
-          <p className="text-center text-3xl font-bold text-[#D97706]">
+          <p className="text-center text-3xl font-bold text-[#B45300]">
             {todayWalk.durationMinutes} minutes
           </p>
           <p className="text-center text-[1rem] text-[#57564F] mt-2">
@@ -140,9 +140,9 @@ export default function FeelingPage() {
                 ${
                   selectedFeeling === feeling.id
                     ? `${feeling.color} border-2`
-                    : 'bg-white border-[#E8E8E5] hover:border-[#D97706]'
+                    : 'bg-white border-[#E8E8E5] hover:border-[#B45300]'
                 }
-                focus-visible:outline-2 focus-visible:outline-[#D97706]
+                focus-visible:outline-2 focus-visible:outline-[#B45300]
                 focus-visible:outline-offset-2
               `}
             >
@@ -170,7 +170,7 @@ export default function FeelingPage() {
             className="
               w-full p-4 border-2 border-[#E8E8E5] rounded-lg
               text-[1rem] font-sans
-              focus:outline-none focus:border-[#D97706] focus:ring-2 focus:ring-[#FEF3C7]
+              focus:outline-none focus:border-[#B45300] focus:ring-2 focus:ring-[#FEF3C7]
               resize-vertical min-h-[120px]
             "
           />

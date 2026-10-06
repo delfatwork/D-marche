@@ -114,9 +114,9 @@ export function Modal({
               className={`
                 flex-1 px-4 py-3 rounded-lg font-semibold text-lg
                 border-2 border-[#E8E8E5] text-[#1A1915]
-                hover:bg-[#F5F5F3] hover:border-[#D97706]
+                hover:bg-[#F5F5F3] hover:border-[#B45300]
                 transition-colors
-                focus-visible:outline-2 focus-visible:outline-[#D97706]
+                focus-visible:outline-2 focus-visible:outline-[#B45300]
               `}
             >
               {cancelLabel}
@@ -131,7 +131,7 @@ export function Modal({
                 ${
                   isDangerous
                     ? `bg-[#EF4444] hover:bg-[#DC2626] focus-visible:outline-[#EF4444]`
-                    : `bg-[#D97706] hover:bg-[#92400E] focus-visible:outline-[#D97706]`
+                    : `bg-[#B45300] hover:bg-[#92400E] focus-visible:outline-[#B45300]`
                 }
               `}
             >

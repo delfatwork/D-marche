@@ -215,7 +215,7 @@ export default function WeeklyPage() {
                     <p className="font-semibold text-[#1A1915] capitalize mb-1">
                       {day.dayName}
                       {day.isToday && (
-                        <span className="ml-2 text-xs font-normal text-[#D97706]">
+                        <span className="ml-2 text-xs font-normal text-[#B45300]">
                           Aujourd'hui
                         </span>
                       )}
@@ -233,7 +233,7 @@ export default function WeeklyPage() {
                   <div className="text-right">
                     {day.walk ? (
                       <div>
-                        <p className="text-2xl font-bold text-[#D97706]">
+                        <p className="text-2xl font-bold text-[#B45300]">
                           {day.walk.durationMinutes}
                         </p>
                         <p className="text-xs text-[#57564F]">minutes</p>
