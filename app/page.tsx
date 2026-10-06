@@ -87,12 +87,6 @@ export default function HomePage() {
 
               {/* Droite : Emoji + Nombre + Unité */}
               <div className="flex items-center gap-3">
-                {/* Emoji marche (gros) */}
-                <span className="text-7xl" aria-hidden="true">
-                  🚶
-                </span>
-
-                {/* Nombre + Unité */}
                 <div className="text-right">
                   <p className="text-5xl font-bold text-primary-dark leading-none">
                     {user.dailyGoalMinutes}
