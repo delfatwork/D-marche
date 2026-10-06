@@ -198,8 +198,8 @@ export default function HomePage() {
                       <div
                         className={`
                           rounded-lg p-3 min-h-[48px]
-                          flex items-center justify-center
-                          font-bold text-[1.125rem]
+                          flex flex-col items-center justify-center gap-1
+                          font-bold text-[1rem]
                           ${
                             walk
                               ? 'bg-[#FEF3C7] text-[#92400E]'
@@ -208,7 +208,12 @@ export default function HomePage() {
                         `}
                         aria-label={`${dayLabel}: ${walk ? `${walk.durationMinutes} minutes` : 'Pas de marche'}`}
                       >
-                        {walk ? '✓' : '−'}
+                        <span className="text-xl">{walk ? '✓' : '−'}</span>
+                        {walk && (
+                          <span className="text-xs font-normal">
+                            {walk.durationMinutes}m
+                          </span>
+                        )}
                       </div>
                     </div>
                   );
