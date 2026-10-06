@@ -71,18 +71,17 @@ export default function HomePage() {
       <main className="flex-1 pb-24 px-6 py-8 max-w-2xl mx-auto w-full">
         {/* Section: Salutation & Objectif */}
         <section className="mb-8" aria-labelledby="daily-goal-heading">
+          <h1 className="text-2xl font-bold text-neutral-900 mb-4">
+            Bonjour {user.name}! <span aria-hidden="true">👋</span>
+          </h1>
           <h2 id="daily-goal-heading" className="sr-only">
             Objectif du jour
           </h2>
           <Card elevated className="bg-gradient-to-r from-primary-light to-secondary-light">
             <div className="flex items-center justify-between gap-6">
-              {/* Gauche : Texte */}
               <div className="flex-1">
-                <p className="text-base text-neutral-600 mb-1">
-                  Votre objectif du jour
-                </p>
                 <p className="text-lg font-semibold text-neutral-900">
-                  Bonjour {user.name}! <span aria-hidden="true">👋</span>
+                  Votre objectif du jour
                 </p>
               </div>
 
