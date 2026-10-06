@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Header } from './components/Header';
@@ -12,6 +12,7 @@ import { useAppState } from './lib/useAppState';
 
 export default function HomePage() {
   const router = useRouter();
+  const [activeTab, setActiveTab] = useState<'today' | 'month'>('today');
   const { user, isLoading, getTodayWalk, getWeeklyWalks } = useAppState();
 
   // Rediriger vers l'onboarding si non complété
@@ -28,12 +29,6 @@ export default function HomePage() {
       </div>
     );
   }
-
-  const today = new Date().toLocaleDateString('fr-FR', {
-    weekday: 'long',
-    month: 'long',
-    day: 'numeric',
-  });
 
   const todayWalk = getTodayWalk();
   const weeklyWalks = getWeeklyWalks();
@@ -71,7 +66,7 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-neutral-50">
-      <Header title="Pas à pas" subtitle={today} />
+      <Header activeTab={activeTab} onTabChange={setActiveTab} />
 
       <main className="flex-1 pb-24 px-6 py-8 max-w-2xl mx-auto w-full">
         {/* Section: Salutation & Objectif */}
