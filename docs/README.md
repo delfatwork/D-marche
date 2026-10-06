@@ -6,6 +6,18 @@ Bienvenue dans la documentation de design et UX de **Pas à pas**, l'application
 
 ## 📚 Structure de la documentation
 
+### [0️⃣ Product Brief](./product-brief.md)
+**Pour qui ?** : Tous (vue d'ensemble)  
+**Quoi ?** : Contexte, objectifs, contraintes, état de conformité
+
+- Utilisateurs et problème
+- Objectifs du MVP (6 étapes)
+- Fonctionnalités implémentées vs en cours vs futures
+- Contraintes UX et éthique
+- État de conformité avec checklist
+
+---
+
 ### [1️⃣ Principes UX](./ux-principles.md)
 **Pour qui ?** : Product managers, designers, développeurs  
 **Quoi ?** : Vision, valeurs, audience, contenu interdit
