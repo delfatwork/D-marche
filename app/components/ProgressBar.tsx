@@ -31,10 +31,10 @@ export function ProgressBar({
     <div className={className}>
       {showLabel && label && (
         <div className="flex justify-between items-center mb-2">
-          <label className="font-semibold text-[1.125rem] text-[#1A1915]">
+          <span className="font-semibold text-base text-neutral-900">
             {label}
-          </label>
-          <span className="font-bold text-[1.125rem] text-[#B45300]">
+          </span>
+          <span className="font-bold text-base text-primary">
             {value}/{max}
           </span>
         </div>
@@ -42,18 +42,19 @@ export function ProgressBar({
 
       <div
         className={`
-          w-full bg-[#E8E8E5] rounded-full overflow-hidden
+          w-full bg-neutral-200 rounded-full overflow-hidden
           ${sizeStyles[size]}
         `}
         role="progressbar"
-        aria-valuenow={Math.round(percentage)}
+        aria-valuenow={value}
         aria-valuemin={0}
-        aria-valuemax={100}
+        aria-valuemax={max}
+        aria-valuetext={`${value} sur ${max}`}
         aria-label={ariaLabel}
       >
         <div
           className={`
-            h-full bg-gradient-to-r from-[#B45300] to-[#F97316]
+            h-full bg-gradient-to-r from-primary to-secondary
             transition-all duration-300 ease-out
             rounded-full
           `}

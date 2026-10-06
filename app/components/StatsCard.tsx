@@ -18,36 +18,37 @@ export function StatsCard({
   description,
 }: StatsCardProps) {
   return (
-    <div className="bg-white rounded-xl border-2 border-[#E8E8E5] p-5">
+    <div className="bg-white rounded-md border-2 border-neutral-200 p-5">
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-3">
-          {emoji && <span className="text-3xl">{emoji}</span>}
-          <p className="text-sm font-semibold text-[#57564F]">{label}</p>
+          {emoji && <span className="text-3xl" aria-hidden="true">{emoji}</span>}
+          <p className="text-sm font-semibold text-neutral-600">{label}</p>
         </div>
         {trend && (
           <span
             className={`text-xl ${
               trend === 'up'
-                ? 'text-[#10B981]'
+                ? 'text-success'
                 : trend === 'down'
-                  ? 'text-[#EF4444]'
-                  : 'text-[#78776F]'
+                  ? 'text-danger'
+                  : 'text-neutral-600'
             }`}
+            aria-label={trend === 'up' ? 'Tendance à la hausse' : trend === 'down' ? 'Tendance à la baisse' : 'Tendance stable'}
           >
-            {trend === 'up' && '↗️'}
-            {trend === 'down' && '↘️'}
+            {trend === 'up' && '↗'}
+            {trend === 'down' && '↘'}
             {trend === 'stable' && '→'}
           </span>
         )}
       </div>
 
-      <p className="text-4xl font-bold text-[#B45300] mb-1">
+      <p className="text-4xl font-bold text-primary mb-1">
         {value}
-        {unit && <span className="text-lg text-[#57564F] ml-1">{unit}</span>}
+        {unit && <span className="text-lg text-neutral-600 ml-1">{unit}</span>}
       </p>
 
       {description && (
-        <p className="text-sm text-[#57564F]">{description}</p>
+        <p className="text-sm text-neutral-600">{description}</p>
       )}
     </div>
   );

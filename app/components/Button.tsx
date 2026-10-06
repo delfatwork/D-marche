@@ -13,35 +13,35 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary: `
-    bg-[#B45300] text-white
-    hover:bg-[#92400E]
-    active:bg-[#7C2D12]
-    disabled:bg-[#E8E8E5] disabled:text-[#A3A39D]
+    bg-primary text-white
+    hover:bg-primary-hover
+    active:bg-primary-active
+    disabled:bg-neutral-200 disabled:text-neutral-400
   `,
   secondary: `
-    bg-[#F97316] text-white
-    hover:bg-[#9A3412]
-    active:bg-[#7C2D12]
-    disabled:bg-[#E8E8E5] disabled:text-[#A3A39D]
+    bg-secondary text-white
+    hover:bg-secondary-dark
+    active:bg-primary-active
+    disabled:bg-neutral-200 disabled:text-neutral-400
   `,
   tertiary: `
-    bg-[#F5F5F3] text-[#1A1915] border-2 border-[#B45300]
-    hover:bg-[#FEF3C7]
-    active:bg-[#FED7AA]
-    disabled:bg-[#E8E8E5] disabled:text-[#A3A39D] disabled:border-[#A3A39D]
+    bg-neutral-100 text-neutral-900 border-2 border-primary
+    hover:bg-primary-light
+    active:bg-secondary-light
+    disabled:bg-neutral-200 disabled:text-neutral-400 disabled:border-neutral-400
   `,
   danger: `
-    bg-[#EF4444] text-white
-    hover:bg-[#DC2626]
-    active:bg-[#B91C1C]
-    disabled:bg-[#E8E8E5] disabled:text-[#A3A39D]
+    bg-danger text-white
+    hover:bg-danger-hover
+    active:bg-danger-active
+    disabled:bg-neutral-200 disabled:text-neutral-400
   `,
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: 'px-4 py-2 text-[1rem] min-h-[44px]',
-  md: 'px-6 py-3 text-[1.125rem] min-h-[48px]',
-  lg: 'px-8 py-4 text-[1.25rem] min-h-[56px]',
+  sm: 'px-4 py-2 text-sm min-h-[44px]',
+  md: 'px-6 py-3 text-base min-h-[48px]',
+  lg: 'px-8 py-4 text-lg min-h-[56px]',
 };
 
 export function Button({
@@ -57,14 +57,15 @@ export function Button({
   return (
     <button
       className={`
+        relative
         ${variantStyles[variant]}
         ${sizeStyles[size]}
         ${fullWidth ? 'w-full' : ''}
 
-        font-semibold rounded-[1rem]
+        font-semibold rounded-md
         transition-colors duration-250
 
-        focus-visible:outline-2 focus-visible:outline-[#B45300]
+        focus-visible:outline-2 focus-visible:outline-primary
         focus-visible:outline-offset-2
 
         active:scale-[0.98]
@@ -75,15 +76,19 @@ export function Button({
         ${className}
       `}
       disabled={disabled || isLoading}
+      aria-busy={isLoading}
       {...props}
     >
       <span className={isLoading ? 'opacity-0' : 'opacity-100'}>
         {children}
       </span>
       {isLoading && (
-        <span className="absolute inset-0 flex items-center justify-center">
-          ⏳
-        </span>
+        <>
+          <span className="sr-only">Chargement en cours…</span>
+          <span className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+            ⏳
+          </span>
+        </>
       )}
     </button>
   );

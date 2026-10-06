@@ -1,37 +1,60 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-/* ============================================
-   CSS VARIABLES POUR DESIGN SYSTEM
-   ============================================ */
-:root {
-  /* Couleurs */
+@theme {
+  /* Couleurs principales */
   --color-primary-light: #FEF3C7;
   --color-primary: #B45300;
   --color-primary-dark: #92400E;
+  --color-primary-hover: #92400E;
+  --color-primary-active: #7C2D12;
 
+  /* Secondaire */
   --color-secondary-light: #FED7AA;
   --color-secondary: #F97316;
   --color-secondary-dark: #9A3412;
 
+  /* États */
   --color-success: #10B981;
+  --color-success-light: #D1FAE5;
+  --color-success-dark: #065F46;
   --color-warning: #EAB308;
   --color-danger: #EF4444;
+  --color-danger-hover: #DC2626;
+  --color-danger-active: #B91C1C;
   --color-info: #3B82F6;
+  --color-info-light: #DBEAFE;
+  --color-info-dark: #1E3A8A;
 
+  /* Neutrals */
   --color-neutral-50: #FAFAF8;
   --color-neutral-100: #F5F5F3;
   --color-neutral-200: #E8E8E5;
+  --color-neutral-400: #A3A39D;
   --color-neutral-600: #57564F;
   --color-neutral-900: #1A1915;
 
   /* Typographie */
-  --font-size-base: 1.125rem; /* 18px */
+  --font-size-xs: 0.875rem;
+  --font-size-sm: 1rem;
+  --font-size-base: 1.125rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
   --line-height-base: 1.5;
 
   /* Espacement */
   --spacing-base: 1rem;
+
+  /* Border radius */
+  --radius-xs: 0.5rem;
+  --radius-sm: 0.75rem;
+  --radius-md: 1rem;
+  --radius-2xl: 1.25rem;
+
+  /* Ombres */
+  --shadow-base: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.3);
 
   /* Accessibilité */
   --focus-outline: 2px solid var(--color-primary);
@@ -42,6 +65,7 @@
 @media (prefers-contrast: more) {
   :root {
     --color-primary: #7C2D12;
+    --color-primary-hover: #5C1F0A;
     --color-secondary: #7C2D12;
     --color-neutral-600: #1A1915;
   }

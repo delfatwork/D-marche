@@ -86,15 +86,15 @@ export function Modal({
       <div className="fixed inset-0 z-50 flex items-center justify-center p-6">
         <div
           ref={modalRef}
-          className="bg-white rounded-2xl shadow-xl max-w-sm w-full p-6 max-h-[90vh] overflow-y-auto"
-          role="alertdialog"
+          className="bg-white rounded-2xl shadow-lg max-w-sm w-full p-6 max-h-[90vh] overflow-y-auto"
+          role="dialog"
           aria-modal="true"
           aria-labelledby="modal-title"
-          aria-describedby="modal-description"
+          aria-describedby={description ? 'modal-description' : undefined}
         >
           <h2
             id="modal-title"
-            className="text-2xl font-bold text-[#1A1915] mb-3"
+            className="text-2xl font-bold text-neutral-900 mb-3"
           >
             {title}
           </h2>
@@ -102,7 +102,7 @@ export function Modal({
           {description && (
             <p
               id="modal-description"
-              className="text-[1.125rem] text-[#57564F] mb-6"
+              className="text-base text-neutral-600 mb-6"
             >
               {description}
             </p>
@@ -112,11 +112,12 @@ export function Modal({
             <button
               onClick={onCancel}
               className={`
-                flex-1 px-4 py-3 rounded-lg font-semibold text-lg
-                border-2 border-[#E8E8E5] text-[#1A1915]
-                hover:bg-[#F5F5F3] hover:border-[#B45300]
+                flex-1 px-4 py-3 rounded-md font-semibold text-base
+                border-2 border-neutral-200 text-neutral-900
+                hover:bg-neutral-100 hover:border-primary
                 transition-colors
-                focus-visible:outline-2 focus-visible:outline-[#B45300]
+                focus-visible:outline-2 focus-visible:outline-primary
+                focus-visible:outline-offset-2
               `}
             >
               {cancelLabel}
@@ -125,13 +126,13 @@ export function Modal({
             <button
               onClick={onConfirm}
               className={`
-                flex-1 px-4 py-3 rounded-lg font-semibold text-lg
+                flex-1 px-4 py-3 rounded-md font-semibold text-base
                 text-white transition-colors
                 focus-visible:outline-2 focus-visible:outline-offset-2
                 ${
                   isDangerous
-                    ? `bg-[#EF4444] hover:bg-[#DC2626] focus-visible:outline-[#EF4444]`
-                    : `bg-[#B45300] hover:bg-[#92400E] focus-visible:outline-[#B45300]`
+                    ? `bg-danger hover:bg-danger-hover focus-visible:outline-danger`
+                    : `bg-primary hover:bg-primary-hover focus-visible:outline-primary`
                 }
               `}
             >

@@ -21,7 +21,7 @@ export function BottomNavigation({ items }: BottomNavigationProps) {
     <nav
       className="
         fixed bottom-0 left-0 right-0
-        bg-white border-t-2 border-[#E8E8E5]
+        bg-white border-t-2 border-neutral-200
         shadow-lg
         pb-[env(safe-area-inset-bottom)]
       "
@@ -44,11 +44,11 @@ export function BottomNavigation({ items }: BottomNavigationProps) {
 
                 ${
                   isActive
-                    ? 'text-[#B45300] border-t-4 border-[#B45300]'
-                    : 'text-[#57564F] hover:text-[#1A1915] hover:bg-[#F5F5F3]'
+                    ? 'text-primary border-t-4 border-primary'
+                    : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'
                 }
 
-                focus-visible:outline-2 focus-visible:outline-[#B45300]
+                focus-visible:outline-2 focus-visible:outline-primary
                 focus-visible:outline-offset-2
 
                 min-h-[56px]
@@ -59,7 +59,7 @@ export function BottomNavigation({ items }: BottomNavigationProps) {
               <span className="text-2xl mb-1" aria-hidden="true">
                 {item.icon}
               </span>
-              <span className="text-xs font-semibold text-center leading-tight">
+              <span className="text-sm font-semibold text-center leading-tight">
                 {item.label}
               </span>
             </Link>
