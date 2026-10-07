@@ -68,10 +68,10 @@ export default function HomePage() {
     <div className="flex flex-col min-h-screen bg-neutral-50">
       <Header activeTab={activeTab} onTabChange={setActiveTab} />
 
-      <main className="flex-1 pb-24 px-6 py-8 max-w-2xl mx-auto w-full">
+      <main className="flex-1 pb-24 px-6 py-8 max-w-2xl mx-auto w-full space-y-8">
         {/* Section: Salutation & Objectif */}
-        <section className="mb-8" aria-labelledby="daily-goal-heading">
-          <h1 className="text-2xl font-bold text-neutral-900 mb-4">
+        <section aria-labelledby="daily-goal-heading">
+          <h1 className="text-2xl font-bold text-neutral-900 mb-3">
             Bonjour {user.name}! <span aria-hidden="true">👋</span>
           </h1>
           <h2 id="daily-goal-heading" className="sr-only">
@@ -101,7 +101,7 @@ export default function HomePage() {
         </section>
 
         {/* Section: Progression aujourd'hui - CTA toujours visible */}
-        <section className="mb-8" aria-labelledby="today-progress-heading">
+        <section aria-labelledby="today-progress-heading">
           <h2 id="today-progress-heading" className="sr-only">
             Progression d'aujourd'hui
           </h2>
@@ -144,7 +144,7 @@ export default function HomePage() {
         </section>
 
         {/* Section: Récapitulatif hebdo — Simplifié avec lien vers détails */}
-        <section className="mb-8" aria-labelledby="weekly-summary-heading">
+        <section aria-labelledby="weekly-summary-heading">
           <h2 id="weekly-summary-heading" className="text-xl font-bold text-neutral-900 mb-3">
             Cette semaine
           </h2>
@@ -180,7 +180,7 @@ export default function HomePage() {
         </section>
 
         {/* Section: Conseils */}
-        <section className="mb-8" aria-labelledby="tips-heading">
+        <section aria-labelledby="tips-heading">
           <h2 id="tips-heading" className="sr-only">
             Conseils et sécurité
           </h2>
