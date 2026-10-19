@@ -13,8 +13,8 @@
   --g-blue-600:#1B4FD8; --g-blue-300:#9DB8FF;
   --g-grey-500:#6E6E6E; --g-yellow-400:#FFD400;
   /* Échelles */
-  --g-size-1:.2rem; --g-size-2:.3rem; --g-size-3:.4rem; --g-size-4:.5rem; --g-size-5:.6rem; --g-size-6:.75rem; --g-size-7:.9rem; --g-size-8:1.1rem; --g-size-9:1.25rem;
-  --g-radius-1:8px; --g-radius-2:14px; --g-radius-3:18px; --g-radius-4:22px; --g-radius-full:999px;
+  --g-size-1:.25rem; --g-size-2:.375rem; --g-size-3:.5rem; --g-size-4:.75rem; --g-size-5:1rem; --g-size-6:1.25rem; --g-size-7:1.5rem; --g-size-8:1.75rem; --g-size-9:2rem;
+  --g-radius-1:.5rem; --g-radius-2:.75rem; --g-radius-3:1rem; --g-radius-4:1.25rem; --g-radius-full:999px;
   --g-border-1:2px; --g-border-2:3px;
 
   /* ---------- 2. SEMANTIC : rôles, seule couche qui change selon le mode ---------- */
@@ -26,16 +26,16 @@
   --scrim:color-mix(in srgb, var(--g-black) 45%, transparent); --shadow-1:color-mix(in srgb, var(--g-black) 12%, transparent); --shadow-2:color-mix(in srgb, var(--g-black) 18%, transparent); --shadow-3:color-mix(in srgb, var(--g-black) 20%, transparent);
   --danger:var(--g-red-700); --danger-bg:var(--g-red-100);
   --radius-sm:var(--g-radius-1); --radius-md:var(--g-radius-2); --radius-lg:var(--g-radius-3); --radius-xl:var(--g-radius-4); --radius-pill:var(--g-radius-full);
-  --space-2xs:var(--g-size-1); --space-xs:var(--g-size-2); --space-sm:var(--g-size-3); --space-md:var(--g-size-4); --space-lg:var(--g-size-5); --space-xl:var(--g-size-6); --space-2xl:var(--g-size-7); --space-3xl:var(--g-size-8); --space-gutter:var(--g-size-9);
+  --space-2xs:var(--g-size-1); --space-xs:var(--g-size-2); --space-sm:var(--g-size-3); --space-md:var(--g-size-4); --space-lg:var(--g-size-5); --space-xl:var(--g-size-6); --space-2xl:var(--g-size-7); --space-3xl:var(--g-size-8); --space-gutter:var(--g-size-7);
 
   /* ---------- 3. COMPOSANT : décisions par composant ---------- */
-  --btn-radius:var(--radius-md); --btn-min-h:3.2rem;
+  --btn-radius:var(--radius-pill); --btn-min-h:3.625rem;
   --card-bg:var(--surface); --card-radius:var(--radius-xl); --card-pad:var(--space-3xl);
   --field-radius:var(--radius-md); --field-min-h:3rem;
   /* Tag : badge, chip difficulté, tag filtre, badge trophée */
   --tag-radius:var(--radius-pill); --tag-bg:transparent; --tag-ink:var(--ink-soft); --tag-border:var(--line); --tag-pad:var(--space-2xs) var(--space-lg); --tag-size:.8rem;
   /* Button : plein, contour, lien, danger, icône */
-  --btn-bg:var(--primary); --btn-ink:var(--primary-ink); --btn-border:transparent; --btn-pad:var(--space-xl) var(--space-gutter);
+  --btn-bg:var(--action); --btn-ink:var(--action-ink); --btn-border:transparent; --btn-pad:var(--space-lg) var(--space-gutter);
   --iconbtn-size:3rem; --iconbtn-radius:var(--radius-md);
   /* Card : rail, carrée, balade, point de passage, participant */
   --card-width:auto; --card-border:var(--line);
@@ -109,18 +109,29 @@ body{margin:0;height:100%;background:var(--canvas);color:var(--ink);
 .screen{flex:1 0 auto;display:flex;flex-direction:column;gap:var(--space-3xl);padding:var(--space-gutter) var(--space-gutter) 1.5rem}
 .lead{font-size:1.15rem;color:var(--ink)}
 .muted{color:var(--ink-soft)}
-.small{font-size:.9rem;color:var(--ink-soft)}
+.small{font-size:.9rem;line-height:1.2;color:var(--ink-soft)}
+
+/* Échelle typographique — Figma Foundations/Typography */
+.text-xs{font-size:.9rem;font-weight:400;line-height:1.2;letter-spacing:0}
+.text-sm{font-size:1rem;font-weight:400;line-height:1.5}
+.text-sm-bold{font-size:1rem;font-weight:700;line-height:1.53125rem;letter-spacing:-.2px}
+.text-base{font-size:1.125rem;font-weight:400;line-height:1.53125rem;letter-spacing:-.2px}
+.text-base-bold{font-size:1.125rem;font-weight:700;line-height:1.53125rem;letter-spacing:-.2px}
+.text-md{font-size:1.5rem;font-weight:400;line-height:normal;letter-spacing:-.2px}
+.text-lg{font-size:2rem;font-weight:400;line-height:1.2;letter-spacing:0}
+.text-2xl-bold{font-size:2.25rem;font-weight:700;line-height:1.1;letter-spacing:0}
 .actions{margin-top:auto;display:flex;flex-direction:column;gap:var(--space-xl);padding-top:var(--space-md)}
 .card{background:var(--card-bg);border:var(--border-width) solid var(--line);border-radius:var(--card-radius);padding:var(--card-pad)}
 [data-contrast="high"] .card{border-width:3px}
 
 /* Boutons */
 .btn{appearance:none;display:flex;align-items:center;justify-content:center;gap:var(--space-md);width:100%;
-  min-height:3.4rem;padding:var(--btn-pad);border-radius:var(--radius-lg);border:var(--border-width) solid var(--btn-border);background:var(--btn-bg);color:var(--btn-ink);
-  font:inherit;font-size:1.1rem;font-weight:700;line-height:1.2;cursor:pointer;text-align:center}
-.btn.primary{min-height:3.8rem}
-.btn.secondary{--btn-bg:var(--surface);--btn-ink:var(--ink);--btn-border:var(--ink-soft)}
-.btn.quiet{--btn-bg:transparent;--btn-ink:var(--primary);text-decoration:underline;text-underline-offset:4px;min-height:3rem}
+  min-height:var(--btn-min-h);padding:var(--btn-pad);border-radius:var(--btn-radius);border:var(--border-width) solid var(--btn-border);background:var(--btn-bg);color:var(--btn-ink);
+  font:inherit;font-size:1rem;font-weight:700;line-height:normal;text-decoration:underline;text-underline-offset:4px;cursor:pointer;text-align:center}
+.btn.secondary{--btn-bg:var(--surface);--btn-ink:var(--action);--btn-border:var(--action)}
+.btn.secondary:disabled{--btn-border:var(--ink-soft);--btn-ink:var(--ink)}
+.btn.quiet{--btn-bg:transparent;--btn-ink:var(--action)}
+.btn.quiet:disabled{--btn-ink:var(--primary)}
 [data-contrast="high"] .btn.primary{border-color:var(--ink)}
 .btn:active{transform:translateY(1px)}
 
