@@ -16,9 +16,9 @@ export default function TipCard({ icon, tone, title, href }: TipCardProps) {
       <div className="tip-card-body">
         <div className="tip-card-head">
           <DcCardIcon className="tip-card-head-ico" />
-          <span className="tip-card-head-label">Conseil</span>
+          <span className="tip-card-head-label text-xs">Conseil</span>
         </div>
-        <p className="tip-card-title">{title}</p>
+        <p className="tip-card-title text-md">{title}</p>
         <div className="tip-card-foot">
           <span className="tip-card-arrow" aria-hidden="true">
             <ArrowRightIcon />

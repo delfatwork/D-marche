@@ -19,12 +19,12 @@ export default function RingCard({ icon, headline, value, pct, footer, href, ari
     <>
       <div className="ring-card-head">
         {icon}
-        <p className="ring-card-headline">{headline}</p>
+        <p className="ring-card-headline text-sm-bold">{headline}</p>
       </div>
       <Ring pct={pct} className="ring-card-ring">
-        <strong>{value}</strong>
+        <strong className="text-md">{value}</strong>
       </Ring>
-      <p className="ring-card-footer">{footer}</p>
+      <p className="ring-card-footer text-base">{footer}</p>
     </>
   );
 

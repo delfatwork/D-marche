@@ -15,7 +15,7 @@
   /* Échelles */
   --g-size-1:.25rem; --g-size-2:.375rem; --g-size-3:.5rem; --g-size-4:.75rem; --g-size-5:1rem; --g-size-6:1.25rem; --g-size-7:1.5rem; --g-size-8:1.75rem; --g-size-9:2rem;
   --g-radius-1:.5rem; --g-radius-2:.75rem; --g-radius-3:1rem; --g-radius-4:1.25rem; --g-radius-full:999px;
-  --g-border-1:2px; --g-border-2:3px;
+  --g-border-1:1px; --g-border-2:3px;
 
   /* ---------- 2. SEMANTIC : rôles, seule couche qui change selon le mode ---------- */
   --canvas:var(--g-sage-100); --device-frame:var(--g-green-frame);
@@ -23,6 +23,7 @@
   --primary:var(--g-green-700); --primary-ink:var(--g-white); --primary-soft:var(--g-green-100); --illus-fill:var(--g-green-200);
   --illus-accent:var(--g-amber-500); --illus-line:var(--g-sage-200); --warn-bg:var(--g-amber-100); --warn-line:var(--g-amber-700);
   --focus:var(--g-blue-600); --border-width:var(--g-border-1); --focus-halo:transparent;
+  --action:var(--focus); --action-ink:var(--g-white);
   --scrim:color-mix(in srgb, var(--g-black) 45%, transparent); --shadow-1:color-mix(in srgb, var(--g-black) 12%, transparent); --shadow-2:color-mix(in srgb, var(--g-black) 18%, transparent); --shadow-3:color-mix(in srgb, var(--g-black) 20%, transparent);
   --danger:var(--g-red-700); --danger-bg:var(--g-red-100);
   --radius-sm:var(--g-radius-1); --radius-md:var(--g-radius-2); --radius-lg:var(--g-radius-3); --radius-xl:var(--g-radius-4); --radius-pill:var(--g-radius-full);
@@ -30,7 +31,7 @@
 
   /* ---------- 3. COMPOSANT : décisions par composant ---------- */
   --btn-radius:var(--radius-pill); --btn-min-h:3.625rem;
-  --card-bg:var(--surface); --card-radius:var(--radius-xl); --card-pad:var(--space-3xl);
+  --card-bg:var(--surface); --card-radius:var(--radius-xl); --card-pad:1rem;
   --field-radius:var(--radius-md); --field-min-h:3rem;
   /* Tag : badge, chip difficulté, tag filtre, badge trophée */
   --tag-radius:var(--radius-pill); --tag-bg:transparent; --tag-ink:var(--ink-soft); --tag-border:var(--line); --tag-pad:var(--space-2xs) var(--space-lg); --tag-size:.8rem;
@@ -62,7 +63,7 @@ html[data-text="xlarge"]{font-size:150%}
     --canvas:var(--g-ink-dark-900); --device-frame:var(--g-black);
     --bg:var(--g-ink-dark-800); --surface:var(--g-ink-dark-700); --ink:var(--g-green-ink-100); --ink-soft:var(--g-green-ink-200); --line:var(--g-sage-700);
     --primary:var(--g-green-300); --primary-ink:var(--g-green-900); --primary-soft:var(--g-sage-400); --illus-fill:var(--g-sage-500);
-    --illus-accent:var(--g-amber-400); --illus-line:var(--g-sage-600); --warn-bg:var(--g-amber-900); --warn-line:var(--g-amber-500); --focus:var(--g-blue-300); --danger:var(--g-red-300); --danger-bg:var(--g-red-900);
+    --illus-accent:var(--g-amber-400); --illus-line:var(--g-sage-600); --warn-bg:var(--g-amber-900); --warn-line:var(--g-amber-500); --focus:var(--g-blue-300); --action:var(--focus); --action-ink:var(--g-ink-dark-900); --danger:var(--g-red-300); --danger-bg:var(--g-red-900);
     color-scheme:dark;
   }
 }
@@ -70,14 +71,14 @@ html[data-text="xlarge"]{font-size:150%}
     --canvas:var(--g-ink-dark-900); --device-frame:var(--g-black);
   --bg:var(--g-ink-dark-800); --surface:var(--g-ink-dark-700); --ink:var(--g-green-ink-100); --ink-soft:var(--g-green-ink-200); --line:var(--g-sage-700);
   --primary:var(--g-green-300); --primary-ink:var(--g-green-900); --primary-soft:var(--g-sage-400); --illus-fill:var(--g-sage-500);
-  --illus-accent:var(--g-amber-400); --illus-line:var(--g-sage-600); --warn-bg:var(--g-amber-900); --warn-line:var(--g-amber-500); --focus:var(--g-blue-300); --danger:var(--g-red-300); --danger-bg:var(--g-red-900);
+  --illus-accent:var(--g-amber-400); --illus-line:var(--g-sage-600); --warn-bg:var(--g-amber-900); --warn-line:var(--g-amber-500); --focus:var(--g-blue-300); --action:var(--focus); --action-ink:var(--g-ink-dark-900); --danger:var(--g-red-300); --danger-bg:var(--g-red-900);
 }
 /* Contraste élevé : prioritaire sur le thème */
 :root[data-contrast="high"]{
   --canvas:var(--g-white); --device-frame:var(--g-black);
   --bg:var(--g-white); --surface:var(--g-white); --ink:var(--g-black); --ink-soft:var(--g-black); --line:var(--g-black);
   --primary:var(--g-green-800); --primary-ink:var(--g-white); --primary-soft:var(--g-white); --illus-fill:var(--g-white);
-  --illus-accent:var(--g-black); --illus-line:var(--g-grey-500); --warn-bg:var(--g-white); --warn-line:var(--g-black); --focus:var(--g-black); --border-width:var(--g-border-2); --danger:var(--g-black); --danger-bg:var(--g-white);
+  --illus-accent:var(--g-black); --illus-line:var(--g-grey-500); --warn-bg:var(--g-white); --warn-line:var(--g-black); --focus:var(--g-black); --action:var(--focus); --action-ink:var(--g-white); --border-width:var(--g-border-2); --danger:var(--g-black); --danger-bg:var(--g-white);
   --focus-halo:var(--g-yellow-400);
   color-scheme:light;
 }
@@ -286,6 +287,16 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 .stat-goal{font-size:.8rem;color:var(--ink-soft);line-height:1.2}
 .ring{width:5rem;height:5rem;border-radius:var(--radius-pill);display:grid;place-items:center;background:conic-gradient(var(--primary) calc(var(--p) * 1%), var(--illus-line) 0)}
 .ring span{width:3.9rem;height:3.9rem;border-radius:var(--radius-pill);background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:.95rem;line-height:1.1;text-align:center;font-variant-numeric:tabular-nums}
+
+/* Ring card — Figma node 221:3381 */
+.ring-card{display:flex;flex-direction:column;align-items:center;gap:var(--space-xl)}
+.ring-card-head{display:flex;flex-direction:column;align-items:center;gap:var(--space-xs)}
+.ring-card-head svg{width:1.25rem;height:1.25rem;color:var(--ink);flex:none}
+.ring-card-headline{margin:0;color:var(--ink-soft);text-align:center}
+.ring-card-ring{width:6.9rem;height:6.9rem}
+.ring-card-ring span{width:6rem;height:6rem;color:var(--ink)}
+.ring-card-footer{margin:0;color:var(--ink-soft);text-align:center}
+
 .kv-label{font-weight:700;color:var(--ink-soft);font-size:.95rem}
 .big{font-size:2rem;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
 .big small{font-size:1rem;color:var(--ink-soft)}
@@ -296,7 +307,28 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 .tick{width:2.1rem;height:2.1rem;border-radius:var(--radius-pill);display:grid;place-items:center;border:2px solid var(--line);color:var(--primary-ink)}
 .tick svg{width:1.1rem;height:1.1rem}
 .days li.walked .tick{background:var(--primary);border-color:var(--primary)}
+
+/* Week total card — Figma node 243:4389 */
+.kpi-total{display:flex;flex-direction:column;gap:var(--space-xl);background:var(--primary-soft);text-decoration:none;color:inherit}
+.kpi-total-head{display:flex;align-items:center;gap:var(--space-xs)}
+.kpi-total-ico{width:1.25rem;height:1.25rem;flex:none;color:var(--ink)}
+.kpi-total-label{margin:0;font-size:1rem;font-weight:400;line-height:1.36;letter-spacing:-.2px;color:var(--ink-soft)}
+.kpi-total-body{display:flex;align-items:center;justify-content:space-between;gap:var(--space-sm)}
+.kpi-total-value{margin:0;font-size:1.75rem;font-weight:400;line-height:1.2;color:var(--ink);font-variant-numeric:tabular-nums}
+.kpi-total .days.mini{margin-top:0}
+.kpi-total .days.mini .tick{border-color:var(--surface)}
+.kpi-total .days.mini li.walked .tick{background:var(--surface);border-color:var(--surface);color:var(--primary)}
+
 .pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-lg)}
+
+/* Metric card — Figma node 213:2780 */
+.metric-card{display:flex;flex-direction:column;align-items:center;gap:var(--space-xl)}
+.metric-card-head{display:flex;flex-direction:column;align-items:center;gap:var(--space-xs);text-align:center}
+.metric-card-ico{width:1.25rem;height:1.25rem;flex:none;color:var(--ink)}
+.metric-card-label{margin:0;font-size:1rem;font-weight:400;line-height:1.36;letter-spacing:-.2px;color:var(--ink-soft);text-align:center}
+.metric-card-body{display:flex;flex-direction:column;gap:.25rem;align-items:center;width:100%}
+.metric-card-value{margin:0;font-size:1.5rem;font-weight:400;line-height:normal;letter-spacing:-.2px;color:var(--ink);text-align:center;font-variant-numeric:tabular-nums}
+.metric-card-unit{margin:0;font-size:1rem;font-weight:400;line-height:1.36;letter-spacing:-.2px;color:var(--ink-soft);text-align:center}
 .kpi{--metric-gap:var(--space-2xs)}
 .kpi .kv-label{font-size:.78rem;line-height:1.2;hyphens:auto}
 .kpi .big{font-size:1.6rem}
@@ -465,6 +497,19 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 .vis.v2{background:var(--warn-bg);color:var(--warn-line)}
 .vis.v3{background:var(--illus-fill);color:var(--ink)}
 .rbody{flex:1;display:flex;align-items:flex-start;padding:var(--space-lg) var(--space-xl) var(--space-xl);font-weight:700;font-size:.92rem;line-height:1.3}
+
+/* Carte conseil (TipCard) — Figma Card, node 279:3129 */
+.tip-list{display:grid;gap:var(--space-xl)}
+.tip-card{display:flex;flex-direction:column;padding:0;overflow:hidden;color:inherit;text-decoration:none;cursor:pointer}
+.tip-card .vis{height:5rem;flex:none}
+.tip-card-body{display:flex;flex-direction:column;gap:var(--space-sm);padding:var(--card-pad)}
+.tip-card-head{display:flex;align-items:center;gap:var(--space-xs)}
+.tip-card-head-ico{width:1.25rem;height:1.25rem;color:var(--ink-soft);flex:none}
+.tip-card-head-label{color:var(--ink-soft)}
+.tip-card-title{color:var(--ink);margin:0}
+.tip-card-foot{display:flex;justify-content:flex-end}
+.tip-card-arrow{display:inline-flex;align-items:center;justify-content:center;width:1.4rem;height:1.4rem;border-radius:var(--radius-pill);background:var(--action);color:var(--action-ink);flex:none}
+.tip-card-arrow svg{width:.9rem;height:.9rem}
 
 .pedo-row{display:flex;align-items:center;gap:var(--space-2xl)}
 .pedo-row p{margin:0}
@@ -650,12 +695,16 @@ h1,h2,h3,p,label,legend,strong,span{overflow-wrap:break-word}
 .habit-time{margin:0}
 .habit-card .btn{margin-top:auto;min-height:2.8rem;font-size:.95rem}
 
-.cap-card{display:flex;flex-direction:column;gap:var(--space-xl)}
-.cap-card p{margin:0}
-.cap-value{font-size:2.4rem;font-weight:700;line-height:1}
-.cap-value small{font-size:1rem;color:var(--ink-soft);font-weight:700}
+/* Cap Card — "Votre cap du jour", Figma node 277:2599 */
+.cap-card{display:flex;flex-direction:column;gap:var(--space-xl);background:#BAE0BF}
+.cap-card p,.cap-card h2{margin:0}
+.cap-title{font-size:1.5rem;font-weight:400;line-height:normal;letter-spacing:-.2px;color:var(--ink)}
+.cap-value{display:flex;align-items:flex-end;gap:.25rem;font-size:1.75rem;font-weight:400;line-height:1.2;letter-spacing:0;color:var(--ink)}
+.cap-value small{flex:1;font-size:1rem;font-weight:400;line-height:1.36;letter-spacing:-.2px;color:var(--ink-soft)}
 .cap-sorties{display:flex;flex-wrap:wrap;gap:var(--space-sm)}
-.cap-msg{font-size:1rem}
+.cap-row{display:flex;align-items:center;justify-content:space-between;gap:var(--space-md)}
+.cap-msg{font-size:1rem;font-weight:400;line-height:1.36;letter-spacing:-.2px;color:var(--ink-soft)}
+.cap-tag{display:inline-flex;flex:none;align-items:center;justify-content:center;gap:var(--space-xs);height:2rem;padding:var(--space-xs) var(--space-md);border:1px solid var(--line);border-radius:.5rem;font-weight:700;font-size:1rem;color:var(--ink-soft)}
 
 .idea-more{justify-content:center;align-items:center;text-align:center;padding:var(--space-2xl);background:var(--primary-soft);color:var(--primary);border-color:var(--primary);font:inherit;cursor:pointer}
 
