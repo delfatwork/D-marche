@@ -1,21 +1,16 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
+import { AppStateProvider } from '@/app/lib/app-state';
+import Tabbar from '@/app/components/Tabbar';
 
 export const metadata: Metadata = {
-  title: 'Pas à pas - Marchez à votre rythme',
-  description: 'Application accessible pour seniors pour encourager la marche régulière',
-  generator: 'Next.js',
-  manifest: '/manifest.json',
-  keywords: ['marche', 'santé', 'seniors', 'bien-être', 'accessible'],
-  authors: [{ name: 'Pas à pas' }],
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes',
+  title: 'D-marche',
+  description: 'Application accessible pour encourager la marche régulière, à votre rythme.',
 };
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 5,
-  userScalable: true,
   viewportFit: 'cover',
 };
 
@@ -25,16 +20,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr">
+    <html lang="fr" data-text="normal" data-contrast="normal" data-motion="normal">
       <head>
-        <meta name="theme-color" content="#FAFAF8" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="light" />
-        <meta name="apple-mobile-web-app-title" content="Pas à pas" />
-        <meta name="description" content="Marchez à votre rythme, sans pression" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap"
+          rel="stylesheet"
+        />
       </head>
       <body>
-        {children}
+        <AppStateProvider>
+          <div className="shell">
+            <main className="phone" aria-label="Application D-marche">
+              <div className="scroller">
+              {children}
+              <Tabbar />
+            </div>
+            </main>
+          </div>
+        </AppStateProvider>
       </body>
     </html>
   );

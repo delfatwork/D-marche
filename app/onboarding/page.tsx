@@ -1,489 +1,355 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Header } from '@/app/components/Header';
-import { Button } from '@/app/components/Button';
-import { Card } from '@/app/components/Card';
-import { useAppState } from '@/app/lib/useAppState';
-import {
-  levelConfigs,
-  durationOptions,
-  companyOptions,
-} from '@/app/lib/mock-data';
-import type { UserLevel, CompanyPreference } from '@/app/lib/types';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { BackIcon, CheckIcon, Logo } from "@/app/components/icons";
+import Switch from "@/app/components/Switch";
+import DeviceScanner from "@/app/components/DeviceScanner";
+import AuthCodeStep from "@/app/components/AuthCodeStep";
+import { GOAL_METRICS, LEVELS, type LevelKey } from "@/app/lib/onboarding-data";
+import { useAppState } from "@/app/lib/app-state";
 
-type OnboardingStep = 'welcome' | 'level' | 'duration' | 'company' | 'consent' | 'complete';
+type AuthFlow = "none" | "signup-form" | "signup-otp" | "login-form" | "login-otp";
+
+function phoneValid(phone: string) {
+  return phone.replace(/\D/g, "").length >= 10;
+}
+
+function last2(phone: string) {
+  return phone.replace(/\D/g, "").slice(-2);
+}
+
+const OB_TOTAL = 5;
+
+function ObHeader({ step, onBack }: { step: number; onBack: () => void }) {
+  return (
+    <>
+      <div className="topbar">
+        <button className="back" type="button" onClick={onBack}>
+          <BackIcon />
+          <span>Retour</span>
+        </button>
+        <p className="steps">Étape {step + 1} sur {OB_TOTAL}</p>
+      </div>
+      <div className="dots" aria-hidden="true">
+        {Array.from({ length: OB_TOTAL }, (_, i) => (
+          <span key={i} className={i <= step ? "on" : ""} />
+        ))}
+      </div>
+    </>
+  );
+}
 
 export default function OnboardingPage() {
   const router = useRouter();
-  const { setUser, user } = useAppState();
+  const {
+    level,
+    goalMetric,
+    notif1,
+    locAuth,
+    pedo,
+    setLevel,
+    setGoalMetric,
+    setNotif1,
+    setLocAuth,
+    setPedo,
+    finishOnboarding,
+    completeSignup,
+    completeLogin,
+  } = useAppState();
+  const [obStep, setObStep] = useState(0);
+  const [obError, setObError] = useState(false);
 
-  const [currentStep, setCurrentStep] = useState<OnboardingStep>('welcome');
-  const [selectedLevel, setSelectedLevel] = useState<UserLevel | null>(null);
-  const [selectedDuration, setSelectedDuration] = useState<number | null>(null);
-  const [selectedCompany, setSelectedCompany] = useState<CompanyPreference | null>(
-    null
-  );
-  const [dataConsent, setDataConsent] = useState(false);
-  const [privacyConsent, setPrivacyConsent] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [authFlow, setAuthFlow] = useState<AuthFlow>("none");
+  const [formError, setFormError] = useState(false);
+  const [signupName, setSignupName] = useState("");
+  const [signupPhone, setSignupPhone] = useState("");
+  const [loginPhone, setLoginPhone] = useState("");
 
-  const handleNext = () => {
-    const steps: OnboardingStep[] = [
-      'welcome',
-      'level',
-      'duration',
-      'company',
-      'consent',
-      'complete',
-    ];
-    const currentIndex = steps.indexOf(currentStep);
-    if (currentIndex < steps.length - 1) {
-      setCurrentStep(steps[currentIndex + 1]);
+  function handleBack() {
+    setObError(false);
+    setObStep((s) => Math.max(0, s - 1));
+  }
+
+  function handleNext() {
+    if (obStep === 1 && !level) {
+      setObError(true);
+      return;
     }
-  };
+    setObError(false);
+    setObStep((s) => s + 1);
+  }
 
-  const handleBack = () => {
-    const steps: OnboardingStep[] = [
-      'welcome',
-      'level',
-      'duration',
-      'company',
-      'consent',
-      'complete',
-    ];
-    const currentIndex = steps.indexOf(currentStep);
-    if (currentIndex > 0) {
-      setCurrentStep(steps[currentIndex - 1]);
+  function handleFinish() {
+    finishOnboarding();
+    router.push("/");
+  }
+
+  if (obStep === 0) {
+    if (authFlow === "signup-form") {
+      return (
+        <section className="screen ob">
+          <div className="topbar">
+            <button className="back" type="button" onClick={() => setAuthFlow("none")}>
+              <BackIcon />
+              <span>Annuler</span>
+            </button>
+          </div>
+          <h1 tabIndex={-1}>Créer un compte</h1>
+          <p className="muted">Quelques informations suffisent pour commencer.</p>
+          <label className="field">
+            Prénom
+            <input type="text" autoComplete="given-name" value={signupName} onChange={(e) => setSignupName(e.target.value)} />
+          </label>
+          <label className="field">
+            Numéro de téléphone
+            <input
+              type="tel"
+              autoComplete="tel"
+              inputMode="tel"
+              placeholder="06 12 34 56 78"
+              value={signupPhone}
+              onChange={(e) => setSignupPhone(e.target.value)}
+            />
+          </label>
+          {formError && <p className="error" role="alert">Indiquez votre prénom et un numéro de téléphone valide.</p>}
+          <div className="actions">
+            <button
+              className="btn primary"
+              type="button"
+              onClick={() => {
+                if (!signupName.trim() || !phoneValid(signupPhone)) {
+                  setFormError(true);
+                  return;
+                }
+                setFormError(false);
+                setAuthFlow("signup-otp");
+              }}
+            >
+              Continuer
+            </button>
+          </div>
+        </section>
+      );
     }
-  };
 
-  const handleComplete = async () => {
-    if (!selectedLevel || !selectedDuration || !selectedCompany || !user) return;
-    if (!dataConsent || !privacyConsent) return;
+    if (authFlow === "signup-otp") {
+      return (
+        <section className="screen ob">
+          <AuthCodeStep
+            title="Entrez le code"
+            message={`Un code à 6 chiffres vient d'être envoyé par SMS au •• •• •• ${last2(signupPhone)}.`}
+            confirmLabel="Valider"
+            onCancel={() => setAuthFlow("none")}
+            onVerified={() => {
+              completeSignup(signupName.trim(), signupPhone.trim());
+              setAuthFlow("none");
+              setObStep(1);
+            }}
+          />
+        </section>
+      );
+    }
 
-    setIsSubmitting(true);
-    await new Promise(resolve => setTimeout(resolve, 500));
+    if (authFlow === "login-form") {
+      return (
+        <section className="screen ob">
+          <div className="topbar">
+            <button className="back" type="button" onClick={() => setAuthFlow("none")}>
+              <BackIcon />
+              <span>Annuler</span>
+            </button>
+          </div>
+          <h1 tabIndex={-1}>Connexion</h1>
+          <p className="muted">Entrez votre numéro. Nous vous enverrons un code à usage unique par SMS.</p>
+          <label className="field">
+            Numéro de téléphone
+            <input
+              type="tel"
+              autoComplete="tel"
+              inputMode="tel"
+              placeholder="06 12 34 56 78"
+              value={loginPhone}
+              onChange={(e) => setLoginPhone(e.target.value)}
+            />
+          </label>
+          {formError && <p className="error" role="alert">Indiquez un numéro de téléphone valide.</p>}
+          <div className="actions">
+            <button
+              className="btn primary"
+              type="button"
+              onClick={() => {
+                if (!phoneValid(loginPhone)) {
+                  setFormError(true);
+                  return;
+                }
+                setFormError(false);
+                setAuthFlow("login-otp");
+              }}
+            >
+              Recevoir le code par SMS
+            </button>
+          </div>
+        </section>
+      );
+    }
 
-    setUser({
-      ...user,
-      level: selectedLevel,
-      dailyGoalMinutes: selectedDuration,
-      companyPreference: selectedCompany,
-      dataConsent: true,
-      privacyConsent: true,
-      onboardingComplete: true,
-    });
+    if (authFlow === "login-otp") {
+      return (
+        <section className="screen ob">
+          <AuthCodeStep
+            title="Entrez le code"
+            message={`Un code à 6 chiffres vient d'être envoyé par SMS au •• •• •• ${last2(loginPhone)}.`}
+            confirmLabel="Valider"
+            onCancel={() => setAuthFlow("none")}
+            onVerified={() => {
+              completeLogin(loginPhone.trim());
+              router.push("/");
+            }}
+          />
+        </section>
+      );
+    }
 
-    setCurrentStep('complete');
-    setTimeout(() => {
-      router.push('/');
-    }, 1500);
-  };
+    return (
+      <section className="screen ob welcome">
+        <div className="brand-block">
+          <Logo />
+          <p className="app-name">D-marche</p>
+        </div>
+        <h1 className="ob-title" tabIndex={-1}>
+          Un petit pas de plus au quotidien, un grand pas pour votre santé
+        </h1>
+        <div className="actions">
+          <button
+            className="btn primary"
+            type="button"
+            onClick={() => {
+              setFormError(false);
+              setAuthFlow("signup-form");
+            }}
+          >
+            Créer un compte
+          </button>
+          <button
+            className="btn quiet"
+            type="button"
+            onClick={() => {
+              setFormError(false);
+              setAuthFlow("login-form");
+            }}
+          >
+            Connexion
+          </button>
+        </div>
+      </section>
+    );
+  }
 
-  // Afficher le numéro de l'étape
-  const getStepNumber = () => {
-    const steps: OnboardingStep[] = [
-      'welcome',
-      'level',
-      'duration',
-      'company',
-      'consent',
-    ];
-    return steps.indexOf(currentStep) + 1;
-  };
+  if (obStep === 1) {
+    return (
+      <section className="screen ob">
+        <ObHeader step={1} onBack={handleBack} />
+        <h1 id="ob-t" tabIndex={-1}>Quel rythme vous convient le mieux&nbsp;?</h1>
+        <fieldset className="choices" aria-labelledby="ob-t">
+          {Object.entries(LEVELS).map(([k, v]) => (
+            <label className="choice" key={k}>
+              <input
+                type="radio"
+                name="level"
+                value={k}
+                checked={level === k}
+                onChange={() => setLevel(k as LevelKey)}
+              />
+              <span>
+                <strong>{v.title}</strong>
+                <span className="desc">{v.desc}</span>
+              </span>
+            </label>
+          ))}
+        </fieldset>
+        {obError && <p className="error" role="alert">Choisissez un objectif pour continuer.</p>}
+        <div className="actions">
+          <button className="btn primary" type="button" onClick={handleNext}>Continuer</button>
+        </div>
+      </section>
+    );
+  }
 
-  const canProceedToNext =
-    (currentStep === 'welcome') ||
-    (currentStep === 'level' && selectedLevel) ||
-    (currentStep === 'duration' && selectedDuration) ||
-    (currentStep === 'company' && selectedCompany) ||
-    (currentStep === 'consent');
+  if (obStep === 2) {
+    return (
+      <section className="screen ob">
+        <ObHeader step={2} onBack={handleBack} />
+        <h1 id="gm-t" tabIndex={-1}>Comment observer votre évolution&nbsp;?</h1>
+        <fieldset className="choices" aria-labelledby="gm-t">
+          {GOAL_METRICS.map((m) => (
+            <label className="choice" key={m.key}>
+              <input
+                type="radio"
+                name="goal-metric"
+                value={m.key}
+                checked={goalMetric === m.key}
+                onChange={() => setGoalMetric(m.key)}
+              />
+              <span>
+                <strong>{m.label}</strong>
+                <span className="desc">{m.desc}</span>
+              </span>
+            </label>
+          ))}
+        </fieldset>
+        <div className="actions">
+          <button className="btn primary" type="button" onClick={handleNext}>Continuer</button>
+        </div>
+      </section>
+    );
+  }
 
-  const showBackButton = currentStep !== 'welcome' && currentStep !== 'complete';
+  if (obStep === 3) {
+    return (
+      <section className="screen ob">
+        <ObHeader step={3} onBack={handleBack} />
+        <h1 tabIndex={-1}>Connectons votre podomètre</h1>
+        {pedo ? (
+          <>
+            <div className="card device-ok" role="status">
+              <span className="ok-ico" aria-hidden="true"><CheckIcon /></span>
+              <p><strong>Podomètre connecté</strong></p>
+              <p className="small">{pedo} · le relevé automatique de vos pas est activé.</p>
+            </div>
+            <div className="actions">
+              <button className="btn primary" type="button" onClick={handleNext}>Continuer</button>
+            </div>
+          </>
+        ) : (
+          <DeviceScanner onConnected={setPedo} />
+        )}
+      </section>
+    );
+  }
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAFAF8]">
-      <Header title="Pas à pas" subtitle="Bienvenue" />
-
-      <main className="flex-1 px-6 py-8 max-w-2xl mx-auto w-full flex flex-col justify-center">
-        {/* Step Indicator */}
-        {currentStep !== 'welcome' && currentStep !== 'complete' && (
-          <div className="mb-8">
-            <div className="flex gap-2 mb-4">
-              {[1, 2, 3, 4, 5].map(step => (
-                <div
-                  key={step}
-                  className={`
-                    flex-1 h-2 rounded-full transition-colors
-                    ${
-                      step <= getStepNumber()
-                        ? 'bg-[#B45300]'
-                        : 'bg-[#E8E8E5]'
-                    }
-                  `}
-                />
-              ))}
-            </div>
-            <p className="text-sm text-[#57564F] text-center">
-              Étape {getStepNumber()} sur 5
-            </p>
-          </div>
-        )}
-
-        {/* Welcome Step */}
-        {currentStep === 'welcome' && (
-          <div className="text-center mb-8">
-            <div className="text-7xl mb-6">🚶</div>
-            <h1 className="text-4xl font-bold text-[#1A1915] mb-3">
-              Pas à pas
-            </h1>
-            <p className="text-xl text-[#57564F] mb-2">
-              Marchez à votre rythme
-            </p>
-            <p className="text-lg text-[#78776F] mb-8">
-              sans pression, à votre pace
-            </p>
-
-            <Card className="mb-8 bg-[#FEF3C7] border-l-4 border-[#B45300]">
-              <p className="text-[#92400E] font-semibold mb-2">
-                ✨ Bienvenue dans notre communauté!
-              </p>
-              <p className="text-sm text-[#78776F]">
-                Nous allons vous poser quelques questions simples pour
-                personnaliser votre expérience. Ça prendra 2 minutes.
-              </p>
-            </Card>
-
-            <Button size="lg" fullWidth onClick={handleNext}>
-              Commençons →
-            </Button>
-          </div>
-        )}
-
-        {/* Level Selection Step */}
-        {currentStep === 'level' && (
-          <div>
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-[#1A1915] mb-3">
-                Quel est votre niveau?
-              </h2>
-              <p className="text-[#57564F]">
-                Cela nous aidera à vous proposer un objectif adapté
-              </p>
-            </div>
-
-            <div className="space-y-4 mb-8">
-              {(Object.keys(levelConfigs) as UserLevel[]).map(level => {
-                const config = levelConfigs[level];
-                const isSelected = selectedLevel === level;
-
-                return (
-                  <button
-                    key={level}
-                    onClick={() => setSelectedLevel(level)}
-                    className={`
-                      w-full p-6 rounded-2xl border-2 transition-all text-left
-                      ${
-                        isSelected
-                          ? 'border-[#B45300] bg-[#FEF3C7]'
-                          : 'border-[#E8E8E5] bg-white hover:border-[#B45300] hover:bg-[#F5F5F3]'
-                      }
-                      focus-visible:outline-2 focus-visible:outline-[#B45300]
-                      focus-visible:outline-offset-2
-                    `}
-                  >
-                    <div className="flex items-start gap-4">
-                      <div
-                        className={`
-                          w-7 h-7 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-1
-                          ${
-                            isSelected
-                              ? 'border-[#B45300] bg-[#B45300]'
-                              : 'border-[#A3A39D]'
-                          }
-                        `}
-                      >
-                        {isSelected && (
-                          <span className="text-white font-bold">✓</span>
-                        )}
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="text-2xl">{config.emoji}</span>
-                          <h3 className="text-xl font-bold text-[#1A1915]">
-                            {config.title}
-                          </h3>
-                        </div>
-                        <p className="text-[#57564F] mb-2">
-                          {config.description}
-                        </p>
-                      </div>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="flex gap-3">
-              {showBackButton && (
-                <Button variant="tertiary" onClick={handleBack} size="lg">
-                  ← Retour
-                </Button>
-              )}
-              <Button
-                size="lg"
-                fullWidth
-                onClick={handleNext}
-                disabled={!canProceedToNext}
-              >
-                Suivant →
-              </Button>
-            </div>
-          </div>
-        )}
-
-        {/* Duration Selection Step */}
-        {currentStep === 'duration' && (
-          <div>
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-[#1A1915] mb-3">
-                Quelle durée vous convient?
-              </h2>
-              <p className="text-[#57564F]">
-                Choisissez une durée confortable pour vous
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3 mb-8">
-              {durationOptions.map(option => {
-                const isSelected = selectedDuration === option.id;
-
-                return (
-                  <button
-                    key={option.id}
-                    onClick={() => setSelectedDuration(option.id)}
-                    className={`
-                      p-4 rounded-xl border-2 transition-all text-center
-                      ${
-                        isSelected
-                          ? 'border-[#B45300] bg-[#FEF3C7]'
-                          : 'border-[#E8E8E5] bg-white hover:border-[#B45300]'
-                      }
-                      focus-visible:outline-2 focus-visible:outline-[#B45300]
-                      focus-visible:outline-offset-2
-                    `}
-                  >
-                    <p className="font-bold text-[#1A1915] mb-1">
-                      {option.label}
-                    </p>
-                    <p className="text-xs text-[#57564F]">
-                      {option.description}
-                    </p>
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="flex gap-3">
-              {showBackButton && (
-                <Button variant="tertiary" onClick={handleBack} size="lg">
-                  ← Retour
-                </Button>
-              )}
-              <Button
-                size="lg"
-                fullWidth
-                onClick={handleNext}
-                disabled={!canProceedToNext}
-              >
-                Suivant →
-              </Button>
-            </div>
-          </div>
-        )}
-
-        {/* Company Preference Step */}
-        {currentStep === 'company' && (
-          <div>
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-[#1A1915] mb-3">
-                Votre préférence?
-              </h2>
-              <p className="text-[#57564F]">
-                Aimez-vous marcher seul ou accompagné?
-              </p>
-            </div>
-
-            <div className="space-y-4 mb-8">
-              {companyOptions.map(option => {
-                const isSelected = selectedCompany === option.id;
-
-                return (
-                  <button
-                    key={option.id}
-                    onClick={() => setSelectedCompany(option.id)}
-                    className={`
-                      w-full p-6 rounded-2xl border-2 transition-all text-left
-                      ${
-                        isSelected
-                          ? 'border-[#B45300] bg-[#FEF3C7]'
-                          : 'border-[#E8E8E5] bg-white hover:border-[#B45300] hover:bg-[#F5F5F3]'
-                      }
-                      focus-visible:outline-2 focus-visible:outline-[#B45300]
-                      focus-visible:outline-offset-2
-                    `}
-                  >
-                    <div className="flex items-center gap-4">
-                      <span className="text-4xl">{option.emoji}</span>
-                      <div className="flex-1">
-                        <p className="font-bold text-[#1A1915] text-lg mb-1">
-                          {option.label}
-                        </p>
-                        <p className="text-[#57564F]">
-                          {option.description}
-                        </p>
-                      </div>
-                      <div
-                        className={`
-                          w-6 h-6 rounded-full border-2 flex-shrink-0
-                          ${
-                            isSelected
-                              ? 'border-[#B45300] bg-[#B45300]'
-                              : 'border-[#A3A39D]'
-                          }
-                        `}
-                      />
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="flex gap-3">
-              {showBackButton && (
-                <Button variant="tertiary" onClick={handleBack} size="lg">
-                  ← Retour
-                </Button>
-              )}
-              <Button
-                size="lg"
-                fullWidth
-                onClick={handleNext}
-                disabled={!canProceedToNext}
-              >
-                Suivant →
-              </Button>
-            </div>
-          </div>
-        )}
-
-        {/* Consent Step */}
-        {currentStep === 'consent' && (
-          <div>
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-[#1A1915] mb-3">
-                Vos données
-              </h2>
-              <p className="text-[#57564F]">
-                Nous devons votre accord pour continuer
-              </p>
-            </div>
-
-            <div className="space-y-4 mb-8">
-              {/* Data Consent */}
-              <Card className="bg-[#F5F5F3]">
-                <label className="flex items-start gap-4 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={dataConsent}
-                    onChange={e => setDataConsent(e.target.checked)}
-                    className="w-6 h-6 rounded mt-1 cursor-pointer"
-                    aria-label="J'accepte que mes données soient utilisées pour améliorer l'app"
-                  />
-                  <div className="flex-1">
-                    <p className="font-semibold text-[#1A1915] mb-2">
-                      📊 Données du prototype
-                    </p>
-                    <p className="text-sm text-[#57564F] leading-relaxed">
-                      Vos données de marche (durée, date, ressentis) sont utilisées
-                      uniquement dans ce prototype. Elles sont stockées localement sur
-                      votre téléphone et ne sont jamais partagées.
-                    </p>
-                  </div>
-                </label>
-              </Card>
-
-              {/* Privacy Consent */}
-              <Card className="bg-[#F5F5F3]">
-                <label className="flex items-start gap-4 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={privacyConsent}
-                    onChange={e => setPrivacyConsent(e.target.checked)}
-                    className="w-6 h-6 rounded mt-1 cursor-pointer"
-                    aria-label="J'accepte la politique de confidentialité"
-                  />
-                  <div className="flex-1">
-                    <p className="font-semibold text-[#1A1915] mb-2">
-                      🛡️ Confidentialité
-                    </p>
-                    <p className="text-sm text-[#57564F] leading-relaxed">
-                      Vos données ne sont pas vendues à des tiers. Cette application
-                      ne demande jamais vos données médicales personnelles.
-                    </p>
-                  </div>
-                </label>
-              </Card>
-
-              {/* Warning */}
-              <Card className="bg-[#DBEAFE] border-l-4 border-[#3B82F6]">
-                <p className="text-sm text-[#1E3A8A]">
-                  <strong>⚠️ Important:</strong> Cette application n'est pas un
-                  dispositif médical. Si vous avez des problèmes de santé, consultez
-                  un professionnel.
-                </p>
-              </Card>
-            </div>
-
-            <div className="flex gap-3">
-              {showBackButton && (
-                <Button variant="tertiary" onClick={handleBack} size="lg">
-                  ← Retour
-                </Button>
-              )}
-              <Button
-                size="lg"
-                fullWidth
-                onClick={handleComplete}
-                disabled={!dataConsent || !privacyConsent || isSubmitting}
-                isLoading={isSubmitting}
-              >
-                Terminer l'inscription
-              </Button>
-            </div>
-          </div>
-        )}
-
-        {/* Complete Step */}
-        {currentStep === 'complete' && (
-          <div className="text-center">
-            <div className="text-7xl mb-6 animate-pulse">🎉</div>
-            <h1 className="text-3xl font-bold text-[#1A1915] mb-3">
-              Bienvenue!
-            </h1>
-            <p className="text-lg text-[#57564F] mb-8">
-              Vous êtes prêt à commencer votre aventure!
-            </p>
-            <Card className="bg-[#D1FAE5] border-l-4 border-[#10B981]">
-              <p className="text-[#065F46]">
-                Redirection en cours vers votre tableau de bord...
-              </p>
-            </Card>
-          </div>
-        )}
-      </main>
-    </div>
+    <section className="screen ob">
+      <ObHeader step={4} onBack={handleBack} />
+      <h1 tabIndex={-1}>Pour entretenir votre motivation</h1>
+      <Switch
+        id="notif1"
+        label="Rappels de motivation"
+        desc="Conseils et astuces pour marcher, au plus une fois par jour."
+        checked={notif1}
+        onChange={setNotif1}
+      />
+      <Switch
+        id="locAuth"
+        label="Accord pour la géolocalisation"
+        desc="Autour de vous : voir les balades près de chez vous. Modifiable à tout moment."
+        checked={locAuth}
+        onChange={setLocAuth}
+      />
+      <p className="small">Vous pouvez tout refuser. L'application reste utilisable.</p>
+      <div className="actions">
+        <button className="btn primary" type="button" onClick={handleFinish}>Valider mes choix</button>
+      </div>
+    </section>
   );
 }
