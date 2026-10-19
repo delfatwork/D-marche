@@ -1,18 +1,19 @@
-import type { ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRightIcon, DcCardIcon } from "@/app/components/icons";
 
 type TipCardProps = {
-  icon: ReactNode;
-  tone: "v1" | "v2" | "v3";
+  photo: string;
   title: string;
   href: string;
 };
 
-export default function TipCard({ icon, tone, title, href }: TipCardProps) {
+export default function TipCard({ photo, title, href }: TipCardProps) {
   return (
     <Link href={href} className="card tip-card">
-      <span className={`vis ${tone}`} aria-hidden="true">{icon}</span>
+      <span className="tip-card-vis" aria-hidden="true">
+        <Image src={photo} alt="" fill sizes="(min-width: 900px) 420px, 100vw" />
+      </span>
       <div className="tip-card-body">
         <div className="tip-card-head">
           <DcCardIcon className="tip-card-head-ico" />
@@ -20,7 +21,8 @@ export default function TipCard({ icon, tone, title, href }: TipCardProps) {
         </div>
         <p className="tip-card-title text-md">{title}</p>
         <div className="tip-card-foot">
-          <span className="tip-card-arrow" aria-hidden="true">
+          <span className="tip-card-meta text-xs">Lire l&rsquo;article</span>
+          <span className="card-arrow" aria-hidden="true">
             <ArrowRightIcon />
           </span>
         </div>

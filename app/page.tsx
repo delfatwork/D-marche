@@ -9,7 +9,6 @@ import { DAY, INITIALS, STEP_MIN, stepsOf } from "@/app/lib/week";
 import { fmtHoursMin, nf, plural } from "@/app/lib/format";
 import {
   CheckIcon,
-  FootprintIcon,
   PedometerIcon,
   RouteIcon,
   SettingsIcon,
@@ -24,7 +23,6 @@ import RingCard from "@/app/components/RingCard";
 import GoalCard from "@/app/components/GoalCard";
 import TipCard from "@/app/components/TipCard";
 import { GroupeBaladeCard, SoloBaladeCard } from "@/app/components/BaladeCards";
-import { TIP_ICONS } from "@/app/components/TipIconMap";
 import { BAL_CRENEAUX, BAL_PARCOURS, balParcours } from "@/app/lib/balades-data";
 import { PARC_ROWS } from "@/app/lib/parcourir-data";
 
@@ -267,25 +265,6 @@ export default function Home() {
         emptyText={goalMetric === "sorties" ? "Aucun pas aujourd'hui" : "Aucune sortie aujourd'hui"}
       />
 
-      <h2 className="sec-title">Pas à pas</h2>
-      <div className="rail defi-row">
-        <Link className="card defi-sq" href="/pas-a-pas">
-          <span className="vis v2 defi-vis" aria-hidden="true"><TargetIcon /></span>
-          <span className="defi-text"><strong>Le passage pharmacie</strong></span>
-        </Link>
-        <Link className="card defi-sq" href="/pas-a-pas">
-          <span className="vis v1 defi-vis" aria-hidden="true"><RouteIcon /></span>
-          <span className="defi-text"><strong>Le détour vert</strong><span className="small">pendant 1 semaine</span></span>
-        </Link>
-        <Link className="card defi-sq" href="/walk">
-          <span className="vis v3 defi-vis" aria-hidden="true"><FootprintIcon /></span>
-          <span className="defi-text"><strong>Je vais chercher mon pain</strong></span>
-        </Link>
-        <Link className="card defi-sq idea-more" href="/pas-a-pas">
-          <span className="rmore-text">Voir toutes les idées de sorties</span>
-        </Link>
-      </div>
-
       {isNew && (
         <div className="card empty-card">
           <p className="kv-label">Pas encore de marche</p>
@@ -321,18 +300,14 @@ export default function Home() {
           </svg>
         </h2>
         <div className="tip-list">
-          {PARC_ROWS.tips.map((tip, i) => {
-            const Icon = TIP_ICONS[tip.icon];
-            return (
-              <TipCard
-                key={i}
-                icon={<Icon />}
-                tone={(["v1", "v2", "v3"] as const)[i % 3]}
-                title={tip.t}
-                href={`/parcourir/tips/${i}`}
-              />
-            );
-          })}
+          {PARC_ROWS.tips.map((tip, i) => (
+            <TipCard
+              key={i}
+              photo={tip.photo}
+              title={tip.t}
+              href={`/parcourir/tips/${i}`}
+            />
+          ))}
         </div>
         <Link className="btn quiet home-more-link" href="/parcourir">
           Voir {PARC_ROWS.tips.length} conseils pour mieux marcher au quotidien

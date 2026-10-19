@@ -26,7 +26,7 @@ export function SoloBaladeCard({ p }: { p: Parcours }) {
       <BaladeVis p={p} tone="v1" />
       <div className="bal-body">
         <p className="small bal-when"><UserIcon /><span>Solo</span></p>
-        <p className="dc-name">{p.name}</p>
+        <p className="bal-title">{p.name}</p>
         <p className="small bal-when">{p.km} · <span className={`chip chip-${diff.cls}`}>{diff.label}</span></p>
       </div>
     </Link>
@@ -40,7 +40,7 @@ export function GroupeBaladeCard({ c, p }: { c: Creneau; p: Parcours }) {
       <BaladeVis p={p} tone="v2" />
       <div className="bal-body">
         <p className="small bal-when"><UsersIcon /><span>Groupe</span></p>
-        <p className="dc-name">{c.title}</p>
+        <p className="bal-title">{c.title}</p>
         <p className="small bal-when"><CalendarIcon /><span>{creneauWhen(c)}</span></p>
         <p className="small bal-when">{p.km} · <span className={`chip chip-${diff.cls}`}>{diff.label}</span></p>
       </div>

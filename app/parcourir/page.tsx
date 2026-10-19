@@ -3,17 +3,10 @@
 import Link from "next/link";
 import { useAppState } from "@/app/lib/app-state";
 import { BackIcon, PlusIcon } from "@/app/components/icons";
-import { TIP_ICONS } from "@/app/components/TipIconMap";
+import TipCard from "@/app/components/TipCard";
 import { PARC_ROWS, dcThemeName, type Tip } from "@/app/lib/parcourir-data";
 
-const VIS_CYCLES: Record<"tips" | "how" | "concept", string[]> = {
-  tips: ["v1", "v2", "v3"],
-  how: ["v2", "v3", "v1"],
-  concept: ["v3", "v1", "v2"],
-};
-
 function Row({ title, rowKey, items }: { title: string; rowKey: "tips" | "how" | "concept"; items: Tip[] }) {
-  const vis = VIS_CYCLES[rowKey];
   return (
     <section className="row">
       {title && (
@@ -24,16 +17,10 @@ function Row({ title, rowKey, items }: { title: string; rowKey: "tips" | "how" |
           </svg>
         </h2>
       )}
-      <div className="rail">
-        {items.map((it, i) => {
-          const Icon = TIP_ICONS[it.icon];
-          return (
-            <Link className="rcard" href={`/parcourir/${rowKey}/${i}`} key={i}>
-              <span className={`vis ${vis[i % vis.length]}`} aria-hidden="true"><Icon /></span>
-              <span className="rbody"><strong>{it.t}</strong></span>
-            </Link>
-          );
-        })}
+      <div className="tip-list">
+        {items.map((it, i) => (
+          <TipCard key={i} photo={it.photo} title={it.t} href={`/parcourir/${rowKey}/${i}`} />
+        ))}
       </div>
     </section>
   );

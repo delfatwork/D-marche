@@ -44,9 +44,6 @@
   --seg-radius:var(--radius-lg); --seg-opt-radius:var(--radius-md); --seg-gap:var(--space-xs);
   /* Metric : stat, kpi, barre */
   --metric-pad:var(--space-xl) var(--space-xs); --metric-gap:var(--space-sm); --track-h:.9rem; --track-bg:var(--illus-line);
-  --chip-facile-bg:var(--primary-soft); --chip-facile-ink:var(--primary);
-  --chip-moderee-bg:var(--warn-bg); --chip-moderee-ink:var(--warn-line);
-  --chip-soutenue-bg:var(--danger-bg); --chip-soutenue-ink:var(--danger);
   --tabbar-bg:var(--surface); --sheet-radius:var(--radius-xl);
   --trophy-radius:var(--radius-lg); --square-radius:var(--radius-lg);
 
@@ -319,6 +316,7 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 .kpi-total .days.mini .tick{border-color:var(--surface)}
 .kpi-total .days.mini li.walked .tick{background:var(--surface);border-color:var(--surface);color:var(--primary)}
 
+.week-trio{display:flex;flex-direction:column;gap:var(--space-xl)}
 .pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-lg)}
 
 /* Metric card — Figma node 213:2780 */
@@ -501,15 +499,17 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 /* Carte conseil (TipCard) — Figma Card, node 279:3129 */
 .tip-list{display:grid;gap:var(--space-xl)}
 .tip-card{display:flex;flex-direction:column;padding:0;overflow:hidden;color:inherit;text-decoration:none;cursor:pointer}
-.tip-card .vis{height:5rem;flex:none}
+.tip-card-vis{position:relative;height:8.5rem;flex:none;overflow:hidden}
+.tip-card-vis img{object-fit:cover}
 .tip-card-body{display:flex;flex-direction:column;gap:var(--space-sm);padding:var(--card-pad)}
 .tip-card-head{display:flex;align-items:center;gap:var(--space-xs)}
 .tip-card-head-ico{width:1.25rem;height:1.25rem;color:var(--ink-soft);flex:none}
 .tip-card-head-label{color:var(--ink-soft)}
 .tip-card-title{color:var(--ink);margin:0}
-.tip-card-foot{display:flex;justify-content:flex-end}
-.tip-card-arrow{display:inline-flex;align-items:center;justify-content:center;width:1.4rem;height:1.4rem;border-radius:var(--radius-pill);background:var(--action);color:var(--action-ink);flex:none}
-.tip-card-arrow svg{width:.9rem;height:.9rem}
+.tip-card-foot{display:flex;align-items:center;justify-content:space-between;gap:var(--space-sm)}
+.tip-card-meta{color:var(--ink-soft);white-space:nowrap}
+.card-arrow{display:inline-flex;align-items:center;justify-content:center;width:1.4rem;height:1.4rem;border-radius:var(--radius-pill);background:var(--action);color:var(--action-ink);flex:none}
+.card-arrow svg{width:.9rem;height:.9rem}
 
 .pedo-row{display:flex;align-items:center;gap:var(--space-2xl)}
 .pedo-row p{margin:0}
@@ -596,7 +596,6 @@ h1,h2,h3,p,label,legend,strong,span{overflow-wrap:break-word}
 .bal-compact .bal-actions{margin-top:var(--space-2xs);gap:var(--space-sm)}
 .bal-compact .bal-actions .walk-btn{padding:var(--space-xs) var(--space-md);min-height:2.4rem;font-size:.85rem;flex:1 1 auto}
 .bal-compact .badge{font-size:.72rem;padding:var(--space-2xs) var(--space-sm)}
-.bal-compact .dc-name{font-size:.98rem;line-height:1.25}
 
 .bal-chips{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-sm);margin:var(--space-2xs) 0 var(--space-sm)}
 .bal-chips-label{font-weight:700;font-size:.9rem;color:var(--ink-soft);margin-right:var(--space-2xs)}
@@ -613,11 +612,9 @@ h1,h2,h3,p,label,legend,strong,span{overflow-wrap:break-word}
 .bal-switch .bal-opt:focus-visible{outline-offset:2px}
 @media (prefers-reduced-motion:reduce){.bal-switch .bal-opt{transition:none}}
 
-/* Chips de difficulté */
-.chip{--tag-size:.78rem;--tag-border:transparent;line-height:1.4;vertical-align:middle}
-.chip-pour-tous{--tag-bg:var(--chip-facile-bg);--tag-ink:var(--chip-facile-ink);--tag-border:var(--chip-facile-ink)}
-.chip-moderee{--tag-bg:var(--chip-moderee-bg);--tag-ink:var(--chip-moderee-ink);--tag-border:var(--chip-moderee-ink)}
-.chip-soutenue{--tag-bg:var(--chip-soutenue-bg);--tag-ink:var(--chip-soutenue-ink);--tag-border:var(--chip-soutenue-ink)}
+/* Chip de difficulté — Figma design system, node 268:5861 (TagNiveau) :
+   même style neutre pour les 3 niveaux, pas de code couleur. */
+.chip{--tag-size:.9rem;--tag-border:var(--ink-soft);--tag-pad:.125rem var(--space-2xs);--tag-radius:0;font-weight:400;line-height:1.2;vertical-align:middle}
 
 .bal-link{cursor:pointer}
 .bal-link:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
@@ -633,15 +630,6 @@ h1,h2,h3,p,label,legend,strong,span{overflow-wrap:break-word}
 
 .chal-mini .rbody{display:flex;flex-direction:column;gap:var(--space-2xs)}
 .chal-mini .rbody .small{font-weight:400}
-
-.defi-row{gap:var(--space-lg);padding-bottom:var(--space-sm)}
-.defi-row .defi-sq{flex:0 0 9.5rem;width:9.5rem;min-width:9.5rem;scroll-snap-align:start}
-.defi-sq{width:9.5rem;aspect-ratio:1/1;display:flex;flex-direction:column;padding:0;overflow:hidden;text-align:left;font:inherit;color:var(--ink);cursor:pointer}
-.defi-vis{flex:1;display:grid;place-items:center;height:auto}
-.defi-vis svg{width:2.4rem;height:2.4rem}
-.defi-text{padding:var(--space-lg) var(--space-xl);display:flex;flex-direction:column;gap:var(--space-2xs);min-width:0}
-.defi-text strong{font-size:.95rem;line-height:1.2}
-.defi-text .small{font-size:.78rem;line-height:1.25}
 
 .bal-dtabs{display:flex;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;grid-template-columns:none;background:var(--bg);border:0;border-radius:0;padding:var(--space-sm) 0 var(--space-md);margin:0;gap:var(--space-3xl);border-bottom:1px solid var(--line);position:sticky;top:3.85rem;z-index:5}
 .bal-dtabs .seg-opt{background:transparent;border:0;border-radius:0;padding:var(--space-xs) 0;min-height:auto;color:var(--ink-soft);font-weight:700;font-size:.95rem}
@@ -706,8 +694,6 @@ h1,h2,h3,p,label,legend,strong,span{overflow-wrap:break-word}
 .cap-msg{font-size:1rem;font-weight:400;line-height:1.36;letter-spacing:-.2px;color:var(--ink-soft)}
 .cap-tag{display:inline-flex;flex:none;align-items:center;justify-content:center;gap:var(--space-xs);height:2rem;padding:var(--space-xs) var(--space-md);border:1px solid var(--line);border-radius:.5rem;font-weight:700;font-size:1rem;color:var(--ink-soft)}
 
-.idea-more{justify-content:center;align-items:center;text-align:center;padding:var(--space-2xl);background:var(--primary-soft);color:var(--primary);border-color:var(--primary);font:inherit;cursor:pointer}
-
 .bal-slider{margin:0 calc(-1 * var(--space-gutter));position:relative}
 .bal-dots{position:absolute;left:0;right:0;bottom:.6rem;display:flex;justify-content:center;gap:var(--space-sm);pointer-events:none;z-index:2}
 .bal-dots span{width:.5rem;height:.5rem;border-radius:var(--radius-pill);background:var(--ink-soft);opacity:.35;transition:opacity .2s ease,width .2s ease}
@@ -733,7 +719,7 @@ h1,h2,h3,p,label,legend,strong,span{overflow-wrap:break-word}
 .bal-brand-wrap{display:flex;align-items:center;gap:var(--space-md)}
 .bal-brand-text{display:flex;flex-direction:column;gap:0;min-width:0}
 .bal-brand-date{margin:calc(-1 * var(--space-sm)) 0 0;font-size:.8rem;line-height:1.2;color:var(--ink-soft)}
-.bal-title{font-size:1.5rem;line-height:1.2;margin:0}
+.bal-title{font-size:1.125rem;font-weight:400;line-height:1.53125rem;letter-spacing:-.2px;color:var(--ink);margin:0}
 .bal-top-spacer{flex:1}
 .bal-topbar{position:sticky;top:0;z-index:6;margin:calc(-1 * var(--space-gutter)) 0 -4.9rem;background:transparent}
 .bal-topbar.is-solid{background:var(--bg)}

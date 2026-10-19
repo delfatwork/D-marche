@@ -64,6 +64,7 @@ export default function OnboardingPage() {
   const [formError, setFormError] = useState(false);
   const [signupName, setSignupName] = useState("");
   const [signupPhone, setSignupPhone] = useState("");
+  const [loginName, setLoginName] = useState("");
   const [loginPhone, setLoginPhone] = useState("");
 
   function handleBack() {
@@ -163,6 +164,10 @@ export default function OnboardingPage() {
           <h1 tabIndex={-1}>Connexion</h1>
           <p className="muted">Entrez votre numéro. Nous vous enverrons un code à usage unique par SMS.</p>
           <label className="field">
+            Prénom
+            <input type="text" autoComplete="given-name" value={loginName} onChange={(e) => setLoginName(e.target.value)} />
+          </label>
+          <label className="field">
             Numéro de téléphone
             <input
               type="tel"
@@ -173,13 +178,13 @@ export default function OnboardingPage() {
               onChange={(e) => setLoginPhone(e.target.value)}
             />
           </label>
-          {formError && <p className="error" role="alert">Indiquez un numéro de téléphone valide.</p>}
+          {formError && <p className="error" role="alert">Indiquez votre prénom et un numéro de téléphone valide.</p>}
           <div className="actions">
             <button
               className="btn primary"
               type="button"
               onClick={() => {
-                if (!phoneValid(loginPhone)) {
+                if (!loginName.trim() || !phoneValid(loginPhone)) {
                   setFormError(true);
                   return;
                 }
@@ -203,7 +208,7 @@ export default function OnboardingPage() {
             confirmLabel="Valider"
             onCancel={() => setAuthFlow("none")}
             onVerified={() => {
-              completeLogin(loginPhone.trim());
+              completeLogin(loginName.trim(), loginPhone.trim());
               router.push("/");
             }}
           />
