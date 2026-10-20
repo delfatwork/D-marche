@@ -29,11 +29,11 @@ function ObHeader({ step, onBack }: { step: number; onBack: () => void }) {
           <BackIcon />
           <span>Retour</span>
         </button>
-        <p className="steps">Étape {step + 1} sur {OB_TOTAL}</p>
+        <p className="steps">Étape {step} sur {OB_TOTAL}</p>
       </div>
       <div className="dots" aria-hidden="true">
         {Array.from({ length: OB_TOTAL }, (_, i) => (
-          <span key={i} className={i <= step ? "on" : ""} />
+          <span key={i} className={i < step ? "on" : ""} />
         ))}
       </div>
     </>
@@ -175,7 +175,7 @@ export default function OnboardingPage() {
             title="Entrez le code"
             message={`Un code à 6 chiffres vient d'être envoyé par SMS au •• •• •• ${last2(signupPhone)}.`}
             confirmLabel="Valider"
-            onCancel={() => setAuthFlow("none")}
+            onCancel={() => setAuthFlow("signup-form")}
             onVerified={() => {
               completeSignup(signupName.trim(), signupPhone.trim());
               setAuthFlow("none");
@@ -269,7 +269,7 @@ export default function OnboardingPage() {
             title="Entrez le code"
             message={`Un code à 6 chiffres vient d'être envoyé par SMS au •• •• •• ${last2(loginPhone)}.`}
             confirmLabel="Valider"
-            onCancel={() => setAuthFlow("none")}
+            onCancel={() => setAuthFlow("login-form")}
             onVerified={() => {
               completeLogin(loginName.trim(), loginPhone.trim());
               router.push("/");
@@ -315,7 +315,7 @@ export default function OnboardingPage() {
 
   if (obStep === 1) {
     return (
-      <section className="screen ob">
+      <section className="screen ob ob-arc">
         <ObHeader step={1} onBack={handleBack} />
         <h1 id="ob-t" tabIndex={-1}>Quel rythme vous convient le mieux&nbsp;?</h1>
         <fieldset className="choices" aria-labelledby="ob-t">

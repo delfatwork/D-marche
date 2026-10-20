@@ -2,21 +2,21 @@ export type LevelKey = "doux" | "progresser" | "accomp";
 
 export const LEVELS: Record<LevelKey, { title: string; steps: number; desc: string; reco: string }> = {
   doux: {
-    title: "Marcher peu, commencer doucement",
+    title: "Commencer doucement",
     steps: 5000,
-    desc: "Je marche peu et je veux commencer doucement.",
+    desc: "Moins de 30 minutes par jour",
     reco: "Visez 5 000 pas aujourd'hui. Découpez-les en deux balades courtes, avec une pause assise entre les deux.",
   },
   progresser: {
-    title: "Marcher et progresser",
+    title: "Marcher régulièrement",
     steps: 7000,
-    desc: "Je marche déjà et je veux progresser petit à petit.",
+    desc: "Plus de 30 minutes par jour",
     reco: "Visez 7 000 pas aujourd'hui. Ajoutez un petit tour à votre marche habituelle, à un rythme où vous pouvez parler.",
   },
   accomp: {
-    title: "Marcher régulièrement, à plusieurs",
+    title: "Marcher activement",
     steps: 10000,
-    desc: "Je marche régulièrement et je veux le faire avec d'autres personnes.",
+    desc: "Plus d'une heure par jour",
     reco: "Visez 10 000 pas aujourd'hui. Proposez à un proche ou à un groupe une balade, un tour du quartier ou du parc.",
   },
 };
