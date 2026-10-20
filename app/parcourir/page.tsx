@@ -19,7 +19,7 @@ function Row({ title, rowKey, items }: { title: string; rowKey: "tips" | "how" |
       )}
       <div className="tip-list">
         {items.map((it, i) => (
-          <TipCard key={i} photo={it.photo} title={it.t} href={`/parcourir/${rowKey}/${i}`} />
+          <TipCard key={i} photo={it.photo} title={it.t} href={`/parcourir/${rowKey}/${i}`} horizontal />
         ))}
       </div>
     </section>
