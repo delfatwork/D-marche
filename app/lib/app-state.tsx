@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import type { GoalMetric, LevelKey } from "@/app/lib/onboarding-data";
-import { blankWeek, buildDemoWeek, todayKey, type Day } from "@/app/lib/week";
+import { blankWeek, buildDemoWeek, isoDate, todayKey, type Day } from "@/app/lib/week";
 import type { DCarte } from "@/app/lib/parcourir-data";
 
 function genUserId(): string {
@@ -25,6 +25,8 @@ type PersistedState = {
   walksDone: number;
   todayMinutes: number;
   todayKey: string | null;
+  /** Minutes marchées par jour (clé = Day.iso), pour que "Hier" survive un rechargement. */
+  history: Record<string, number>;
   textSize: TextSize;
   contrast: boolean;
   motion: boolean;
@@ -51,6 +53,7 @@ const DEFAULT_STATE: PersistedState = {
   walksDone: 0,
   todayMinutes: 0,
   todayKey: null,
+  history: {},
   textSize: "normal",
   contrast: false,
   motion: false,
@@ -65,7 +68,7 @@ const DEFAULT_STATE: PersistedState = {
   dcMine: [],
 };
 
-type AppStateContextValue = Omit<PersistedState, "todayMinutes" | "todayKey"> & {
+type AppStateContextValue = Omit<PersistedState, "todayMinutes" | "todayKey" | "history"> & {
   hydrated: boolean;
   week: Day[];
   setLevel: (level: LevelKey) => void;
@@ -109,7 +112,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       // localStorage indisponible : on reste sur l'état par défaut
     }
     setState(loaded);
-    const freshWeek = blankWeek();
+    const freshWeek = blankWeek().map((d) => ({ ...d, min: loaded.history?.[d.iso] ?? 0 }));
     if (loaded.todayKey === todayKey()) {
       freshWeek[6] = { ...freshWeek[6], min: loaded.todayMinutes };
     }
@@ -140,11 +143,15 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       next[6] = { ...next[6], min: next[6].min + minutes };
       return next;
     });
-    setState((s) => ({
-      ...s,
-      todayMinutes: s.todayKey === todayKey() ? s.todayMinutes + minutes : minutes,
-      todayKey: todayKey(),
-    }));
+    setState((s) => {
+      const todayMinutes = s.todayKey === todayKey() ? s.todayMinutes + minutes : minutes;
+      return {
+        ...s,
+        todayMinutes,
+        todayKey: todayKey(),
+        history: { ...s.history, [isoDate(new Date())]: todayMinutes },
+      };
+    });
   }
 
   const value: AppStateContextValue = {
@@ -180,11 +187,21 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     leaveCreneau: (id) => setState((s) => ({ ...s, balJoined: s.balJoined.filter((x) => x !== id) })),
     completeSignup: (name, phone) => {
       setWeek(blankWeek());
-      setState((s) => ({ ...s, name, phone, isNew: true, userId: s.userId || genUserId() }));
+      setState((s) => ({ ...s, name, phone, isNew: true, userId: s.userId || genUserId(), history: {} }));
     },
     completeLogin: (name, phone) => {
-      setWeek(buildDemoWeek());
-      setState((s) => ({ ...s, name, phone, isNew: false, onboarded: true, userId: s.userId || genUserId() }));
+      const demoWeek = buildDemoWeek();
+      setWeek(demoWeek);
+      const demoHistory = Object.fromEntries(demoWeek.map((d) => [d.iso, d.min]));
+      setState((s) => ({
+        ...s,
+        name,
+        phone,
+        isNew: false,
+        onboarded: true,
+        userId: s.userId || genUserId(),
+        history: demoHistory,
+      }));
     },
     setPhone: (phone) => setState((s) => ({ ...s, phone })),
     logout: () => setState((s) => ({ ...s, onboarded: false, phone: "" })),
@@ -194,7 +211,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     },
     clearData: () => {
       setWeek(blankWeek());
-      setState((s) => ({ ...s, todayMinutes: 0, todayKey: null }));
+      setState((s) => ({ ...s, todayMinutes: 0, todayKey: null, history: {} }));
     },
     submitDCarte: (title, theme, text) =>
       setState((s) => ({
