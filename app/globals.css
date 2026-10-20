@@ -34,7 +34,7 @@
   /* ---------- 2. SEMANTIC : rôles, seule couche qui change selon le mode ---------- */
   --canvas:var(--g-white); --device-frame:var(--g-green-frame);
   --bg:var(--g-white); --surface:var(--g-white); --ink:var(--g-green-ink-900); --ink-soft:var(--g-green-ink-700); --line:var(--g-sage-300);
-  --ring-grad-start:#A9F1D4; --ring-grad-end:#4A8F3B;
+  --ring-grad-start:#4A8F3B; --ring-grad-end:#A9F1D4; --ring-track:#E6E5E1;
   --primary:var(--g-green-700); --primary-ink:var(--g-white); --primary-soft:var(--g-green-100); --illus-fill:var(--g-green-200);
   --illus-accent:var(--g-amber-500); --illus-line:var(--g-sage-200); --warn-bg:var(--g-amber-100); --warn-line:var(--g-amber-700);
   --focus:var(--g-blue-600); --border-width:var(--g-border-1); --focus-halo:transparent;
@@ -302,8 +302,9 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 .stat{background:var(--card-bg);border:var(--border-width) solid var(--card-border);border-radius:var(--radius-lg)}
 .stat-ico{width:2rem;height:2rem;color:var(--primary)}
 @property --p{syntax:'<number>';inherits:true;initial-value:0}
-.ring{width:5rem;height:5rem;border-radius:var(--radius-pill);display:grid;place-items:center;background:conic-gradient(var(--ring-grad-start) 0%, var(--ring-grad-end) calc(var(--p) * 1%), var(--illus-line) calc(var(--p) * 1%) 100%);transition:--p .6s ease}
-.ring span{width:3rem;height:3rem;border-radius:var(--radius-pill);background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:var(--fs-base);line-height:var(--lh-base);text-align:center;font-variant-numeric:tabular-nums;font-weight:var(--fw-base);letter-spacing:var(--ls-base);}
+.ring,.ring span,.ring-card-ring,.ring-card-ring span,.big-ring,.big-ring-in,.dc-ring,.dc-ring span{outline:none!important;box-shadow:none!important}
+.ring{width:5rem;height:5rem;border-radius:var(--radius-pill);border:0;display:grid;place-items:center;background:conic-gradient(var(--ring-grad-start) 0%, var(--ring-grad-end) calc(var(--p) * 1%), var(--ring-track) calc(var(--p) * 1%) 100%);transition:--p .6s ease}
+.ring span{width:calc(5rem - 16px);height:calc(5rem - 16px);border-radius:var(--radius-pill);border:0;background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:var(--fs-base);line-height:var(--lh-base);text-align:center;font-variant-numeric:tabular-nums;font-weight:var(--fw-base);letter-spacing:var(--ls-base);}
 
 /* Ring card — Figma node 221:3381 */
 .ring-card{display:flex;flex-direction:column;align-items:center;gap:var(--space-xl)}
@@ -311,7 +312,7 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 .ring-card-head svg{width:1.25rem;height:1.25rem;color:var(--ink);flex:none}
 .ring-card-headline{margin:0;color:var(--ink-soft);text-align:center}
 .ring-card-ring{width:6.9rem;height:6.9rem}
-.ring-card-ring span{width:4.9rem;height:4.9rem;color:var(--ink)}
+.ring-card-ring span{width:calc(6.9rem - 16px);height:calc(6.9rem - 16px);color:var(--ink)}
 .ring-card-footer{margin:0;color:var(--ink-soft);text-align:center}
 
 .kv-label{font-weight:var(--fw-base);color:var(--ink-soft);font-size:var(--fs-base);line-height:var(--lh-base);letter-spacing:var(--ls-base);}
@@ -447,8 +448,8 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 .day-nav .icon-btn:disabled{opacity:.35;cursor:not-allowed}
 .day-label{font-weight:var(--fw-base);font-size:var(--fs-base);text-align:center;flex:1;line-height:var(--lh-base);letter-spacing:var(--ls-base);}
 
-.big-ring{width:12rem;height:12rem;margin:var(--space-xl) auto var(--space-sm);border-radius:var(--radius-pill);display:grid;place-items:center;background:conic-gradient(var(--ring-grad-start) 0%, var(--ring-grad-end) calc(var(--p) * 1%), var(--illus-line) calc(var(--p) * 1%) 100%);transition:--p .6s ease}
-.big-ring-in{width:10rem;height:10rem;border-radius:var(--radius-pill);background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-2xs)}
+.big-ring{width:12rem;height:12rem;margin:var(--space-xl) auto var(--space-sm);border-radius:var(--radius-pill);border:0;display:grid;place-items:center;background:conic-gradient(var(--ring-grad-start) 0%, var(--ring-grad-end) calc(var(--p) * 1%), var(--ring-track) calc(var(--p) * 1%) 100%);transition:--p .6s ease}
+.big-ring-in{width:calc(12rem - 16px);height:calc(12rem - 16px);border-radius:var(--radius-pill);border:0;background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-2xs)}
 .big-ring-in strong{font-size:var(--fs-2xl);line-height:var(--lh-2xl);font-variant-numeric:tabular-nums;font-weight:var(--fw-2xl);letter-spacing:var(--ls-2xl);}
 .big-ring-in small{color:var(--ink-soft);font-size:var(--fs-base);line-height:var(--lh-base);font-weight:var(--fw-base);letter-spacing:var(--ls-base);}
 .goal-ok{display:inline-flex;align-items:center;gap:var(--space-xs);color:var(--primary);font-weight:700;margin-top:var(--space-2xs)}
@@ -468,8 +469,8 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 .dc-mid{text-align:right;flex:1}
 .dc-pct{font-weight:inherit;font-size:inherit;color:inherit;margin-left:var(--space-xs);font-variant-numeric:tabular-nums}
 .dc-steps{font-size:var(--fs-sm-bold);font-weight:var(--fw-sm-bold);line-height:var(--lh-sm-bold);letter-spacing:var(--ls-sm-bold);color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
-.dc-ring{width:20px;height:20px;border-radius:var(--radius-pill);flex:none;background:conic-gradient(var(--ring-grad-start) 0%, var(--ring-grad-end) calc(var(--p) * 1%), var(--illus-line) calc(var(--p) * 1%) 100%);display:grid;place-items:center;transition:--p .6s ease}
-.dc-ring span{width:14px;height:14px;border-radius:var(--radius-pill);background:var(--surface);display:grid;place-items:center;color:var(--primary)}
+.dc-ring{width:20px;height:20px;border-radius:var(--radius-pill);border:0;flex:none;background:conic-gradient(var(--ring-grad-start) 0%, var(--ring-grad-end) calc(var(--p) * 1%), var(--ring-track) calc(var(--p) * 1%) 100%);display:grid;place-items:center;transition:--p .6s ease}
+.dc-ring span{width:12px;height:12px;border-radius:var(--radius-pill);border:0;background:var(--surface);display:grid;place-items:center;color:var(--primary)}
 .dc-ring svg{width:10px;height:10px}
 
 .help-btn{margin-left:auto;appearance:none;background:none;border:0;color:var(--primary);font:inherit;font-weight:700;text-decoration:underline;text-underline-offset:4px;min-height:2.75rem;padding:0 var(--space-2xs);cursor:pointer}
