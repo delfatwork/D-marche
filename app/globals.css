@@ -111,13 +111,13 @@ body{margin:0;height:100%;background:var(--canvas);color:var(--ink);
 
 /* Échelle typographique — Figma Foundations/Typography */
 .text-xs{font-size:.9rem;font-weight:400;line-height:1.2;letter-spacing:0}
-.text-sm{font-size:1rem;font-weight:400;line-height:1.5}
-.text-sm-bold{font-size:1rem;font-weight:700;line-height:1.53125rem;letter-spacing:-.2px}
+.text-sm{font-size:.8889rem;font-weight:400;line-height:1.5}
+.text-sm-bold{font-size:.8889rem;font-weight:700;line-height:1.3611rem;letter-spacing:-.2px}
 .text-base{font-size:1.125rem;font-weight:400;line-height:1.53125rem;letter-spacing:-.2px}
 .text-base-bold{font-size:1.125rem;font-weight:700;line-height:1.53125rem;letter-spacing:-.2px}
-.text-md{font-size:1.5rem;font-weight:400;line-height:normal;letter-spacing:-.2px}
-.text-lg{font-size:2rem;font-weight:400;line-height:1.2;letter-spacing:0}
-.text-2xl-bold{font-size:2.25rem;font-weight:700;line-height:1.1;letter-spacing:0}
+.text-md{font-size:1.3333rem;font-weight:400;line-height:normal;letter-spacing:-.2px}
+.text-lg{font-size:1.7778rem;font-weight:400;line-height:1.2;letter-spacing:0}
+.text-2xl-bold{font-size:2rem;font-weight:700;line-height:1.1;letter-spacing:0}
 .actions{margin-top:auto;display:flex;flex-direction:column;gap:var(--space-xl);padding-top:var(--space-md)}
 .card{background:var(--card-bg);border:var(--border-width) solid var(--line);border-radius:var(--card-radius);padding:var(--card-pad)}
 [data-contrast="high"] .card{border-width:3px}
@@ -325,7 +325,7 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 .metric-card-ico{width:1.25rem;height:1.25rem;flex:none;color:var(--ink)}
 .metric-card-label{margin:0;font-size:1rem;font-weight:400;line-height:1.36;letter-spacing:-.2px;color:var(--ink-soft);text-align:center}
 .metric-card-body{display:flex;flex-direction:column;gap:.25rem;align-items:center;width:100%}
-.metric-card-value{margin:0;font-size:1.5rem;font-weight:400;line-height:normal;letter-spacing:-.2px;color:var(--ink);text-align:center;font-variant-numeric:tabular-nums}
+.metric-card-value{margin:0;font-size:1.3333rem;font-weight:400;line-height:normal;letter-spacing:-.2px;color:var(--ink);text-align:center;font-variant-numeric:tabular-nums}
 .metric-card-unit{margin:0;font-size:1rem;font-weight:400;line-height:1.36;letter-spacing:-.2px;color:var(--ink-soft);text-align:center}
 .kpi{--metric-gap:var(--space-2xs)}
 .kpi .kv-label{font-size:.78rem;line-height:1.2;hyphens:auto}
@@ -338,6 +338,7 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 .hello-row{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--space-3xl)}
 .icon-btn{--btn-bg:var(--surface);--btn-ink:var(--ink);--btn-border:var(--line);flex:none;width:var(--iconbtn-size);height:var(--iconbtn-size);border-radius:var(--iconbtn-radius);border:var(--border-width) solid var(--btn-border);background:var(--btn-bg);color:var(--btn-ink);display:grid;place-items:center;cursor:pointer}
 .icon-btn svg{width:1.5rem;height:1.5rem}
+.icon-btn:disabled{opacity:.45;cursor:not-allowed}
 .challenge{display:flex;flex-direction:column;align-items:center;gap:var(--space-lg);text-align:center}
 .challenge-title{font-size:1.3rem;font-weight:700}
 .walks{list-style:none;margin:0;padding:0;display:grid;gap:var(--space-xl)}
@@ -442,12 +443,13 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 
 .pas-totals{margin-top:var(--space-2xs)}
 .day-list{display:grid;gap:var(--space-lg)}
-.day-card{display:flex;align-items:center;justify-content:space-between;gap:var(--space-xl);padding:var(--space-2xl) var(--space-2xl)}
+.day-card{display:flex;align-items:center;justify-content:space-between;gap:var(--space-sm);padding:var(--card-pad)}
 .day-card p{margin:0}
 .dc-name{font-weight:700;font-size:1.05rem}
+.day-card .dc-name{font-size:1.3333rem;font-weight:400;line-height:normal;letter-spacing:-.2px;color:var(--ink)}
 .dc-mid{text-align:right;flex:1}
 .dc-pct{font-weight:inherit;font-size:inherit;color:inherit;margin-left:var(--space-xs);font-variant-numeric:tabular-nums}
-.dc-steps{font-weight:700;font-size:.95rem;white-space:nowrap;font-variant-numeric:tabular-nums}
+.dc-steps{font-size:.8889rem;font-weight:700;line-height:1.3611rem;letter-spacing:-.2px;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
 .dc-ring{width:20px;height:20px;border-radius:var(--radius-pill);flex:none;background:conic-gradient(var(--primary) calc(var(--p) * 1%), var(--illus-line) 0);display:grid;place-items:center}
 .dc-ring span{width:14px;height:14px;border-radius:var(--radius-pill);background:var(--surface);display:grid;place-items:center;color:var(--primary)}
 .dc-ring svg{width:10px;height:10px}
@@ -686,7 +688,7 @@ h1,h2,h3,p,label,legend,strong,span{overflow-wrap:break-word}
 /* Cap Card — "Votre cap du jour", Figma node 277:2599 */
 .cap-card{display:flex;flex-direction:column;gap:var(--space-xl);background:#BAE0BF}
 .cap-card p,.cap-card h2{margin:0}
-.cap-title{font-size:1.5rem;font-weight:400;line-height:normal;letter-spacing:-.2px;color:var(--ink)}
+.cap-title{font-size:1.3333rem;font-weight:400;line-height:normal;letter-spacing:-.2px;color:var(--ink)}
 .cap-value{display:flex;align-items:flex-end;gap:.25rem;font-size:1.75rem;font-weight:400;line-height:1.2;letter-spacing:0;color:var(--ink)}
 .cap-value small{flex:1;font-size:1rem;font-weight:400;line-height:1.36;letter-spacing:-.2px;color:var(--ink-soft)}
 .cap-sorties{display:flex;flex-wrap:wrap;gap:var(--space-sm)}
@@ -709,7 +711,7 @@ h1,h2,h3,p,label,legend,strong,span{overflow-wrap:break-word}
 .profile-goal-metric{display:flex;flex-direction:column;gap:var(--space-lg);border:var(--border-width) solid var(--line)}
 .profile-goal-metric legend{padding:0;margin-bottom:var(--space-2xs)}
 
-.home-more-link{align-self:flex-start;text-decoration:underline;font-weight:700;color:var(--primary)}
+.home-more-link{align-self:flex-start;text-decoration:underline;font-weight:700}
 
 .pedo-status .bal-facts{margin-top:var(--space-2xs)}
 .pedo-status .badge.ok{color:var(--primary);border-color:var(--primary);font-weight:700}

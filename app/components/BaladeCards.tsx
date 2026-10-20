@@ -11,10 +11,11 @@ function SchemaSvg({ path }: { path: string }) {
   );
 }
 
-function BaladeVis({ p, tone }: { p: Parcours; tone: "v1" | "v2" }) {
+function BaladeVis({ p, tone, photo }: { p: Parcours; tone: "v1" | "v2"; photo?: string }) {
+  const src = photo ?? p.photo;
   return (
     <span className={`vis ${tone} bal-vis`} aria-hidden="true">
-      {p.photo ? <Image className="bal-photo" src={p.photo} alt="" fill sizes="88px" /> : <SchemaSvg path={p.path} />}
+      {src ? <Image className="bal-photo" src={src} alt="" fill sizes="88px" /> : <SchemaSvg path={p.path} />}
     </span>
   );
 }
@@ -37,7 +38,7 @@ export function GroupeBaladeCard({ c, p }: { c: Creneau; p: Parcours }) {
   const diff = balDiff(p);
   return (
     <Link className="card bal-card bal-compact bal-link" href={`/balade/groupe/${c.id}`}>
-      <BaladeVis p={p} tone="v2" />
+      <BaladeVis p={p} tone="v2" photo={c.photo} />
       <div className="bal-body">
         <p className="small bal-when"><UsersIcon /><span>Groupe</span></p>
         <p className="bal-title">{c.title}</p>

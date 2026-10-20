@@ -52,6 +52,7 @@ export const BAL_PARCOURS: Parcours[] = [
     ],
     surface: ["Allée en gravier stabilisé", "Trottoir large en bitume"],
     path: "M16 70 C 58 38, 84 92, 122 62 S 170 50, 186 74",
+    photo: "/balades/parc.jpg",
   },
   {
     id: "centre",
@@ -71,6 +72,7 @@ export const BAL_PARCOURS: Parcours[] = [
     ],
     surface: ["Trottoirs étroits par endroits", "Pavés irréguliers"],
     path: "M14 30 L 60 30 L 60 76 L 128 76 L 128 24 L 186 24",
+    photo: "/balades/centre.jpg",
   },
 ];
 
@@ -83,11 +85,12 @@ export type Creneau = {
   meet: string;
   count: number;
   max: number;
+  photo?: string;
 };
 
 export const BAL_CRENEAUX: Creneau[] = [
-  { id: "c1", title: "Marche du samedi", parcoursId: "canal", date: "Samedi 12 octobre", time: "10 h 00", meet: "Place de la mairie", count: 8, max: 15 },
-  { id: "c2", title: "Balade entre voisins", parcoursId: "parc", date: "Mercredi 16 octobre", time: "18 h 30", meet: "Entrée du parc", count: 14, max: 15 },
+  { id: "c1", title: "Marche du samedi", parcoursId: "canal", date: "Samedi 12 octobre", time: "10 h 00", meet: "Place de la mairie", count: 8, max: 15, photo: "/balades/samedi.jpg" },
+  { id: "c2", title: "Balade entre voisins", parcoursId: "parc", date: "Mercredi 16 octobre", time: "18 h 30", meet: "Entrée du parc", count: 14, max: 15, photo: "/balades/voisins.jpg" },
 ];
 
 export const BAL_LIEUX = ["Paris", "Montreuil", "Vincennes"];
