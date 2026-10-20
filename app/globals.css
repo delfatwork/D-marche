@@ -297,7 +297,7 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 /* Accueil : statistiques */
 .sec-title{font-size:var(--fs-md-bold);line-height:var(--lh-md-bold);margin:var(--space-2xl) 0 var(--space-md);font-weight:var(--fw-md-bold);letter-spacing:var(--ls-md-bold);}
 .screen > .sec-title + *{margin-top:calc(-1 * var(--space-3xl))}
-.stats3{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-md)}
+.stats3{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-lg)}
 .stat,.kpi{min-width:0;padding:var(--metric-pad);display:flex;flex-direction:column;align-items:center;gap:var(--metric-gap);text-align:center}
 .stat{background:var(--card-bg);border:var(--border-width) solid var(--card-border);border-radius:var(--radius-lg)}
 .stat-ico{width:2rem;height:2rem;color:var(--primary)}
@@ -307,12 +307,12 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 .ring span{width:calc(5rem - 16px);height:calc(5rem - 16px);border-radius:var(--radius-pill);border:0;background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:var(--fs-base);line-height:var(--lh-base);text-align:center;font-variant-numeric:tabular-nums;font-weight:var(--fw-base);letter-spacing:var(--ls-base);}
 
 /* Ring card — Figma node 221:3381 */
-.ring-card{display:flex;flex-direction:column;align-items:center;gap:var(--space-xl)}
+.ring-card{display:flex;flex-direction:column;align-items:center;gap:var(--space-sm);min-width:0}
 .ring-card-head{display:flex;flex-direction:column;align-items:center;gap:var(--space-xs)}
 .ring-card-head svg{width:1.25rem;height:1.25rem;color:var(--ink);flex:none}
 .ring-card-headline{margin:0;color:var(--ink-soft);text-align:center}
-.ring-card-ring{width:6.9rem;height:6.9rem}
-.ring-card-ring span{width:calc(6.9rem - 16px);height:calc(6.9rem - 16px);color:var(--ink)}
+.ring-card-ring{width:min(6.9rem,100%);height:auto;aspect-ratio:1/1}
+.ring-card-ring span{width:calc(100% - 16px);height:calc(100% - 16px);color:var(--ink)}
 .ring-card-footer{margin:0;color:var(--ink-soft);text-align:center}
 
 .kv-label{font-weight:var(--fw-base);color:var(--ink-soft);font-size:var(--fs-base);line-height:var(--lh-base);letter-spacing:var(--ls-base);}
@@ -327,7 +327,7 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 .days li.walked .tick{background:var(--primary);border-color:var(--primary)}
 
 /* Week total card — Figma node 243:4389 */
-.kpi-total{display:flex;flex-direction:column;gap:var(--space-xl);background:var(--primary-soft);text-decoration:none;color:inherit}
+.kpi-total{display:flex;flex-direction:column;gap:var(--space-sm);background:var(--primary-soft);text-decoration:none;color:inherit}
 .kpi-total-head{display:flex;align-items:center;gap:var(--space-xs)}
 .kpi-total-ico{width:1.25rem;height:1.25rem;flex:none;color:var(--ink)}
 .kpi-total-label{margin:0;font-size:var(--fs-base);font-weight:var(--fw-base);line-height:var(--lh-base);letter-spacing:var(--ls-base);color:var(--ink-soft)}
@@ -341,7 +341,7 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 .pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-lg)}
 
 /* Metric card — Figma node 213:2780 */
-.metric-card{display:flex;flex-direction:column;align-items:center;gap:var(--space-xl)}
+.metric-card{display:flex;flex-direction:column;align-items:center;gap:var(--space-sm)}
 .metric-card-head{display:flex;flex-direction:column;align-items:center;gap:var(--space-xs);text-align:center}
 .metric-card-ico{width:1.25rem;height:1.25rem;flex:none;color:var(--ink)}
 .metric-card-label{margin:0;font-size:var(--fs-base);font-weight:var(--fw-base);line-height:var(--lh-base);letter-spacing:var(--ls-base);color:var(--ink-soft);text-align:center}
@@ -543,10 +543,9 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 .empty-card p{margin:0}
 
 /* Texte agrandi : les cartes côte à côte passent en pleine largeur */
-html[data-text="large"] .stats3,
 html[data-text="large"] .trio,
-html[data-text="xlarge"] .stats3,
-html[data-text="xlarge"] .trio{grid-template-columns:minmax(0,1fr)}
+html[data-text="xlarge"] .trio,
+html[data-text="xlarge"] .stats3{grid-template-columns:minmax(0,1fr)}
 
 /* Texte agrandi : tout s'adapte sans déborder */
 .tab span{overflow-wrap:anywhere;line-height:1.2}
@@ -698,15 +697,15 @@ h1,h2,h3,p,label,legend,strong,span{overflow-wrap:break-word}
 .habit-card .btn{margin-top:auto;min-height:2.8rem;font-size:var(--fs-sm);line-height:var(--lh-sm);font-weight:var(--fw-sm);letter-spacing:var(--ls-sm);}
 
 /* Cap Card — "Votre cap du jour", Figma node 277:2599 */
-.cap-card{display:flex;flex-direction:column;gap:var(--space-xl);background:#BAE0BF}
+.cap-card{display:flex;flex-direction:column;gap:var(--space-sm);background:#BAE0BF}
 .cap-card p,.cap-card h2{margin:0}
 .cap-title{font-size:var(--fs-md);font-weight:var(--fw-md);line-height:var(--lh-md);letter-spacing:var(--ls-md);color:var(--ink)}
 .cap-value{display:flex;align-items:flex-end;gap:.25rem;font-size:var(--fs-lg);font-weight:var(--fw-lg);line-height:var(--lh-lg);letter-spacing:var(--ls-lg);color:var(--ink)}
 .cap-value small{flex:1;font-size:var(--fs-base);font-weight:var(--fw-base);line-height:var(--lh-base);letter-spacing:var(--ls-base);color:var(--ink-soft)}
 .cap-sorties{display:flex;flex-wrap:wrap;gap:var(--space-sm)}
-.cap-row{display:flex;align-items:center;justify-content:space-between;gap:var(--space-md)}
-.cap-msg{font-size:var(--fs-base);font-weight:var(--fw-base);line-height:var(--lh-base);letter-spacing:var(--ls-base);color:var(--ink-soft)}
-.cap-tag{display:inline-flex;flex:none;align-items:center;justify-content:center;gap:var(--space-xs);height:2rem;padding:var(--space-xs) var(--space-md);border:1px solid var(--line);border-radius:.5rem;font-weight:var(--fw-sm-bold);font-size:var(--fs-sm-bold);color:var(--ink-soft);line-height:var(--lh-sm-bold);letter-spacing:var(--ls-sm-bold);}
+.cap-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-md)}
+.cap-msg{flex:1 1 auto;min-width:12rem;font-size:var(--fs-base);font-weight:var(--fw-base);line-height:var(--lh-base);letter-spacing:var(--ls-base);color:var(--ink-soft)}
+.cap-tag{display:inline-flex;flex:none;align-items:center;justify-content:center;gap:var(--space-xs);height:2rem;padding:var(--space-xs) var(--space-md);border:1px solid var(--line);border-radius:.5rem;font-weight:var(--fw-sm-bold);font-size:var(--fs-sm-bold);color:var(--ink-soft);line-height:var(--lh-sm-bold);letter-spacing:var(--ls-sm-bold);margin-top:var(--space-xs)}
 
 .bal-slider{margin:0 calc(-1 * var(--space-gutter));position:relative}
 .bal-dots{position:absolute;left:0;right:0;bottom:.6rem;display:flex;justify-content:center;gap:var(--space-sm);pointer-events:none;z-index:2}
