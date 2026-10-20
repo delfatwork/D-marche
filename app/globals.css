@@ -18,8 +18,8 @@
   --g-border-1:1px; --g-border-2:3px;
 
   /* ---------- 2. SEMANTIC : rôles, seule couche qui change selon le mode ---------- */
-  --canvas:var(--g-sage-100); --device-frame:var(--g-green-frame);
-  --bg:var(--g-sage-50); --surface:var(--g-white); --ink:var(--g-green-ink-900); --ink-soft:var(--g-green-ink-700); --line:var(--g-sage-300);
+  --canvas:var(--g-white); --device-frame:var(--g-green-frame);
+  --bg:var(--g-white); --surface:var(--g-white); --ink:var(--g-green-ink-900); --ink-soft:var(--g-green-ink-700); --line:var(--g-sage-300);
   --primary:var(--g-green-700); --primary-ink:var(--g-white); --primary-soft:var(--g-green-100); --illus-fill:var(--g-green-200);
   --illus-accent:var(--g-amber-500); --illus-line:var(--g-sage-200); --warn-bg:var(--g-amber-100); --warn-line:var(--g-amber-700);
   --focus:var(--g-blue-600); --border-width:var(--g-border-1); --focus-halo:transparent;
