@@ -40,6 +40,19 @@ export const AnotherTip: Story = {
   },
 };
 
+export const Horizontal: Story = {
+  args: {
+    photo: chaussures.photo,
+    title: chaussures.t,
+    href: '/parcourir/tips/0',
+    horizontal: true,
+  },
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole('link')).toHaveClass('tip-card-h');
+    await expect(canvas.getByText(chaussures.t)).toBeVisible();
+  },
+};
+
 // Proves the shared preview actually loaded app/globals.css: the arrow
 // button's background is --action, which resolves to --g-blue-600
 // (#1B4FD8 -> rgb(27, 79, 216)) via :root in app/globals.css.

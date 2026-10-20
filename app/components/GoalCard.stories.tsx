@@ -54,3 +54,16 @@ export const SansBadge: Story = {
     await expect(canvas.getByText("Aucune sortie aujourd'hui")).toBeVisible();
   },
 };
+
+// message omitted: the conditional `{message && ...}` renders nothing.
+export const SansMessage: Story = {
+  args: {
+    value: <>{nf(6200)} <small>/ {nf(10000)} pas</small></>,
+    badge: '1 sortie',
+    emptyText: "Aucune sortie aujourd'hui",
+  },
+  play: async ({ canvas }) => {
+    await expect(canvas.getByText('Votre cap du jour')).toBeVisible();
+    await expect(canvas.queryByText(/Encore|petit tour/)).not.toBeInTheDocument();
+  },
+};

@@ -89,7 +89,7 @@ export default function OnboardingPage() {
   if (obStep === 0) {
     if (authFlow === "signup-form") {
       return (
-        <section className="screen ob">
+        <section className="screen ob ob-arc">
           <div className="topbar">
             <button className="back" type="button" onClick={() => setAuthFlow("none")}>
               <BackIcon />

@@ -409,7 +409,12 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 [data-motion="reduce"] .sheet{animation:none}
 
 /* Onboarding (étapes 1-4) : boutons fixes en bas — exclut l'accueil, qui a son propre panneau blanc */
-.screen.ob:not(.welcome) .actions{position:sticky;bottom:0;z-index:4;padding:var(--space-xl) 0 calc(var(--space-xl) + env(safe-area-inset-bottom,0px));margin-top:auto}
+.screen.ob:not(.welcome):not(.ob-arc) .actions{position:sticky;bottom:0;z-index:4;padding:var(--space-xl) 0 calc(var(--space-xl) + env(safe-area-inset-bottom,0px));margin-top:auto}
+
+/* Créer un compte : bouton dans un panneau arc dégradé, même mécanique que l'accueil */
+.screen.ob-arc{position:relative;overflow:hidden}
+.screen.ob-arc .actions{position:relative;z-index:1;background:linear-gradient(180deg,#f0f1d9 0%,#29ea6d 100%);margin:auto calc(-1 * var(--space-gutter)) calc(-1 * var(--space-gutter));padding:var(--space-lg) var(--space-gutter) calc(var(--space-md) + env(safe-area-inset-bottom,0px))}
+.screen.ob-arc .actions::before{content:"";position:absolute;z-index:-1;left:-10%;right:-10%;bottom:100%;height:2rem;background:#f0f1d9;border-radius:50% 50% 0 0/2rem 2rem 0 0}
 
 /* Accueil de l'onboarding centré */
 .screen.welcome{justify-content:center;text-align:center}
