@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { BackIcon, CheckIcon } from "@/app/components/icons";
 
 const SMS_CODE = "123456";
 
@@ -47,21 +48,30 @@ export default function AuthCodeStep({
 
   return (
     <>
+      <div className="topbar">
+        <button className="back" type="button" onClick={onCancel}>
+          <BackIcon />
+          <span>Annuler</span>
+        </button>
+      </div>
       <h1 tabIndex={-1}>{title}</h1>
       <p className="muted">{message}</p>
       <label className="field">
         Code reçu par SMS
-        <input
-          type="text"
-          inputMode="numeric"
-          autoComplete="one-time-code"
-          maxLength={6}
-          placeholder="123456"
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-        />
+        <span className="field-input">
+          <input
+            type="text"
+            inputMode="numeric"
+            autoComplete="one-time-code"
+            maxLength={6}
+            placeholder="123456"
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+          />
+          {code.trim() === SMS_CODE && <span className="field-ok" aria-hidden="true"><CheckIcon /></span>}
+        </span>
       </label>
-      <p className="small">Le code est détecté automatiquement depuis le SMS.</p>
+      <p className="success">Le code est détecté automatiquement depuis le SMS.</p>
       {error && <p className="error" role="alert">Code incorrect. Vérifiez le SMS reçu.</p>}
       <div className="actions">
         <button className={`btn ${confirmDanger ? "danger" : "primary"}`} type="button" onClick={handleVerify}>
@@ -78,7 +88,6 @@ export default function AuthCodeStep({
         >
           Renvoyer le code
         </button>
-        <button className="btn quiet" type="button" onClick={onCancel}>Annuler</button>
       </div>
     </>
   );

@@ -121,9 +121,12 @@ body{margin:0;height:100%;background:var(--canvas);color:var(--ink);
 
 /* Écran */
 .screen{flex:1 0 auto;display:flex;flex-direction:column;gap:var(--space-3xl);padding:var(--space-gutter) var(--space-gutter) 1.5rem}
+.screen h1 + p.muted{margin-top:calc(var(--g-size-6) - var(--space-3xl))}
+.screen label.field + p.success{margin-top:calc(var(--space-2xs) - var(--space-3xl))}
 .lead{font-size:var(--fs-md);color:var(--ink);line-height:var(--lh-md);font-weight:var(--fw-md);letter-spacing:var(--ls-md);}
 .muted{color:var(--ink-soft)}
 .small{font-size:var(--fs-xs);line-height:var(--lh-xs);color:var(--ink-soft);font-weight:var(--fw-xs);letter-spacing:var(--ls-xs);}
+.success{font-size:var(--fs-sm-bold);line-height:var(--lh-sm-bold);color:var(--primary);font-weight:var(--fw-sm-bold);letter-spacing:var(--ls-sm-bold);}
 
 /* Échelle typographique — Figma Foundations/Typography */
 .text-xs{font-size:var(--fs-xs);font-weight:var(--fw-xs);line-height:var(--lh-xs);letter-spacing:var(--ls-xs)}
@@ -226,6 +229,11 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 textarea{width:100%;min-height:5.5rem;font:inherit;font-size:var(--fs-base);padding:var(--space-xl);border-radius:var(--radius-md);border:var(--border-width) solid var(--ink-soft);background:var(--surface);color:var(--ink);resize:vertical;line-height:var(--lh-base);font-weight:var(--fw-base);letter-spacing:var(--ls-base);}
 label.field{display:flex;flex-direction:column;gap:var(--space-sm);font-weight:700}
 label.field span.opt{font-weight:400;color:var(--ink-soft)}
+label.field span.req{color:var(--danger)}
+.field-input{position:relative;display:flex;align-items:center}
+.field-input input{flex:1;min-width:0;padding-right:3rem}
+.field-ok{position:absolute;right:var(--space-lg);width:1.5rem;height:1.5rem;border-radius:50%;background:var(--primary);color:var(--primary-ink);display:grid;place-items:center;pointer-events:none}
+.field-ok svg{width:.9rem;height:.9rem;stroke-width:3}
 
 /* Semaine */
 .chart{position:relative;padding-top:1.6rem}
@@ -289,7 +297,8 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 .screen.welcome{position:relative;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;background:linear-gradient(180deg,#f0f1d9 0%,#29ea6d 100%)}
 .screen.welcome::after{content:"";position:absolute;z-index:-1;left:0;right:0;top:calc(-1 * env(safe-area-inset-top,0px));height:env(safe-area-inset-top,0px);background:#f0f1d9}
 .screen.welcome .ob-hero{position:relative;flex:1 0 0;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-gutter);width:100%}
-.screen.welcome .ob-title{position:relative;font-size:var(--fs-2xl);line-height:var(--lh-2xl);letter-spacing:var(--ls-2xl);font-weight:var(--fw-2xl);}
+.screen.welcome .ob-title{position:relative;font-size:var(--fs-2xl-bold);line-height:var(--lh-2xl-bold);letter-spacing:var(--ls-2xl-bold);font-weight:var(--fw-2xl-bold);}
+.screen.welcome .ob-title .ob-title-light{font-size:var(--fs-2xl);line-height:var(--lh-2xl);letter-spacing:var(--ls-2xl);font-weight:var(--fw-2xl);}
 /* Panneau blanc dimensionné sur son propre contenu (jamais de blanc en trop) + vague décorative juste au-dessus */
 .screen.welcome .actions{position:relative;z-index:1;background:var(--g-white);margin:0 calc(-1 * var(--space-gutter)) calc(-1 * var(--space-gutter));padding:var(--space-lg) var(--space-gutter) calc(var(--space-md) + env(safe-area-inset-bottom,0px))}
 .screen.welcome .actions::before{content:"";position:absolute;z-index:-1;left:-10%;right:-10%;bottom:100%;height:2rem;background:var(--g-white);border-radius:50% 50% 0 0/2rem 2rem 0 0}
@@ -395,7 +404,7 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 /* Création de compte */
 .signup{display:flex;flex-direction:column;gap:var(--space-2xl);text-align:left}
 .field input{font:inherit;font-size:var(--fs-base);font-weight:var(--fw-base);min-height:3.2rem;padding:var(--space-lg) var(--space-xl);border-radius:var(--radius-md);border:var(--border-width) solid var(--ink-soft);background:var(--surface);color:var(--ink);line-height:var(--lh-base);letter-spacing:var(--ls-base);}
-.field input::placeholder{color:var(--ink-soft);opacity:1}
+.field input::placeholder{color:var(--ink-soft);opacity:1;font-style:italic}
 
 /* Drawer de connexion */
 .sheet-backdrop{position:fixed;inset:0;background:var(--scrim);z-index:30}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { BackIcon, CheckIcon } from "@/app/components/icons";
 import Switch from "@/app/components/Switch";
@@ -61,11 +61,16 @@ export default function OnboardingPage() {
   const [obError, setObError] = useState(false);
 
   const [authFlow, setAuthFlow] = useState<AuthFlow>("none");
-  const [formError, setFormError] = useState(false);
   const [signupName, setSignupName] = useState("");
   const [signupPhone, setSignupPhone] = useState("");
   const [loginName, setLoginName] = useState("");
   const [loginPhone, setLoginPhone] = useState("");
+  const [signupPhoneError, setSignupPhoneError] = useState(false);
+  const [signupAttempt, setSignupAttempt] = useState(0);
+  const [loginPhoneError, setLoginPhoneError] = useState(false);
+  const [loginAttempt, setLoginAttempt] = useState(0);
+  const signupPhoneRef = useRef<HTMLInputElement>(null);
+  const loginPhoneRef = useRef<HTMLInputElement>(null);
 
   function handleBack() {
     setObError(false);
@@ -99,31 +104,60 @@ export default function OnboardingPage() {
           <h1 tabIndex={-1}>Créer un compte</h1>
           <p className="muted">Quelques informations suffisent pour commencer.</p>
           <label className="field">
-            Prénom
-            <input type="text" autoComplete="given-name" value={signupName} onChange={(e) => setSignupName(e.target.value)} />
+            <span>Prénom<span className="req" aria-hidden="true"> *</span></span>
+            <span className="field-input">
+              <input
+                type="text"
+                autoComplete="given-name"
+                placeholder="Ex. Jeanne"
+                required
+                aria-required="true"
+                value={signupName}
+                onChange={(e) => setSignupName(e.target.value)}
+              />
+              {signupName.trim() && <span className="field-ok" aria-hidden="true"><CheckIcon /></span>}
+            </span>
           </label>
           <label className="field">
-            Numéro de téléphone
-            <input
-              type="tel"
-              autoComplete="tel"
-              inputMode="tel"
-              placeholder="06 12 34 56 78"
-              value={signupPhone}
-              onChange={(e) => setSignupPhone(e.target.value)}
-            />
+            <span>Numéro de téléphone<span className="req" aria-hidden="true"> *</span></span>
+            <span className="field-input">
+              <input
+                ref={signupPhoneRef}
+                type="tel"
+                autoComplete="tel"
+                inputMode="tel"
+                placeholder="Ex. 06 12 34 56 78"
+                required
+                aria-required="true"
+                aria-invalid={signupPhoneError ? "true" : "false"}
+                aria-describedby={signupPhoneError ? "signup-phone-error" : undefined}
+                value={signupPhone}
+                onChange={(e) => {
+                  setSignupPhone(e.target.value);
+                  if (signupPhoneError) setSignupPhoneError(false);
+                }}
+              />
+              {phoneValid(signupPhone) && <span className="field-ok" aria-hidden="true"><CheckIcon /></span>}
+            </span>
           </label>
-          {formError && <p className="error" role="alert">Indiquez votre prénom et un numéro de téléphone valide.</p>}
+          {signupPhoneError && (
+            <p className="error" id="signup-phone-error" role="alert" key={signupAttempt}>
+              Entrez un numéro de téléphone valide (10 chiffres minimum).
+            </p>
+          )}
           <div className="actions">
             <button
               className="btn primary"
               type="button"
+              disabled={!signupName.trim() || !signupPhone.trim()}
               onClick={() => {
-                if (!signupName.trim() || !phoneValid(signupPhone)) {
-                  setFormError(true);
+                if (!phoneValid(signupPhone)) {
+                  setSignupPhoneError(true);
+                  setSignupAttempt((n) => n + 1);
+                  signupPhoneRef.current?.focus();
                   return;
                 }
-                setFormError(false);
+                setSignupPhoneError(false);
                 setAuthFlow("signup-otp");
               }}
             >
@@ -136,7 +170,7 @@ export default function OnboardingPage() {
 
     if (authFlow === "signup-otp") {
       return (
-        <section className="screen ob">
+        <section className="screen ob ob-arc">
           <AuthCodeStep
             title="Entrez le code"
             message={`Un code à 6 chiffres vient d'être envoyé par SMS au •• •• •• ${last2(signupPhone)}.`}
@@ -164,31 +198,60 @@ export default function OnboardingPage() {
           <h1 tabIndex={-1}>Connexion</h1>
           <p className="muted">Entrez votre numéro. Nous vous enverrons un code à usage unique par SMS.</p>
           <label className="field">
-            Prénom
-            <input type="text" autoComplete="given-name" value={loginName} onChange={(e) => setLoginName(e.target.value)} />
+            <span>Prénom<span className="req" aria-hidden="true"> *</span></span>
+            <span className="field-input">
+              <input
+                type="text"
+                autoComplete="given-name"
+                placeholder="Ex. Jeanne"
+                required
+                aria-required="true"
+                value={loginName}
+                onChange={(e) => setLoginName(e.target.value)}
+              />
+              {loginName.trim() && <span className="field-ok" aria-hidden="true"><CheckIcon /></span>}
+            </span>
           </label>
           <label className="field">
-            Numéro de téléphone
-            <input
-              type="tel"
-              autoComplete="tel"
-              inputMode="tel"
-              placeholder="06 12 34 56 78"
-              value={loginPhone}
-              onChange={(e) => setLoginPhone(e.target.value)}
-            />
+            <span>Numéro de téléphone<span className="req" aria-hidden="true"> *</span></span>
+            <span className="field-input">
+              <input
+                ref={loginPhoneRef}
+                type="tel"
+                autoComplete="tel"
+                inputMode="tel"
+                placeholder="Ex. 06 12 34 56 78"
+                required
+                aria-required="true"
+                aria-invalid={loginPhoneError ? "true" : "false"}
+                aria-describedby={loginPhoneError ? "login-phone-error" : undefined}
+                value={loginPhone}
+                onChange={(e) => {
+                  setLoginPhone(e.target.value);
+                  if (loginPhoneError) setLoginPhoneError(false);
+                }}
+              />
+              {phoneValid(loginPhone) && <span className="field-ok" aria-hidden="true"><CheckIcon /></span>}
+            </span>
           </label>
-          {formError && <p className="error" role="alert">Indiquez votre prénom et un numéro de téléphone valide.</p>}
+          {loginPhoneError && (
+            <p className="error" id="login-phone-error" role="alert" key={loginAttempt}>
+              Entrez un numéro de téléphone valide (10 chiffres minimum).
+            </p>
+          )}
           <div className="actions">
             <button
               className="btn primary"
               type="button"
+              disabled={!loginName.trim() || !loginPhone.trim()}
               onClick={() => {
-                if (!loginName.trim() || !phoneValid(loginPhone)) {
-                  setFormError(true);
+                if (!phoneValid(loginPhone)) {
+                  setLoginPhoneError(true);
+                  setLoginAttempt((n) => n + 1);
+                  loginPhoneRef.current?.focus();
                   return;
                 }
-                setFormError(false);
+                setLoginPhoneError(false);
                 setAuthFlow("login-otp");
               }}
             >
@@ -201,7 +264,7 @@ export default function OnboardingPage() {
 
     if (authFlow === "login-otp") {
       return (
-        <section className="screen ob">
+        <section className="screen ob ob-arc">
           <AuthCodeStep
             title="Entrez le code"
             message={`Un code à 6 chiffres vient d'être envoyé par SMS au •• •• •• ${last2(loginPhone)}.`}
@@ -229,7 +292,7 @@ export default function OnboardingPage() {
             className="btn primary"
             type="button"
             onClick={() => {
-              setFormError(false);
+              setSignupPhoneError(false);
               setAuthFlow("signup-form");
             }}
           >
@@ -239,7 +302,7 @@ export default function OnboardingPage() {
             className="btn quiet"
             type="button"
             onClick={() => {
-              setFormError(false);
+              setLoginPhoneError(false);
               setAuthFlow("login-form");
             }}
           >
