@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { BackIcon, CheckIcon, Logo } from "@/app/components/icons";
+import { BackIcon, CheckIcon } from "@/app/components/icons";
 import Switch from "@/app/components/Switch";
 import DeviceScanner from "@/app/components/DeviceScanner";
 import AuthCodeStep from "@/app/components/AuthCodeStep";
@@ -218,13 +218,12 @@ export default function OnboardingPage() {
 
     return (
       <section className="screen ob welcome">
-        <div className="brand-block">
-          <Logo />
-          <p className="app-name">D-marche</p>
+        <div className="ob-hero">
+          <img className="ob-logo" src="/onboarding/logo-walk.svg" alt="" width={91} height={120} />
+          <h1 className="ob-title" tabIndex={-1}>
+            Un petit pas de plus au quotidien, <span className="ob-title-light">un grand pas<br />pour votre santé</span>
+          </h1>
         </div>
-        <h1 className="ob-title" tabIndex={-1}>
-          Un petit pas de plus au quotidien, un grand pas pour votre santé
-        </h1>
         <div className="actions">
           <button
             className="btn primary"

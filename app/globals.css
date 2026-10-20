@@ -270,6 +270,15 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 .logo .l-b{fill:var(--illus-accent)}
 .app-name{font-weight:700;font-size:1.15rem;color:var(--primary)}
 .ob-title{font-size:1.75rem;line-height:1.2}
+.ob-title-light{font-weight:400}
+
+/* Écran d'accueil onboarding — dégradé + vague Figma (node 494:7175) */
+.screen.welcome{position:relative;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;background:linear-gradient(180deg,#f0f1d9 0%,#29ea6d 100%)}
+.screen.welcome::before{content:"";position:absolute;z-index:-1;left:-33%;top:70%;width:166%;aspect-ratio:643.7/344.8;background:var(--g-white);border-radius:50%}
+.screen.welcome .ob-hero{position:relative;flex:1 0 0;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-gutter);width:100%}
+.screen.welcome .ob-title{position:relative;font-size:2.3334rem;line-height:1.2;letter-spacing:0}
+.screen.welcome .actions{position:relative;padding-bottom:var(--space-gutter)}
+.ob-logo{width:90.68px;height:120px;flex:none;margin:0 auto}
 .device-ok{border-color:var(--primary);background:var(--primary-soft);display:flex;flex-direction:column;gap:var(--space-lg)}
 .device-ok p{margin:0}
 
