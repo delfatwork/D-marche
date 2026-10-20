@@ -21,14 +21,16 @@ function last2(phone: string) {
 
 const OB_TOTAL = 5;
 
-function ObHeader({ step, onBack }: { step: number; onBack: () => void }) {
+function ObHeader({ step, onBack }: { step: number; onBack?: () => void }) {
   return (
     <>
       <div className="topbar">
-        <button className="back" type="button" onClick={onBack}>
-          <BackIcon />
-          <span>Retour</span>
-        </button>
+        {onBack && (
+          <button className="back" type="button" onClick={onBack}>
+            <BackIcon />
+            <span>Retour</span>
+          </button>
+        )}
         <p className="steps">Étape {step} sur {OB_TOTAL}</p>
       </div>
       <div className="dots" aria-hidden="true">
@@ -188,7 +190,7 @@ export default function OnboardingPage() {
 
     if (authFlow === "login-form") {
       return (
-        <section className="screen ob">
+        <section className="screen ob ob-arc">
           <div className="topbar">
             <button className="back" type="button" onClick={() => setAuthFlow("none")}>
               <BackIcon />
@@ -316,7 +318,7 @@ export default function OnboardingPage() {
   if (obStep === 1) {
     return (
       <section className="screen ob ob-arc">
-        <ObHeader step={1} onBack={handleBack} />
+        <ObHeader step={1} />
         <h1 id="ob-t" tabIndex={-1}>Quel rythme vous convient le mieux&nbsp;?</h1>
         <fieldset className="choices" aria-labelledby="ob-t">
           {Object.entries(LEVELS).map(([k, v]) => (
@@ -345,7 +347,7 @@ export default function OnboardingPage() {
 
   if (obStep === 2) {
     return (
-      <section className="screen ob">
+      <section className="screen ob ob-arc">
         <ObHeader step={2} onBack={handleBack} />
         <h1 id="gm-t" tabIndex={-1}>Comment observer votre évolution&nbsp;?</h1>
         <fieldset className="choices" aria-labelledby="gm-t">
@@ -374,7 +376,7 @@ export default function OnboardingPage() {
 
   if (obStep === 3) {
     return (
-      <section className="screen ob">
+      <section className="screen ob ob-arc">
         <ObHeader step={3} onBack={handleBack} />
         <h1 tabIndex={-1}>Connectons votre podomètre</h1>
         {pedo ? (
@@ -396,7 +398,7 @@ export default function OnboardingPage() {
   }
 
   return (
-    <section className="screen ob">
+    <section className="screen ob ob-arc">
       <ObHeader step={4} onBack={handleBack} />
       <h1 tabIndex={-1}>Pour entretenir votre motivation</h1>
       <Switch
