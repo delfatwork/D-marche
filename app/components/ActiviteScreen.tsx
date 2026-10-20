@@ -7,6 +7,16 @@ import { LEVELS } from "@/app/lib/onboarding-data";
 import { INITIALS, KM_PER_STEP, STEP_MIN, dayDateLabel, dayFullName, stepsOf, weekRangeLabel, type Day } from "@/app/lib/week";
 import { nf } from "@/app/lib/format";
 import { BackIcon, CheckIcon } from "@/app/components/icons";
+import { useAnimatedPct } from "@/app/lib/useAnimatedPct";
+
+function DayRingDot({ pct, reached }: { pct: number; reached: boolean }) {
+  const animated = useAnimatedPct(Math.min(pct, 100));
+  return (
+    <div className="dc-ring" style={{ "--p": animated.toFixed(1) } as CSSProperties} aria-hidden="true">
+      <span>{reached && <CheckIcon />}</span>
+    </div>
+  );
+}
 
 const PERIODS: { key: "1j" | "7j" | "4s" | "1a"; label: string }[] = [
   { key: "1j", label: "1j" },
@@ -20,7 +30,7 @@ function sortiesOf(d: Day): number {
 }
 
 export default function ActiviteScreen({ metric }: { metric: "pas" | "sorties" }) {
-  const { level, week } = useAppState();
+  const { hydrated, level, week } = useAppState();
   const [period, setPeriod] = useState<"1j" | "7j" | "4s" | "1a">("7j");
 
   const isS = metric === "sorties";
@@ -31,6 +41,7 @@ export default function ActiviteScreen({ metric }: { metric: "pas" | "sorties" }
   const todayValue = isS ? sortiesOf(today) : stepsOf(today);
   const pct1j = Math.round((todayValue / goal) * 100);
   const reached1j = todayValue >= goal;
+  const animatedPct1j = useAnimatedPct(Math.min(pct1j, 100));
 
   const items7 = week.map((d) => ({ day: d, value: isS ? sortiesOf(d) : stepsOf(d) }));
   const totalSteps7 = week.reduce((acc, d) => acc + stepsOf(d), 0);
@@ -44,6 +55,8 @@ export default function ActiviteScreen({ metric }: { metric: "pas" | "sorties" }
   const totalValue = period === "1j" ? todayValue : total7;
   const avgValue = period === "1j" ? todayValue : avg7;
   const thirdValue = period === "1j" ? (isS ? today.min : stepsOf(today) * KM_PER_STEP) : isS ? minTotal7 : km7;
+
+  if (!hydrated) return null;
 
   return (
     <section className="screen">
@@ -74,7 +87,7 @@ export default function ActiviteScreen({ metric }: { metric: "pas" | "sorties" }
           <>
             <div
               className="big-ring"
-              style={{ "--p": Math.min(pct1j, 100) } as CSSProperties}
+              style={{ "--p": animatedPct1j.toFixed(1) } as CSSProperties}
               role="img"
               aria-label={`${nf(todayValue)} ${unit}, ${pct1j} % de l'objectif`}
             >
@@ -172,9 +185,7 @@ export default function ActiviteScreen({ metric }: { metric: "pas" | "sorties" }
                 <div className="dc-mid">
                   <p className="dc-steps">{nf(value)} {unit}</p>
                 </div>
-                <div className="dc-ring" style={{ "--p": Math.min(pct, 100) } as CSSProperties} aria-hidden="true">
-                  <span>{reached && <CheckIcon />}</span>
-                </div>
+                <DayRingDot pct={pct} reached={reached} />
               </article>
             );
           })}
