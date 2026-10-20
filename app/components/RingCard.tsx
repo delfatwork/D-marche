@@ -24,7 +24,7 @@ export default function RingCard({ icon, headline, value, pct, footer, href, ari
       <Ring pct={pct} className="ring-card-ring">
         <strong className="text-md">{value}</strong>
       </Ring>
-      <p className="ring-card-footer text-base">{footer}</p>
+      <p className="ring-card-footer text-xs">{footer}</p>
     </>
   );
 
