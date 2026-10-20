@@ -307,6 +307,7 @@ export default function Home() {
                 photo={tip.photo}
                 title={tip.t}
                 href={`/parcourir/tips/${i}`}
+                horizontal
               />
             )
           ))}

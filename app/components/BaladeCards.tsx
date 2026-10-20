@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CalendarIcon, UserIcon, UsersIcon } from "@/app/components/icons";
+import { UserIcon, UsersIcon } from "@/app/components/icons";
 import { balDiff, creneauWhen, type Creneau, type Parcours } from "@/app/lib/balades-data";
 
 function SchemaSvg({ path }: { path: string }) {
@@ -42,7 +42,7 @@ export function GroupeBaladeCard({ c, p }: { c: Creneau; p: Parcours }) {
       <div className="bal-body">
         <p className="small bal-when"><UsersIcon /><span>Groupe</span></p>
         <p className="bal-title">{c.title}</p>
-        <p className="small bal-when"><CalendarIcon /><span>{creneauWhen(c)}</span></p>
+        <p className="small bal-when"><span>{creneauWhen(c)}</span></p>
         <p className="small bal-when">{p.km} · <span className={`chip chip-${diff.cls}`}>{diff.label}</span></p>
       </div>
     </Link>
