@@ -301,16 +301,18 @@ export default function Home() {
         </h2>
         <div className="tip-list">
           {PARC_ROWS.tips.map((tip, i) => (
-            <TipCard
-              key={i}
-              photo={tip.photo}
-              title={tip.t}
-              href={`/parcourir/tips/${i}`}
-            />
+            tip.t === "Marcher par temps chaud" || tip.t === "Respirer en marchant" ? null : (
+              <TipCard
+                key={i}
+                photo={tip.photo}
+                title={tip.t}
+                href={`/parcourir/tips/${i}`}
+              />
+            )
           ))}
         </div>
         <Link className="btn quiet home-more-link" href="/parcourir">
-          Voir {PARC_ROWS.tips.length} conseils pour mieux marcher au quotidien
+          Voir plus de conseils
         </Link>
       </section>
     </section>
