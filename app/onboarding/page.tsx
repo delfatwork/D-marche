@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { BackIcon, CheckIcon } from "@/app/components/icons";
+import { BackIcon, CheckIcon, XIcon } from "@/app/components/icons";
 import Switch from "@/app/components/Switch";
 import DeviceScanner from "@/app/components/DeviceScanner";
 import AuthCodeStep from "@/app/components/AuthCodeStep";
@@ -139,7 +139,11 @@ export default function OnboardingPage() {
                   if (signupPhoneError) setSignupPhoneError(false);
                 }}
               />
-              {phoneValid(signupPhone) && <span className="field-ok" aria-hidden="true"><CheckIcon /></span>}
+              {phoneValid(signupPhone) ? (
+                <span className="field-ok" aria-hidden="true"><CheckIcon /></span>
+              ) : signupPhoneError ? (
+                <span className="field-ok field-ko" aria-hidden="true"><XIcon /></span>
+              ) : null}
             </span>
           </label>
           {signupPhoneError && (
@@ -233,7 +237,11 @@ export default function OnboardingPage() {
                   if (loginPhoneError) setLoginPhoneError(false);
                 }}
               />
-              {phoneValid(loginPhone) && <span className="field-ok" aria-hidden="true"><CheckIcon /></span>}
+              {phoneValid(loginPhone) ? (
+                <span className="field-ok" aria-hidden="true"><CheckIcon /></span>
+              ) : loginPhoneError ? (
+                <span className="field-ok field-ko" aria-hidden="true"><XIcon /></span>
+              ) : null}
             </span>
           </label>
           {loginPhoneError && (

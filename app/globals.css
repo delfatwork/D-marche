@@ -123,6 +123,7 @@ body{margin:0;height:100%;background:var(--canvas);color:var(--ink);
 .screen{flex:1 0 auto;display:flex;flex-direction:column;gap:var(--space-3xl);padding:var(--space-gutter) var(--space-gutter) 1.5rem}
 .screen h1 + p.muted{margin-top:calc(var(--g-size-6) - var(--space-3xl))}
 .screen label.field + p.success{margin-top:calc(var(--space-2xs) - var(--space-3xl))}
+.screen label.field + p.error{margin-top:calc(var(--space-sm) - var(--space-3xl))}
 .lead{font-size:var(--fs-md);color:var(--ink);line-height:var(--lh-md);font-weight:var(--fw-md);letter-spacing:var(--ls-md);}
 .muted{color:var(--ink-soft)}
 .small{font-size:var(--fs-xs);line-height:var(--lh-xs);color:var(--ink-soft);font-weight:var(--fw-xs);letter-spacing:var(--ls-xs);}
@@ -234,6 +235,7 @@ label.field span.req{color:var(--danger)}
 .field-input input{flex:1;min-width:0;padding-right:3rem}
 .field-ok{position:absolute;right:var(--space-lg);width:1.5rem;height:1.5rem;border-radius:50%;background:var(--primary);color:var(--primary-ink);display:grid;place-items:center;pointer-events:none}
 .field-ok svg{width:.9rem;height:.9rem;stroke-width:3}
+.field-ko{background:var(--danger)}
 
 /* Semaine */
 .chart{position:relative;padding-top:1.6rem}
