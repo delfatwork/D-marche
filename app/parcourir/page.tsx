@@ -48,7 +48,7 @@ export default function ParcourirPage() {
         <div className="dc-cta-text">
           <h2>Créer une D-carte</h2>
           <p className="small">Partagez un conseil court sur la marche. Il sera relu avant publication.</p>
-          <Link className="btn primary" href="/parcourir/nouvelle">Créer une D-carte</Link>
+          <Link className="btn quiet" href="/parcourir/nouvelle">Créer une D-carte</Link>
         </div>
       </article>
 

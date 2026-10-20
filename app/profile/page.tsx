@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useAppState } from "@/app/lib/app-state";
 import { BackIcon } from "@/app/components/icons";
 import AuthCodeStep from "@/app/components/AuthCodeStep";
+import Switch from "@/app/components/Switch";
 import { GOAL_METRICS, LEVELS, type LevelKey } from "@/app/lib/onboarding-data";
 import { nf } from "@/app/lib/format";
 
@@ -29,6 +30,10 @@ export default function ProfilePage() {
     logout,
     deleteAccount,
     clearData,
+    locAuth,
+    setLocAuth,
+    notif1,
+    setNotif1,
   } = useAppState();
 
   const [editingPhone, setEditingPhone] = useState(false);
@@ -104,7 +109,7 @@ export default function ProfilePage() {
               </label>
               {phoneError && <p className="error" role="alert">Indiquez un numéro de téléphone valide.</p>}
               <button
-                className="btn primary walk-btn"
+                className="btn quiet walk-btn"
                 type="button"
                 onClick={() => {
                   if (!phoneValid(phoneDraft)) {
@@ -121,7 +126,7 @@ export default function ProfilePage() {
               <button className="btn quiet" type="button" onClick={() => setEditingPhone(false)}>Annuler</button>
             </>
           ) : (
-            <button className="btn secondary walk-btn" type="button" onClick={() => { setPhoneDraft(phone); setEditingPhone(true); }}>
+            <button className="btn quiet walk-btn" type="button" onClick={() => { setPhoneDraft(phone); setEditingPhone(true); }}>
               Changer de numéro
             </button>
           )}
@@ -149,7 +154,7 @@ export default function ProfilePage() {
               ))}
             </fieldset>
             <button
-              className="btn primary walk-btn"
+              className="btn quiet walk-btn"
               type="button"
               onClick={() => {
                 setLevel(goalDraft);
@@ -161,7 +166,7 @@ export default function ProfilePage() {
             <button className="btn quiet" type="button" onClick={() => setEditingGoal(false)}>Annuler</button>
           </>
         ) : (
-          <button className="btn secondary walk-btn" type="button" onClick={() => { setGoalDraft(level || "doux"); setEditingGoal(true); }}>
+          <button className="btn quiet walk-btn" type="button" onClick={() => { setGoalDraft(level || "doux"); setEditingGoal(true); }}>
             Changer mes objectifs
           </button>
         )}
@@ -186,16 +191,34 @@ export default function ProfilePage() {
       </fieldset>
 
       <div className="card">
+        <p className="kv-label">Géolocalisation et notifications</p>
+        <Switch
+          id="locAuth"
+          label="Accord pour la géolocalisation"
+          desc="Autour de vous : voir les balades près de chez vous. Modifiable à tout moment."
+          checked={locAuth}
+          onChange={setLocAuth}
+        />
+        <Switch
+          id="notif1"
+          label="Rappels de motivation"
+          desc="Conseils et astuces pour marcher, au plus une fois par jour."
+          checked={notif1}
+          onChange={setNotif1}
+        />
+      </div>
+
+      <div className="card">
         <p className="kv-label">Mes données</p>
         <p className="small">Vos marches (durée, ressenti, nombre de pas) sont conservées uniquement sur ce téléphone. Elles ne sont ni envoyées ni partagées.</p>
         {confirmClear ? (
           <div className="inline-confirm" role="group" aria-label="Confirmer l'effacement">
             <p style={{ fontWeight: 700 }}>Effacer toutes vos marches enregistrées sur ce téléphone&nbsp;? Cette action est définitive.</p>
-            <button className="btn primary" type="button" onClick={() => { clearData(); setConfirmClear(false); }}>Oui, effacer</button>
-            <button className="btn secondary" type="button" onClick={() => setConfirmClear(false)}>Annuler</button>
+            <button className="btn quiet" type="button" onClick={() => { clearData(); setConfirmClear(false); }}>Oui, effacer</button>
+            <button className="btn quiet" type="button" onClick={() => setConfirmClear(false)}>Annuler</button>
           </div>
         ) : (
-          <button className="btn secondary" type="button" onClick={() => setConfirmClear(true)}>Effacer mes données</button>
+          <button className="btn quiet" type="button" onClick={() => setConfirmClear(true)}>Effacer mes données</button>
         )}
       </div>
 

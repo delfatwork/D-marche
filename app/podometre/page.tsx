@@ -51,10 +51,10 @@ export default function PodometrePage() {
         <p>Dernier relevé : <strong>{lastSync ?? "jamais"}</strong></p>
         {pedo ? (
           <div className="bal-actions">
-            <button className="btn primary walk-btn" type="button" onClick={handleSync} disabled={syncing}>
+            <button className="btn quiet walk-btn" type="button" onClick={handleSync} disabled={syncing}>
               {syncing ? "Relevé en cours…" : "Relever les pas maintenant"}
             </button>
-            <button className="btn secondary walk-btn" type="button" onClick={() => setPedo(null)}>
+            <button className="btn quiet walk-btn" type="button" onClick={() => setPedo(null)}>
               Déconnecter l&apos;appareil
             </button>
           </div>

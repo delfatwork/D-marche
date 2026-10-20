@@ -48,7 +48,7 @@ export default function PasAPasPage() {
         <p className="dc-name">{DEFI_DU_MOMENT.t}</p>
         <p className="small">{DEFI_DU_MOMENT.b}</p>
         <button
-          className={`btn ${moDone ? "secondary" : "primary"} walk-btn`}
+          className="btn quiet walk-btn"
           type="button"
           aria-pressed={moDone}
           onClick={() => toggleDefi(DEFI_DU_MOMENT.id)}
