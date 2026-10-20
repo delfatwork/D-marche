@@ -14,6 +14,7 @@ import {
   PinIcon,
   PrintIcon,
   RouteIcon,
+  SettingsIcon,
   ShoeIcon,
   UsersIcon,
 } from "@/app/components/icons";
@@ -52,7 +53,7 @@ export default function BaladePage({ params }: { params: Promise<{ type: string;
             <span>Retour</span>
           </Link>
           <h1 tabIndex={-1}>Balade</h1>
-          <span className="help-btn balance" aria-hidden="true">Aide</span>
+          <Link className="icon-btn" href="/settings" aria-label="Réglages"><SettingsIcon /></Link>
         </div>
         <p className="muted">Cette balade n&apos;existe plus.</p>
         <Link className="btn primary" href="/balades">Voir les balades</Link>
@@ -80,7 +81,7 @@ export default function BaladePage({ params }: { params: Promise<{ type: string;
           <span>Retour</span>
         </Link>
         <span className="bal-top-spacer" aria-hidden="true" />
-        <span className="help-btn balance" aria-hidden="true">Aide</span>
+        <Link className="icon-btn" href="/settings" aria-label="Réglages"><SettingsIcon /></Link>
         <div className="bal-tgroup" role="group" aria-label="Actions de la balade">
           <button type="button" className="bal-tbtn" aria-label="Imprimer la fiche" onClick={() => window.print()}>
             <PrintIcon />

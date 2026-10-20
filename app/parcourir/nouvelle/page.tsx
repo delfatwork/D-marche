@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAppState } from "@/app/lib/app-state";
-import { BackIcon } from "@/app/components/icons";
+import { BackIcon, SettingsIcon } from "@/app/components/icons";
 import { DC_THEMES } from "@/app/lib/parcourir-data";
 
 export default function NouvelleDCartePage() {
@@ -34,6 +34,7 @@ export default function NouvelleDCartePage() {
           <span>Annuler</span>
         </Link>
         <p className="steps">Nouvelle D-carte</p>
+        <Link className="icon-btn" href="/settings" aria-label="Réglages"><SettingsIcon /></Link>
       </div>
       <h1 tabIndex={-1}>Créer une D-carte</h1>
       <label className="field">

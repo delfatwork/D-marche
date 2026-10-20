@@ -6,7 +6,7 @@ import { useAppState } from "@/app/lib/app-state";
 import { LEVELS } from "@/app/lib/onboarding-data";
 import { INITIALS, KM_PER_STEP, STEP_MIN, dayDateLabel, dayFullName, stepsOf, weekRangeLabel, type Day } from "@/app/lib/week";
 import { nf } from "@/app/lib/format";
-import { BackIcon, CheckIcon } from "@/app/components/icons";
+import { BackIcon, CheckIcon, SettingsIcon } from "@/app/components/icons";
 import { useAnimatedPct } from "@/app/lib/useAnimatedPct";
 
 function DayRingDot({ pct, reached }: { pct: number; reached: boolean }) {
@@ -66,7 +66,7 @@ export default function ActiviteScreen({ metric }: { metric: "pas" | "sorties" }
           <span>Retour</span>
         </Link>
         <h1 tabIndex={-1}>{isS ? "Sorties" : "Pas"}</h1>
-        <span className="help-btn balance" aria-hidden="true">Aide</span>
+        <Link className="icon-btn" href="/settings" aria-label="Réglages"><SettingsIcon /></Link>
       </div>
 
       <div className="seg-bar" role="group" aria-label="Période affichée">

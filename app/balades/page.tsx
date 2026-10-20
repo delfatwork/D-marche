@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useAppState } from "@/app/lib/app-state";
-import { FilterIcon, SearchIcon, TargetIcon } from "@/app/components/icons";
+import { FilterIcon, SearchIcon, SettingsIcon, TargetIcon } from "@/app/components/icons";
 import { GroupeBaladeCard, SoloBaladeCard } from "@/app/components/BaladeCards";
 import Sheet from "@/app/components/Sheet";
 import {
@@ -88,7 +88,7 @@ export default function BaladesPage() {
     <section className="screen">
       <div className="topbar pas-top tab-top">
         <h1 tabIndex={-1}>Balades</h1>
-        <span className="help-btn balance" aria-hidden="true">Aide</span>
+        <Link className="icon-btn" href="/settings" aria-label="Réglages"><SettingsIcon /></Link>
       </div>
 
       <div className="bal-search" role="search">

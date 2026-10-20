@@ -3,7 +3,7 @@
 import Link from "next/link";
 import type { ComponentType } from "react";
 import { useAppState } from "@/app/lib/app-state";
-import { CalendarIcon, CheckIcon, FootprintIcon, RouteIcon, SparkleIcon, SunIcon, TrophyIcon } from "@/app/components/icons";
+import { CalendarIcon, CheckIcon, FootprintIcon, RouteIcon, SettingsIcon, SparkleIcon, SunIcon, TrophyIcon } from "@/app/components/icons";
 import {
   DEFI_DU_MOMENT,
   DEFI_ETAPES,
@@ -36,7 +36,7 @@ export default function PasAPasPage() {
     <section className="screen">
       <div className="topbar pas-top tab-top">
         <h1 tabIndex={-1}>Pas à pas</h1>
-        <span className="help-btn balance" aria-hidden="true">Aide</span>
+        <Link className="icon-btn" href="/settings" aria-label="Réglages"><SettingsIcon /></Link>
       </div>
 
       <p className="kv-label">Défi du moment</p>

@@ -2,7 +2,7 @@
 
 import { use } from "react";
 import Link from "next/link";
-import { BackIcon } from "@/app/components/icons";
+import { BackIcon, SettingsIcon } from "@/app/components/icons";
 import { PARC_ROWS } from "@/app/lib/parcourir-data";
 
 export default function TipDetailPage({ params }: { params: Promise<{ key: string; index: string }> }) {
@@ -19,6 +19,7 @@ export default function TipDetailPage({ params }: { params: Promise<{ key: strin
             <BackIcon />
             <span>Retour</span>
           </Link>
+          <Link className="icon-btn" href="/settings" aria-label="Réglages"><SettingsIcon /></Link>
         </div>
         <p className="muted">Ce conseil n&apos;existe plus.</p>
         <Link className="btn primary" href="/parcourir">Voir les conseils</Link>
@@ -33,6 +34,7 @@ export default function TipDetailPage({ params }: { params: Promise<{ key: strin
           <BackIcon />
           <span>Retour</span>
         </Link>
+        <Link className="icon-btn" href="/settings" aria-label="Réglages"><SettingsIcon /></Link>
       </div>
       <h1 tabIndex={-1}>{tip.t}</h1>
       <p>{tip.body}</p>

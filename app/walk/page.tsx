@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAppState } from "@/app/lib/app-state";
-import { BackIcon } from "@/app/components/icons";
+import { BackIcon, SettingsIcon } from "@/app/components/icons";
 import Trail from "@/app/components/Trail";
 import { fmtTimer, spokenDuration } from "@/app/lib/format";
 
@@ -45,7 +45,7 @@ export default function WalkPage() {
           <span>Retour</span>
         </Link>
         <h1 tabIndex={-1}>Bonne marche</h1>
-        <span className="help-btn balance" aria-hidden="true">Aide</span>
+        <Link className="icon-btn" href="/settings" aria-label="Réglages"><SettingsIcon /></Link>
       </div>
       <p className={`walk-status${running ? "" : " paused"}`} aria-live="polite">
         {running ? "Marche en cours" : "En pause"}

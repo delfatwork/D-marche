@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useAppState } from "@/app/lib/app-state";
-import { BackIcon } from "@/app/components/icons";
+import { BackIcon, SettingsIcon } from "@/app/components/icons";
 import DeviceScanner from "@/app/components/DeviceScanner";
 import { DEVICE_INFO } from "@/app/lib/onboarding-data";
 
@@ -29,7 +29,7 @@ export default function PodometrePage() {
           <span>Retour</span>
         </Link>
         <h1 tabIndex={-1}>Podomètre</h1>
-        <span className="help-btn balance" aria-hidden="true">Aide</span>
+        <Link className="icon-btn" href="/settings" aria-label="Réglages"><SettingsIcon /></Link>
       </div>
 
       <div className="card pedo-status">
