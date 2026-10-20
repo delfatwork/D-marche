@@ -125,8 +125,13 @@ body{margin:0;height:100%;background:var(--canvas);color:var(--ink);
 .screen label.field + p.success{margin-top:calc(var(--space-2xs) - var(--space-3xl))}
 .screen label.field + p.error{margin-top:calc(var(--space-sm) - var(--space-3xl))}
 .screen .cap-card + .home-shortcut{margin-top:calc(var(--space-xl) - var(--space-3xl))}
-.screen .cap-card + .today-rings{margin-top:calc(var(--space-xl) - var(--space-3xl))}
-.today-rings{display:flex;flex-direction:column;gap:var(--space-lg)}
+.cap-group{display:flex;flex-direction:column;gap:var(--space-xl)}
+.card.cap-group{background:var(--primary-soft)}
+.cap-group .cap-card{background:none;border:0;padding:0}
+.cap-group .ring-card{background:none;border:0;padding:0}
+.today-rings{display:flex;flex-direction:row;gap:var(--space-lg)}
+.today-rings .ring-card{flex:1;min-width:0}
+.today-rings .ring-card + .ring-card{border-top:0;border-left:var(--border-width) solid var(--line);padding-top:0;padding-left:var(--space-lg)}
 .lead{font-size:var(--fs-md);color:var(--ink);line-height:var(--lh-md);font-weight:var(--fw-md);letter-spacing:var(--ls-md);}
 .muted{color:var(--ink-soft)}
 .small{font-size:var(--fs-xs);line-height:var(--lh-xs);color:var(--ink-soft);font-weight:var(--fw-xs);letter-spacing:var(--ls-xs);}
@@ -330,11 +335,11 @@ label.field span.req{color:var(--danger)}
 .ring-card-ring{width:min(6.9rem,100%);height:auto;aspect-ratio:1/1}
 .ring-card-ring span{width:calc(100% - 16px);height:calc(100% - 16px);color:var(--ink)}
 .ring-card-footer{margin:0;color:var(--ink-soft);text-align:center}
-.ring-card-h{flex-direction:row;align-items:center;justify-content:space-between;text-align:left}
+.ring-card-h{flex-direction:row;align-items:center;justify-content:flex-start;gap:var(--space-sm);text-align:left}
 .ring-card-info{display:flex;flex-direction:column;gap:var(--space-xs);min-width:0}
 .ring-card-h .ring-card-head{flex-direction:row;text-align:left}
 .ring-card-h .ring-card-headline,.ring-card-h .ring-card-footer{text-align:left}
-.ring-card-value{margin:0;color:var(--ink);white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}
+.ring-card-value{margin:0;color:var(--ink);white-space:nowrap;text-align:left;font-variant-numeric:tabular-nums}
 
 .kv-label{font-weight:var(--fw-base);color:var(--ink-soft);font-size:var(--fs-base);line-height:var(--lh-base);letter-spacing:var(--ls-base);}
 .big{font-size:var(--fs-2xl);font-weight:var(--fw-2xl);line-height:var(--lh-2xl);font-variant-numeric:tabular-nums;letter-spacing:var(--ls-2xl);}

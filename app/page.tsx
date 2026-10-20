@@ -15,6 +15,7 @@ import {
   StepsIcon,
   SyncIcon,
   TargetIcon,
+  TimerIcon,
   UserIcon,
 } from "@/app/components/icons";
 import WeekTotalCard from "@/app/components/WeekTotalCard";
@@ -89,7 +90,7 @@ export default function Home() {
 
   const cardSorties = dureeMode ? (
     <RingCard
-      icon={<TargetIcon className="ring-card-ico" />}
+      icon={<TimerIcon className="ring-card-ico" />}
       headline="Durée"
       value={isNew ? "–" : fmtHoursMin(yMin)}
       pct={(yMin / goalMin) * 100}
@@ -122,7 +123,7 @@ export default function Home() {
   const cardSortiesToday = dureeMode ? (
     <RingCard
       horizontal
-      icon={<TargetIcon className="ring-card-ico" />}
+      icon={<TimerIcon className="ring-card-ico" />}
       headline="Durée"
       value={isNew ? "–" : fmtHoursMin(doneMin)}
       pct={(doneMin / goalMin) * 100}
@@ -142,7 +143,7 @@ export default function Home() {
   const cardDureeToday = (
     <RingCard
       horizontal
-      icon={<TargetIcon className="ring-card-ico" />}
+      icon={<TimerIcon className="ring-card-ico" />}
       headline="Durée"
       value={isNew ? "–" : fmtHoursMin(doneMin)}
       pct={(doneMin / goalMin) * 100}
@@ -185,7 +186,7 @@ export default function Home() {
           unit="par jour"
         />
         <MetricCard
-          icon={<TargetIcon className="metric-card-ico" />}
+          icon={<TimerIcon className="metric-card-ico" />}
           label="Durée totale"
           value={isNew ? "–" : nf(Math.round(totalSteps / STEP_MIN))}
           unit="min"
@@ -208,7 +209,7 @@ export default function Home() {
           unit="sorties par jour"
         />
         <MetricCard
-          icon={<TargetIcon className="metric-card-ico" />}
+          icon={<TimerIcon className="metric-card-ico" />}
           label="Durée totale"
           value={isNew ? "–" : nf(Math.round(totalSteps / STEP_MIN))}
           unit="min"
@@ -274,14 +275,15 @@ export default function Home() {
         </div>
       </div>
 
-      <GoalCard
-        pct={(capDone / capGoal) * 100}
-        value={capValue}
-        emptyText=""
-      />
-
-      <div className="today-rings">
-        {cardSortiesToday}{cardDureeToday}
+      <div className="card cap-group">
+        <GoalCard
+          pct={(capDone / capGoal) * 100}
+          value={capValue}
+          emptyText=""
+        />
+        <div className="today-rings">
+          {cardSortiesToday}{cardDureeToday}
+        </div>
       </div>
 
       {isNew ? (
