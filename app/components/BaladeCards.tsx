@@ -58,7 +58,7 @@ export function NextWalkCard({
             <span><UsersIcon /><span>Groupe</span> · {p.km}</span>
             <span className={`chip chip-${diff.cls}`}>{diff.label}</span>
           </p>
-          <p className="text-lg bal-when"><span>{creneauWhen(c)}</span></p>
+          <p className="text-md bal-when"><span>{creneauWhen(c)}</span></p>
           <p className="bal-title next-walk-title">{c.title}</p>
         </div>
       </Link>
