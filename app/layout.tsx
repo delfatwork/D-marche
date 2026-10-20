@@ -6,12 +6,18 @@ import Tabbar from '@/app/components/Tabbar';
 export const metadata: Metadata = {
   title: 'D-marche',
   description: 'Application accessible pour encourager la marche régulière, à votre rythme.',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'D-marche',
+  },
 };
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
+  themeColor: '#2B6A4E',
 };
 
 export default function RootLayout({
