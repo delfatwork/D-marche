@@ -18,7 +18,7 @@
   /* ---------- 1. GLOBAL : primitives, jamais utilisées directement ---------- */
   /* Palette */
   --g-white:#FFFFFF; --g-black:#000000;
-  --g-green-900:#0C1A13; --g-green-800:#003B22; --g-green-700:#2B6A4E; --g-green-300:#86CDA8; --g-green-200:#C7DDD0; --g-green-100:#DCEAE2;
+  --g-green-900:#0C1A13; --g-green-800:#003B22; --g-green-700:#2B6A4E; --g-green-300:#86CDA8; --g-green-200:#C7DDD0; --g-green-100:#bae0bf;
   --g-green-ink-900:#16241F; --g-green-ink-700:#3B4D46; --g-green-ink-100:#EEF3F0; --g-green-ink-200:#C4D1CA;
   --g-sage-700:#36483F; --g-sage-600:#34463D; --g-sage-500:#22392D; --g-sage-400:#1E3529; --g-sage-300:#C3CFC8; --g-sage-200:#C9D3CC; --g-sage-100:#DFE7E2; --g-sage-50:#F2F5F1;
   --g-ink-dark-900:#0B1310; --g-ink-dark-800:#111C17; --g-ink-dark-700:#192620; --g-green-frame:#1F2E28;
@@ -331,7 +331,7 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 .kpi-total-head{display:flex;align-items:center;gap:var(--space-xs)}
 .kpi-total-ico{width:1.25rem;height:1.25rem;flex:none;color:var(--ink)}
 .kpi-total-label{margin:0;font-size:var(--fs-base);font-weight:var(--fw-base);line-height:var(--lh-base);letter-spacing:var(--ls-base);color:var(--ink-soft)}
-.kpi-total-body{display:flex;align-items:center;justify-content:space-between;gap:var(--space-sm)}
+.kpi-total-body{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-sm)}
 .kpi-total-value{margin:0;font-size:var(--fs-lg);font-weight:var(--fw-lg);line-height:var(--lh-lg);color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:var(--ls-lg);}
 .kpi-total .days.mini{margin-top:0}
 .kpi-total .days.mini .tick{border-color:var(--surface)}
@@ -370,7 +370,7 @@ label.field span.opt{font-weight:400;color:var(--ink-soft)}
 .trio{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr);gap:var(--space-md)}
 .trio .kpi{padding:var(--space-xl) var(--space-xs)}
 .trio .big{font-size:var(--fs-md);line-height:var(--lh-md);font-weight:var(--fw-md);letter-spacing:var(--ls-md);}
-.days.mini{margin-top:var(--space-lg);gap:0}
+.days.mini{margin-top:var(--space-lg);gap:var(--space-xs)}
 .days.mini li{gap:var(--space-xs)}
 .days.mini .ini{font-size:var(--fs-xs);line-height:var(--lh-xs);font-weight:var(--fw-xs);letter-spacing:var(--ls-xs);}
 .days.mini .tick{width:.95rem;height:.95rem;border-width:1.5px}
@@ -697,7 +697,7 @@ h1,h2,h3,p,label,legend,strong,span{overflow-wrap:break-word}
 .habit-card .btn{margin-top:auto;min-height:2.8rem;font-size:var(--fs-sm);line-height:var(--lh-sm);font-weight:var(--fw-sm);letter-spacing:var(--ls-sm);}
 
 /* Cap Card — "Votre cap du jour", Figma node 277:2599 */
-.cap-card{display:flex;flex-direction:column;gap:var(--space-sm);background:#BAE0BF}
+.cap-card{display:flex;flex-direction:column;gap:var(--space-sm);background:var(--primary-soft)}
 .cap-card p,.cap-card h2{margin:0}
 .cap-title{font-size:var(--fs-md);font-weight:var(--fw-md);line-height:var(--lh-md);letter-spacing:var(--ls-md);color:var(--ink)}
 .cap-value{display:flex;align-items:flex-end;gap:.25rem;font-size:var(--fs-lg);font-weight:var(--fw-lg);line-height:var(--lh-lg);letter-spacing:var(--ls-lg);color:var(--ink)}
