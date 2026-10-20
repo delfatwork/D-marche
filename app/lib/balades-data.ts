@@ -89,7 +89,7 @@ export type Creneau = {
 };
 
 export const BAL_CRENEAUX: Creneau[] = [
-  { id: "c1", title: "Marche du samedi", parcoursId: "canal", date: "Samedi 12 octobre", time: "10 h 00", meet: "Place de la mairie", count: 8, max: 15, photo: "/balades/samedi.jpg" },
+  { id: "c1", title: "Boucle Bagnolet parc Romainville", parcoursId: "canal", date: "Samedi 12 octobre", time: "10 h 00", meet: "Place de la mairie", count: 8, max: 15, photo: "/balades/samedi.jpg" },
   { id: "c2", title: "Balade entre voisins", parcoursId: "parc", date: "Mercredi 16 octobre", time: "18 h 30", meet: "Entrée du parc", count: 14, max: 15, photo: "/balades/voisins.jpg" },
 ];
 

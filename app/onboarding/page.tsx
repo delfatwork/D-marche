@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { BackIcon, CheckIcon, XIcon } from "@/app/components/icons";
+import { BackIcon, CheckIcon } from "@/app/components/icons";
 import Switch from "@/app/components/Switch";
 import DeviceScanner from "@/app/components/DeviceScanner";
 import AuthCodeStep from "@/app/components/AuthCodeStep";
@@ -65,7 +65,6 @@ export default function OnboardingPage() {
   const [authFlow, setAuthFlow] = useState<AuthFlow>("none");
   const [signupName, setSignupName] = useState("");
   const [signupPhone, setSignupPhone] = useState("");
-  const [loginName, setLoginName] = useState("");
   const [loginPhone, setLoginPhone] = useState("");
   const [signupPhoneError, setSignupPhoneError] = useState(false);
   const [signupAttempt, setSignupAttempt] = useState(0);
@@ -139,11 +138,7 @@ export default function OnboardingPage() {
                   if (signupPhoneError) setSignupPhoneError(false);
                 }}
               />
-              {phoneValid(signupPhone) ? (
-                <span className="field-ok" aria-hidden="true"><CheckIcon /></span>
-              ) : signupPhoneError ? (
-                <span className="field-ok field-ko" aria-hidden="true"><XIcon /></span>
-              ) : null}
+              {phoneValid(signupPhone) && <span className="field-ok" aria-hidden="true"><CheckIcon /></span>}
             </span>
           </label>
           {signupPhoneError && (
@@ -204,21 +199,6 @@ export default function OnboardingPage() {
           <h1 tabIndex={-1}>Connexion</h1>
           <p className="muted">Entrez votre numéro. Nous vous enverrons un code à usage unique par SMS.</p>
           <label className="field">
-            <span>Prénom<span className="req" aria-hidden="true"> *</span></span>
-            <span className="field-input">
-              <input
-                type="text"
-                autoComplete="given-name"
-                placeholder="Ex. Jeanne"
-                required
-                aria-required="true"
-                value={loginName}
-                onChange={(e) => setLoginName(e.target.value)}
-              />
-              {loginName.trim() && <span className="field-ok" aria-hidden="true"><CheckIcon /></span>}
-            </span>
-          </label>
-          <label className="field">
             <span>Numéro de téléphone<span className="req" aria-hidden="true"> *</span></span>
             <span className="field-input">
               <input
@@ -237,11 +217,7 @@ export default function OnboardingPage() {
                   if (loginPhoneError) setLoginPhoneError(false);
                 }}
               />
-              {phoneValid(loginPhone) ? (
-                <span className="field-ok" aria-hidden="true"><CheckIcon /></span>
-              ) : loginPhoneError ? (
-                <span className="field-ok field-ko" aria-hidden="true"><XIcon /></span>
-              ) : null}
+              {phoneValid(loginPhone) && <span className="field-ok" aria-hidden="true"><CheckIcon /></span>}
             </span>
           </label>
           {loginPhoneError && (
@@ -253,7 +229,7 @@ export default function OnboardingPage() {
             <button
               className="btn primary"
               type="button"
-              disabled={!loginName.trim() || !loginPhone.trim()}
+              disabled={!loginPhone.trim()}
               onClick={() => {
                 if (!phoneValid(loginPhone)) {
                   setLoginPhoneError(true);
@@ -281,7 +257,7 @@ export default function OnboardingPage() {
             confirmLabel="Valider"
             onCancel={() => setAuthFlow("login-form")}
             onVerified={() => {
-              completeLogin(loginName.trim(), loginPhone.trim());
+              completeLogin(loginPhone.trim());
               router.push("/");
             }}
           />

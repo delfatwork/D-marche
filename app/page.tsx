@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useAppState } from "@/app/lib/app-state";
 import { LEVELS } from "@/app/lib/onboarding-data";
 import { DAY, INITIALS, STEP_MIN, stepsOf } from "@/app/lib/week";
-import { fmtHoursMin, nf, plural } from "@/app/lib/format";
+import { fmtHoursMin, nf } from "@/app/lib/format";
 import {
   CheckIcon,
   PedometerIcon,
@@ -18,17 +18,16 @@ import {
   UserIcon,
 } from "@/app/components/icons";
 import WeekTotalCard from "@/app/components/WeekTotalCard";
+import HomeShortcutCard from "@/app/components/HomeShortcutCard";
 import MetricCard from "@/app/components/MetricCard";
 import RingCard from "@/app/components/RingCard";
 import GoalCard from "@/app/components/GoalCard";
-import TipCard from "@/app/components/TipCard";
-import { GroupeBaladeCard, SoloBaladeCard } from "@/app/components/BaladeCards";
-import { BAL_CRENEAUX, BAL_PARCOURS, balParcours } from "@/app/lib/balades-data";
-import { PARC_ROWS } from "@/app/lib/parcourir-data";
+import { NextWalkCard } from "@/app/components/BaladeCards";
+import { BAL_CRENEAUX, balParcours } from "@/app/lib/balades-data";
 
 export default function Home() {
   const router = useRouter();
-  const { hydrated, onboarded, name, level, goalMetric, isNew, week, pedo, recordSync } = useAppState();
+  const { hydrated, onboarded, name, level, goalMetric, isNew, week, pedo, recordSync, balJoined, joinCreneau, leaveCreneau } = useAppState();
   const [dateLabel, setDateLabel] = useState("");
   const [syncing, setSyncing] = useState(false);
   const [syncDone, setSyncDone] = useState(false);
@@ -66,36 +65,19 @@ export default function Home() {
   let capValue: React.ReactNode;
   let capDone: number;
   let capGoal: number;
-  let capHint = "";
   if (goalMetric === "sorties") {
     capDone = doneSorties;
     capGoal = goalSorties;
     capValue = <>{nf(capDone)} <small>/ sorties</small></>;
-    capHint = `Encore ${plural(Math.max(capGoal - capDone, 0), "sortie")} pour atteindre votre cap.`;
   } else if (goalMetric === "pas") {
     capDone = stepsOf(today);
     capGoal = goalSteps;
     capValue = <>{nf(capDone)} <small>/ {nf(capGoal)} pas</small></>;
-    capHint = `Encore ${nf(Math.max(capGoal - capDone, 0))} pas pour atteindre votre cap.`;
   } else {
     capDone = doneMin;
     capGoal = goalMin;
     capValue = <>{fmtHoursMin(capDone)} <small>/ {fmtHoursMin(capGoal)}</small></>;
   }
-  const capMsg =
-    capDone === 0
-      ? "Un tout petit tour de 10 minutes pour bien démarrer."
-      : capDone >= capGoal
-        ? "Cap atteint. Chaque minute en plus compte."
-        : capHint;
-  const capBadge =
-    goalMetric === "sorties"
-      ? stepsOf(today) > 0
-        ? `${nf(stepsOf(today))} pas`
-        : null
-      : doneSorties > 0
-        ? plural(doneSorties, "sortie")
-        : null;
 
   const yesterday = week[5];
   const yMin = yesterday.min;
@@ -136,6 +118,40 @@ export default function Home() {
       ariaLabel={`Pas hier : ${nf(ySteps)} sur un objectif de ${nf(goalSteps)}. Ouvrir le détail des pas`}
     />
   );
+
+  const cardSortiesToday = dureeMode ? (
+    <RingCard
+      horizontal
+      icon={<TargetIcon className="ring-card-ico" />}
+      headline="Durée"
+      value={isNew ? "–" : fmtHoursMin(doneMin)}
+      pct={(doneMin / goalMin) * 100}
+      ariaLabel={`Durée aujourd'hui : ${doneMin} min`}
+    />
+  ) : (
+    <RingCard
+      horizontal
+      icon={<RouteIcon className="ring-card-ico" />}
+      headline="Sorties"
+      value={isNew ? "–" : nf(doneSorties)}
+      pct={(doneSorties / 3) * 100}
+      href="/activite/sorties"
+      ariaLabel={`Sorties aujourd'hui : ${doneSorties}. Ouvrir le détail des sorties`}
+    />
+  );
+  const cardDureeToday = (
+    <RingCard
+      horizontal
+      icon={<TargetIcon className="ring-card-ico" />}
+      headline="Durée"
+      value={isNew ? "–" : fmtHoursMin(doneMin)}
+      pct={(doneMin / goalMin) * 100}
+      ariaLabel={`Durée aujourd'hui : ${doneMin} min`}
+    />
+  );
+
+  const nextCreneau = BAL_CRENEAUX[0];
+  const nextParcours = nextCreneau ? balParcours(nextCreneau.parcoursId) : undefined;
 
   const totalSteps = week.reduce((acc, d) => acc + stepsOf(d), 0);
   const totalMin = week.reduce((acc, d) => acc + d.min, 0);
@@ -259,11 +275,32 @@ export default function Home() {
       </div>
 
       <GoalCard
+        pct={(capDone / capGoal) * 100}
         value={capValue}
-        message={capMsg}
-        badge={capBadge}
-        emptyText={goalMetric === "sorties" ? "Aucun pas aujourd'hui" : "Aucune sortie aujourd'hui"}
+        emptyText=""
       />
+
+      <div className="today-rings">
+        {cardSortiesToday}{cardDureeToday}
+      </div>
+
+      {isNew ? (
+        <HomeShortcutCard
+          variant="discover"
+          icon={<img src="/onboarding/logo-walk.svg" alt="" width={14} height={18} />}
+          title="Découvrez comment fonctionne l'application"
+          text="Cap du jour, suivi des pas, balades, défis : un petit tour pour tout comprendre."
+          href="/parcourir/how/0"
+        />
+      ) : (
+        <HomeShortcutCard
+          variant="balades"
+          icon={<img src="/onboarding/logo-walk.svg" alt="" width={14} height={18} />}
+          title="Prêt pour une nouvelle balade ?"
+          text="Découvrez des parcours près de chez vous."
+          href="/balades"
+        />
+      )}
 
       {isNew && (
         <div className="card empty-card">
@@ -280,42 +317,19 @@ export default function Home() {
       <h2 className="sec-title">Les 7 derniers jours</h2>
       {trio}
 
-      <section className="row">
-        <h2 className="sec-title">Idées de balades</h2>
-        <div className="ch-list">
-          {BAL_PARCOURS.slice(0, 2).map((p) => <SoloBaladeCard p={p} key={p.id} />)}
-          {BAL_CRENEAUX.slice(0, 1).map((c) => {
-            const p = balParcours(c.parcoursId);
-            return p ? <GroupeBaladeCard c={c} p={p} key={c.id} /> : null;
-          })}
-        </div>
-        <Link className="btn quiet home-more-link" href="/balades">Voir plus de balades</Link>
-      </section>
-
-      <section className="row">
-        <h2 className="sec-title row-title">
-          Conseils pour la marche
-          <svg className="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-            <path d="M9 5l7 7-7 7" />
-          </svg>
-        </h2>
-        <div className="tip-list">
-          {PARC_ROWS.tips.map((tip, i) => (
-            tip.t === "Marcher par temps chaud" || tip.t === "Respirer en marchant" ? null : (
-              <TipCard
-                key={i}
-                photo={tip.photo}
-                title={tip.t}
-                href={`/parcourir/tips/${i}`}
-                horizontal
-              />
-            )
-          ))}
-        </div>
-        <Link className="btn quiet home-more-link" href="/parcourir">
-          Voir plus de conseils
-        </Link>
-      </section>
+      {nextCreneau && nextParcours && (
+        <>
+          <h2 className="sec-title row-title">Prochaine balade</h2>
+          <NextWalkCard
+            c={nextCreneau}
+            p={nextParcours}
+            joined={balJoined.includes(nextCreneau.id)}
+            full={nextCreneau.count >= nextCreneau.max}
+            onJoin={() => joinCreneau(nextCreneau.id)}
+            onLeave={() => leaveCreneau(nextCreneau.id)}
+          />
+        </>
+      )}
     </section>
   );
 }

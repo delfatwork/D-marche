@@ -34,6 +34,47 @@ export function SoloBaladeCard({ p }: { p: Parcours }) {
   );
 }
 
+export function NextWalkCard({
+  c,
+  p,
+  joined,
+  full,
+  onJoin,
+  onLeave,
+}: {
+  c: Creneau;
+  p: Parcours;
+  joined: boolean;
+  full: boolean;
+  onJoin: () => void;
+  onLeave: () => void;
+}) {
+  const diff = balDiff(p);
+  return (
+    <article className="card next-walk">
+      <Link className="next-walk-link bal-link" href={`/balade/groupe/${c.id}`}>
+        <div className="bal-body">
+          <p className="small bal-when next-walk-meta">
+            <span><UsersIcon /><span>Groupe</span> · {p.km}</span>
+            <span className={`chip chip-${diff.cls}`}>{diff.label}</span>
+          </p>
+          <p className="text-lg bal-when"><span>{creneauWhen(c)}</span></p>
+          <p className="bal-title next-walk-title">{c.title}</p>
+        </div>
+      </Link>
+      <div className="next-walk-actions">
+        {joined ? (
+          <button className="btn secondary" type="button" onClick={onLeave}>Me désinscrire</button>
+        ) : full ? (
+          <button className="btn secondary" type="button" disabled>Complet</button>
+        ) : (
+          <button className="btn primary" type="button" onClick={onJoin}>Je participe</button>
+        )}
+      </div>
+    </article>
+  );
+}
+
 export function GroupeBaladeCard({ c, p }: { c: Creneau; p: Parcours }) {
   const diff = balDiff(p);
   return (

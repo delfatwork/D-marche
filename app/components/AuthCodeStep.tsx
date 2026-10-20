@@ -64,15 +64,21 @@ export default function AuthCodeStep({
             inputMode="numeric"
             autoComplete="one-time-code"
             maxLength={6}
-            placeholder="123456"
+            placeholder="Ex. 123456"
             value={code}
-            onChange={(e) => setCode(e.target.value)}
+            onChange={(e) => {
+              setCode(e.target.value);
+              if (error) setError(false);
+            }}
           />
           {code.trim() === SMS_CODE && <span className="field-ok" aria-hidden="true"><CheckIcon /></span>}
         </span>
       </label>
-      <p className="success">Le code est détecté automatiquement depuis le SMS.</p>
-      {error && <p className="error" role="alert">Code incorrect. Vérifiez le SMS reçu.</p>}
+      {error ? (
+        <p className="error" role="alert">Code incorrect. Vérifiez le SMS reçu.</p>
+      ) : (
+        <p className="success">Le code est détecté automatiquement depuis le SMS.</p>
+      )}
       <div className="actions">
         <button className={`btn ${confirmDanger ? "danger" : "primary"}`} type="button" onClick={handleVerify}>
           {confirmLabel}

@@ -7,7 +7,7 @@ export default function Ring({
   className,
 }: {
   pct: number;
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
 }) {
   const v = Math.max(0, Math.min(100, pct));

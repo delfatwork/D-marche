@@ -88,7 +88,7 @@ type AppStateContextValue = Omit<PersistedState, "todayMinutes" | "todayKey" | "
   joinCreneau: (id: string) => void;
   leaveCreneau: (id: string) => void;
   completeSignup: (name: string, phone: string) => void;
-  completeLogin: (name: string, phone: string) => void;
+  completeLogin: (phone: string) => void;
   setPhone: (phone: string) => void;
   logout: () => void;
   deleteAccount: () => void;
@@ -147,6 +147,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       const todayMinutes = s.todayKey === todayKey() ? s.todayMinutes + minutes : minutes;
       return {
         ...s,
+        isNew: false,
         todayMinutes,
         todayKey: todayKey(),
         history: { ...s.history, [isoDate(new Date())]: todayMinutes },
@@ -189,13 +190,12 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       setWeek(blankWeek());
       setState((s) => ({ ...s, name, phone, isNew: true, userId: s.userId || genUserId(), history: {} }));
     },
-    completeLogin: (name, phone) => {
+    completeLogin: (phone) => {
       const demoWeek = buildDemoWeek();
       setWeek(demoWeek);
       const demoHistory = Object.fromEntries(demoWeek.map((d) => [d.iso, d.min]));
       setState((s) => ({
         ...s,
-        name,
         phone,
         isNew: false,
         onboarded: true,

@@ -13,6 +13,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Pas: Story = {
   args: {
+    pct: 62,
     value: <>{nf(6200)} <small>/ {nf(10000)} pas</small></>,
     message: 'Encore 3 800 pas pour atteindre votre cap.',
     badge: '1 sortie',
@@ -26,6 +27,7 @@ export const Pas: Story = {
 
 export const Duree: Story = {
   args: {
+    pct: 40,
     value: <>{fmtHoursMin(28)} <small>/ {fmtHoursMin(70)}</small></>,
     message: 'Un tout petit tour de 10 minutes pour bien démarrer.',
     badge: '1 sortie',
@@ -35,6 +37,7 @@ export const Duree: Story = {
 
 export const Sorties: Story = {
   args: {
+    pct: 33,
     value: <>{nf(1)} <small>/ sorties</small></>,
     message: 'Encore 2 sorties pour atteindre votre cap.',
     badge: `${nf(4200)} pas`,
@@ -45,6 +48,7 @@ export const Sorties: Story = {
 // No sortie/step logged yet today: falls back to emptyText instead of a badge.
 export const SansBadge: Story = {
   args: {
+    pct: 0,
     value: <>{nf(0)} <small>/ {nf(10000)} pas</small></>,
     message: 'Un tout petit tour de 10 minutes pour bien démarrer.',
     badge: null,
@@ -58,6 +62,7 @@ export const SansBadge: Story = {
 // message omitted: the conditional `{message && ...}` renders nothing.
 export const SansMessage: Story = {
   args: {
+    pct: 62,
     value: <>{nf(6200)} <small>/ {nf(10000)} pas</small></>,
     badge: '1 sortie',
     emptyText: "Aucune sortie aujourd'hui",

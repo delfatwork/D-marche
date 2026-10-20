@@ -9,35 +9,53 @@ type RingCardProps = {
   headline: string;
   value: ReactNode;
   pct: number;
-  footer: string;
+  footer?: string;
   href?: string;
   ariaLabel?: string;
+  horizontal?: boolean;
 };
 
-export default function RingCard({ icon, headline, value, pct, footer, href, ariaLabel }: RingCardProps) {
-  const content = (
+export default function RingCard({ icon, headline, value, pct, footer, href, ariaLabel, horizontal }: RingCardProps) {
+  const ring = (
+    <Ring pct={pct} className="ring-card-ring">
+      <strong className="text-md">{value}</strong>
+    </Ring>
+  );
+
+  const content = horizontal ? (
+    <>
+      <div className="ring-card-info">
+        <div className="ring-card-head">
+          {icon}
+          <p className="ring-card-headline text-sm-bold">{headline}</p>
+        </div>
+        {footer && <p className="ring-card-footer text-xs">{footer}</p>}
+      </div>
+      <p className="ring-card-value text-sm-bold">{value}</p>
+    </>
+  ) : (
     <>
       <div className="ring-card-head">
         {icon}
         <p className="ring-card-headline text-sm-bold">{headline}</p>
       </div>
-      <Ring pct={pct} className="ring-card-ring">
-        <strong className="text-md">{value}</strong>
-      </Ring>
-      <p className="ring-card-footer text-xs">{footer}</p>
+      {ring}
+      {footer && <p className="ring-card-footer text-xs">{footer}</p>}
     </>
   );
 
+  const className = `card ring-card${horizontal ? " ring-card-h" : ""}`;
+
   if (href) {
     return (
-      <Link className="card ring-card stat-btn" href={href} aria-label={ariaLabel}>
+      <Link className={`${className} stat-btn`} href={href} aria-label={ariaLabel}>
         {content}
       </Link>
     );
   }
 
   return (
-    <article className="card ring-card" aria-label={ariaLabel}>
+    <article className={className} aria-label={ariaLabel}>
       {content}
     </article>
   );
