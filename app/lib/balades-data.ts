@@ -42,7 +42,7 @@ export const BAL_PARCOURS: Parcours[] = [
     km: "1,2 km",
     min: 15,
     ville: "Montreuil",
-    hard: 0,
+    hard: 1,
     access: "Accessible poussette et fauteuil",
     pts: [
       { t: "Départ : entrée du parc", d: "0 m", i: "flag" },

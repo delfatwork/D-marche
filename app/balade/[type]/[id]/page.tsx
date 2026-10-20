@@ -47,8 +47,9 @@ export default function BaladePage({ params }: { params: Promise<{ type: string;
     return (
       <section className="screen">
         <div className="topbar pas-top">
-          <Link className="icon-btn pas-back" href="/balades" aria-label="Retour aux balades">
+          <Link className="back pas-back" href="/balades">
             <BackIcon />
+            <span>Retour</span>
           </Link>
           <h1 tabIndex={-1}>Balade</h1>
           <span className="help-btn balance" aria-hidden="true">Aide</span>
@@ -74,8 +75,9 @@ export default function BaladePage({ params }: { params: Promise<{ type: string;
   return (
     <section className="screen">
       <div className="topbar pas-top bal-topbar">
-        <Link className="icon-btn pas-back" href="/balades" aria-label="Retour aux balades">
+        <Link className="back pas-back" href="/balades">
           <BackIcon />
+          <span>Retour</span>
         </Link>
         <span className="bal-top-spacer" aria-hidden="true" />
         <span className="help-btn balance" aria-hidden="true">Aide</span>

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useAppState } from "@/app/lib/app-state";
-import { BackIcon, FilterIcon, SearchIcon, TargetIcon } from "@/app/components/icons";
+import { FilterIcon, SearchIcon, TargetIcon } from "@/app/components/icons";
 import { GroupeBaladeCard, SoloBaladeCard } from "@/app/components/BaladeCards";
 import Sheet from "@/app/components/Sheet";
 import {
@@ -86,10 +86,7 @@ export default function BaladesPage() {
 
   return (
     <section className="screen">
-      <div className="topbar pas-top">
-        <Link className="icon-btn pas-back" href="/" aria-label="Retour à l'accueil">
-          <BackIcon />
-        </Link>
+      <div className="topbar pas-top tab-top">
         <h1 tabIndex={-1}>Balades</h1>
         <span className="help-btn balance" aria-hidden="true">Aide</span>
       </div>
@@ -179,7 +176,7 @@ export default function BaladesPage() {
         </div>
       )}
 
-      <p className="small">{n} balade{n > 1 ? "s" : ""} {where}</p>
+      <p className="small"><strong className="bal-count-n">{n}</strong> balade{n > 1 ? "s" : ""} {where}</p>
 
       <Sheet open={filterOpen} onClose={() => setFilterOpen(false)} titleId="filter-sheet-t">
         <h2 id="filter-sheet-t">Filtrer les balades</h2>

@@ -61,8 +61,9 @@ export default function ActiviteScreen({ metric }: { metric: "pas" | "sorties" }
   return (
     <section className="screen">
       <div className="topbar pas-top">
-        <Link className="icon-btn pas-back" href="/" aria-label="Retour à l'accueil">
+        <Link className="back pas-back" href="/">
           <BackIcon />
+          <span>Retour</span>
         </Link>
         <h1 tabIndex={-1}>{isS ? "Sorties" : "Pas"}</h1>
         <span className="help-btn balance" aria-hidden="true">Aide</span>

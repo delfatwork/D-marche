@@ -99,11 +99,11 @@ export function SparkleIcon() {
 }
 
 export function SearchIcon() {
-  return <MagnifyingGlass weight="fill" aria-hidden="true" focusable="false" />;
+  return <MagnifyingGlass weight="regular" aria-hidden="true" focusable="false" />;
 }
 
 export function FilterIcon() {
-  return <Funnel weight="fill" aria-hidden="true" focusable="false" />;
+  return <Funnel weight="regular" aria-hidden="true" focusable="false" />;
 }
 
 export function PinIcon() {

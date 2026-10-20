@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useAppState } from "@/app/lib/app-state";
-import { BackIcon, PlusIcon } from "@/app/components/icons";
+import { PlusIcon } from "@/app/components/icons";
 import TipCard from "@/app/components/TipCard";
 import { PARC_ROWS, dcThemeName, type Tip } from "@/app/lib/parcourir-data";
 
@@ -31,10 +31,7 @@ export default function ParcourirPage() {
 
   return (
     <section className="screen parc">
-      <div className="topbar pas-top">
-        <Link className="icon-btn pas-back" href="/" aria-label="Retour à l'accueil">
-          <BackIcon />
-        </Link>
+      <div className="topbar pas-top tab-top">
         <h1 tabIndex={-1}>Parcourir</h1>
         <span className="help-btn balance" aria-hidden="true">Aide</span>
       </div>
