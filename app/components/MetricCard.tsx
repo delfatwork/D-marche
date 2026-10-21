@@ -5,11 +5,12 @@ type MetricCardProps = {
   label: string;
   value: ReactNode;
   unit: string;
+  className?: string;
 };
 
-export default function MetricCard({ icon, label, value, unit }: MetricCardProps) {
+export default function MetricCard({ icon, label, value, unit, className }: MetricCardProps) {
   return (
-    <article className="card metric-card">
+    <article className={`card metric-card${className ? ` ${className}` : ""}`}>
       <div className="metric-card-head">
         {icon}
         <p className="metric-card-label">{label}</p>

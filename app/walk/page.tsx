@@ -51,7 +51,7 @@ export default function WalkPage() {
         {running ? "Marche en cours" : "En pause"}
       </p>
       <div>
-        <p className="timer" role="timer" aria-live="off" aria-label={`Temps de marche : ${spokenDuration(elapsed)}`}>
+        <p className="timer" role="timer" aria-live="off" aria-label={`Durée de marche : ${spokenDuration(elapsed)}`}>
           {fmtTimer(elapsed)}
         </p>
         <p className="timer-sub">
@@ -61,7 +61,7 @@ export default function WalkPage() {
       <Trail progress={elapsed / goalS} />
       <p className="muted" style={{ textAlign: "center" }}>
         {reachedGoal
-          ? "Vous avez marché le temps prévu. Vous pouvez continuer ou terminer, comme vous le sentez."
+          ? "Vous avez marché la durée prévue. Vous pouvez continuer ou terminer, comme vous le sentez."
           : "Marchez à votre rythme. Vous pouvez faire une pause à tout moment."}
       </p>
       <div className="actions">

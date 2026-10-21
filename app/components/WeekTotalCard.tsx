@@ -10,9 +10,11 @@ type WeekTotalCardProps = {
   days: ReactNode;
   href?: string;
   ariaLabel?: string;
+  className?: string;
 };
 
-export default function WeekTotalCard({ icon, label, value, days, href, ariaLabel }: WeekTotalCardProps) {
+export default function WeekTotalCard({ icon, label, value, days, href, ariaLabel, className }: WeekTotalCardProps) {
+  const extra = className ? ` ${className}` : "";
   const content = (
     <>
       <div className="kpi-total-head">
@@ -30,11 +32,11 @@ export default function WeekTotalCard({ icon, label, value, days, href, ariaLabe
 
   if (href) {
     return (
-      <Link className="card kpi-total pas-link" href={href} aria-label={ariaLabel}>
+      <Link className={`card kpi-total pas-link${extra}`} href={href} aria-label={ariaLabel}>
         {content}
       </Link>
     );
   }
 
-  return <article className="card kpi-total">{content}</article>;
+  return <article className={`card kpi-total${extra}`}>{content}</article>;
 }

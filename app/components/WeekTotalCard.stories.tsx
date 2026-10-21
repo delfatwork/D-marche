@@ -56,10 +56,10 @@ export const TotalSorties: Story = {
   },
 };
 
-export const TempsTotal: Story = {
+export const DureeTotale: Story = {
   args: {
     icon: <TargetIcon className="kpi-total-ico" />,
-    label: 'Temps total',
+    label: 'Durée totale',
     value: <>{nf(totalMin)} <small>min</small></>,
     href: '/activite/pas',
     ariaLabel: 'Voir le détail des pas sur 7 jours',

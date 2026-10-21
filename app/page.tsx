@@ -90,6 +90,7 @@ export default function Home() {
 
   const cardSorties = dureeMode ? (
     <RingCard
+      className="stat-hier stat-hier-duree"
       icon={<TimerIcon className="ring-card-ico" />}
       headline="Durée"
       value={isNew ? "–" : fmtHoursMin(yMin)}
@@ -99,6 +100,7 @@ export default function Home() {
     />
   ) : (
     <RingCard
+      className="stat-hier stat-hier-sorties"
       icon={<RouteIcon className="ring-card-ico" />}
       headline="Sorties"
       value={isNew ? "–" : nf(ySorties)}
@@ -110,6 +112,7 @@ export default function Home() {
   );
   const cardPas = (
     <RingCard
+      className="stat-hier stat-hier-pas"
       icon={<StepsIcon className="ring-card-ico" />}
       headline="Pas"
       value={isNew ? "–" : nf(ySteps)}
@@ -123,6 +126,7 @@ export default function Home() {
   const cardSortiesToday = dureeMode ? (
     <RingCard
       horizontal
+      className="stat-jour stat-jour-duree"
       icon={<TimerIcon className="ring-card-ico" />}
       headline="Durée"
       value={isNew ? "–" : fmtHoursMin(doneMin)}
@@ -132,6 +136,7 @@ export default function Home() {
   ) : (
     <RingCard
       horizontal
+      className="stat-jour stat-jour-sorties"
       icon={<RouteIcon className="ring-card-ico" />}
       headline="Sorties"
       value={isNew ? "–" : nf(doneSorties)}
@@ -143,6 +148,7 @@ export default function Home() {
   const cardDureeToday = (
     <RingCard
       horizontal
+      className="stat-jour stat-jour-duree"
       icon={<TimerIcon className="ring-card-ico" />}
       headline="Durée"
       value={isNew ? "–" : fmtHoursMin(doneMin)}
@@ -171,6 +177,7 @@ export default function Home() {
   const trio = pasMode ? (
     <div className="week-trio">
       <WeekTotalCard
+        className="stat-semaine stat-semaine-pas"
         icon={<StepsIcon className="kpi-total-ico" />}
         label="Total pas"
         value={isNew ? "–" : nf(totalSteps)}
@@ -180,12 +187,14 @@ export default function Home() {
       />
       <div className="pair">
         <MetricCard
+          className="stat-semaine stat-semaine-pas-moyenne"
           icon={<StepsIcon className="metric-card-ico" />}
           label="Moyenne pas"
           value={isNew ? "–" : nf(Math.round(totalSteps / week.length))}
           unit="par jour"
         />
         <MetricCard
+          className="stat-semaine stat-semaine-duree"
           icon={<TimerIcon className="metric-card-ico" />}
           label="Durée totale"
           value={isNew ? "–" : nf(Math.round(totalSteps / STEP_MIN))}
@@ -196,6 +205,7 @@ export default function Home() {
   ) : goalMetric === "sorties" ? (
     <div className="week-trio">
       <WeekTotalCard
+        className="stat-semaine stat-semaine-sorties"
         icon={<RouteIcon className="kpi-total-ico" />}
         label="Total sorties"
         value={isNew ? "–" : nf(sortiesWeek)}
@@ -203,12 +213,14 @@ export default function Home() {
       />
       <div className="pair">
         <MetricCard
+          className="stat-semaine stat-semaine-sorties-moyenne"
           icon={<RouteIcon className="metric-card-ico" />}
           label="Moyenne sorties"
           value={isNew ? "–" : sortiesAvg}
           unit="sorties par jour"
         />
         <MetricCard
+          className="stat-semaine stat-semaine-duree"
           icon={<TimerIcon className="metric-card-ico" />}
           label="Durée totale"
           value={isNew ? "–" : nf(Math.round(totalSteps / STEP_MIN))}
@@ -219,8 +231,9 @@ export default function Home() {
   ) : (
     <div className="week-trio">
       <WeekTotalCard
+        className="stat-semaine stat-semaine-duree"
         icon={<TargetIcon className="kpi-total-ico" />}
-        label="Temps total"
+        label="Durée totale"
         value={isNew ? "–" : <>{nf(totalMin)} <small>min</small></>}
         days={days}
         href="/activite/pas"
@@ -228,12 +241,14 @@ export default function Home() {
       />
       <div className="pair">
         <MetricCard
+          className="stat-semaine stat-semaine-duree-moyenne"
           icon={<TargetIcon className="metric-card-ico" />}
-          label="Temps moyen"
+          label="Durée moyenne"
           value={isNew ? "–" : nf(avgMin)}
           unit="min par jour"
         />
         <MetricCard
+          className="stat-semaine stat-semaine-sorties"
           icon={<RouteIcon className="metric-card-ico" />}
           label="Nb de sorties"
           value={isNew ? "–" : nf(sortiesWeek)}
@@ -275,7 +290,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="card cap-group">
+      <div className={`card cap-group cap-${goalMetric}`}>
         <GoalCard
           pct={(capDone / capGoal) * 100}
           value={capValue}

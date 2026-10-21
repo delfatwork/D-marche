@@ -13,9 +13,10 @@ type RingCardProps = {
   href?: string;
   ariaLabel?: string;
   horizontal?: boolean;
+  className?: string;
 };
 
-export default function RingCard({ icon, headline, value, pct, footer, href, ariaLabel, horizontal }: RingCardProps) {
+export default function RingCard({ icon, headline, value, pct, footer, href, ariaLabel, horizontal, className: extra }: RingCardProps) {
   const ring = (
     <Ring pct={pct} className="ring-card-ring">
       <strong className="text-md">{value}</strong>
@@ -44,7 +45,7 @@ export default function RingCard({ icon, headline, value, pct, footer, href, ari
     </>
   );
 
-  const className = `card ring-card${horizontal ? " ring-card-h" : ""}`;
+  const className = `card ring-card${horizontal ? " ring-card-h" : ""}${extra ? ` ${extra}` : ""}`;
 
   if (href) {
     return (

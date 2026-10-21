@@ -38,6 +38,7 @@
   --bg:var(--g-warm-bg); --surface:var(--g-white); --ink:var(--g-green-ink-900); --ink-soft:var(--g-green-ink-700); --line:var(--g-sage-300);
   --ring-grad-start:#4A8F3B; --ring-grad-end:#A9F1D4; --ring-track:#E6E5E1;
   --primary:var(--g-green-700); --primary-ink:var(--g-white); --primary-soft:var(--g-green-100); --illus-fill:var(--g-green-200);
+  --stat-pas:var(--primary-soft); --stat-duree:#B5D7FE; --stat-sorties:#FBDE77; --stat-grad-end:#F9FBC5; --header-bg:#F1EEE7;
   --illus-accent:var(--g-amber-500); --illus-line:var(--g-sage-200); --warn-bg:var(--g-amber-100); --warn-line:var(--g-amber-700);
   --focus:var(--g-blue-600); --border-width:var(--g-border-1); --focus-halo:transparent;
   --action:var(--focus); --action-ink:var(--g-white); --action-soft:color-mix(in srgb, var(--action) 14%, var(--surface));
@@ -126,7 +127,9 @@ body{margin:0;height:100%;background:var(--canvas);color:var(--ink);
 .screen label.field + p.error{margin-top:calc(var(--space-sm) - var(--space-2xl))}
 .screen .cap-group + .home-shortcut{margin-top:calc(var(--space-xl) - var(--space-2xl))}
 .cap-group{display:flex;flex-direction:column;gap:var(--space-xl)}
-.card.cap-group{background:linear-gradient(90deg, var(--primary-soft) 0% 60%, #F9FBC5 100%);border:2px solid var(--g-white)}
+.card.cap-group{background:linear-gradient(90deg, var(--stat-pas) 0% 60%, var(--stat-grad-end) 100%);border:2px solid var(--g-white)}
+.card.cap-group.cap-duree{background:linear-gradient(90deg, var(--stat-duree) 0% 60%, var(--stat-grad-end) 100%)}
+.card.cap-group.cap-sorties{background:linear-gradient(90deg, var(--stat-sorties) 0% 60%, var(--stat-grad-end) 100%)}
 .cap-group .cap-card{background:none;border:0;padding:0}
 .cap-group .ring-card{background:none;border:0;padding:0}
 .today-rings{display:flex;flex-direction:row;flex-wrap:wrap;gap:var(--space-lg)}
@@ -332,7 +335,11 @@ label.field span.req{color:var(--danger)}
 /* Ring card — Figma node 221:3381 */
 .ring-card{display:flex;flex-direction:column;align-items:center;gap:var(--space-sm);min-width:0}
 .ring-card-head{display:flex;flex-direction:column;align-items:center;gap:var(--space-xs)}
-.ring-card-head svg{width:1.25rem;height:1.25rem;color:var(--ink);flex:none}
+.ring-card-head svg{width:1.25rem;height:1.25rem;color:var(--ink);flex:none;padding:.45rem;border-radius:50%;background:var(--ico-bg, var(--stat-duree));box-sizing:content-box}
+.stat-hier-pas,.stat-semaine-pas,.stat-semaine-pas-moyenne{--ico-bg:var(--stat-pas)}
+.stat-hier-duree,.stat-jour-duree,.stat-semaine-duree,.stat-semaine-duree-moyenne{--ico-bg:var(--stat-duree)}
+.stat-hier-sorties,.stat-jour-sorties,.stat-semaine-sorties,.stat-semaine-sorties-moyenne{--ico-bg:var(--stat-sorties)}
+.cap-group .ring-card-head svg{padding:0;border-radius:0;background:none;box-sizing:border-box}
 .ring-card-headline{margin:0;color:var(--ink-soft);text-align:center}
 .ring-card-ring{width:min(6.9rem,100%);height:auto;aspect-ratio:1/1}
 .ring-card-ring span{width:calc(100% - 16px);height:calc(100% - 16px);color:var(--ink)}
@@ -356,6 +363,17 @@ label.field span.req{color:var(--danger)}
 
 /* Week total card — Figma node 243:4389 */
 .kpi-total{display:flex;flex-direction:column;gap:var(--space-sm);background:var(--primary-soft);text-decoration:none;color:inherit}
+.card.stat-semaine-pas{background:var(--surface)}
+.card.stat-semaine-pas .days.mini li.walked .tick,.card.stat-semaine-duree .days.mini li.walked .tick,.card.stat-semaine-sorties .days.mini li.walked .tick{border-color:var(--tick-c);background:var(--tick-c)}
+.card.stat-semaine-pas .days.mini .tick,.card.stat-semaine-duree .days.mini .tick,.card.stat-semaine-sorties .days.mini .tick{border-color:var(--tick-c)}
+.stat-semaine-pas{--tick-c:var(--stat-pas)}
+.stat-semaine-duree{--tick-c:var(--stat-duree)}
+.stat-semaine-sorties{--tick-c:var(--stat-sorties)}
+.card.stat-semaine-duree{background:var(--surface)}
+.stat-hier-pas .ring{background:conic-gradient(var(--stat-pas) 0%, var(--stat-pas) calc(var(--p) * .6%), var(--stat-grad-end) calc(var(--p) * 1%), var(--ring-track) calc(var(--p) * 1%) 100%)}
+.card.stat-semaine-sorties{background:var(--surface)}
+.stat-hier-sorties .ring{background:conic-gradient(var(--stat-sorties) 0%, var(--stat-sorties) calc(var(--p) * .6%), var(--stat-grad-end) calc(var(--p) * 1%), var(--ring-track) calc(var(--p) * 1%) 100%)}
+.stat-hier-duree .ring{background:conic-gradient(var(--stat-duree) 0%, var(--stat-duree) calc(var(--p) * .6%), var(--stat-grad-end) calc(var(--p) * 1%), var(--ring-track) calc(var(--p) * 1%) 100%)}
 .kpi-total-head{display:flex;align-items:center;gap:var(--space-xs)}
 .kpi-total-ico{width:1.25rem;height:1.25rem;flex:none;color:var(--ink)}
 .kpi-total-label{margin:0;font-size:var(--fs-base);font-weight:var(--fw-base);line-height:var(--lh-base);letter-spacing:var(--ls-base);color:var(--ink-soft)}
@@ -372,7 +390,8 @@ label.field span.req{color:var(--danger)}
 .home-shortcut-title{font-size:var(--fs-base-bold);font-weight:var(--fw-base-bold);line-height:var(--lh-base-bold);letter-spacing:var(--ls-base-bold);}
 .home-shortcut-discover{color:var(--g-black)}
 .home-shortcut-discover{background:linear-gradient(90deg,#B5D7FE 0%,#B5D7FE 60%,#F9FBC5 100%);border:2px solid var(--g-white)}
-.home-shortcut-balades{background:var(--surface)}
+.home-shortcut-balades{background:var(--surface);position:relative;overflow:hidden}
+.home-shortcut-balades::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg, var(--primary-soft) 0% 60%, #F9FBC5 100%);border-radius:0 0 var(--card-radius) var(--card-radius)}
 .home-shortcut-discover .home-shortcut-ico,.home-shortcut-balades .home-shortcut-ico{color:var(--g-black)}
 
 .week-trio{display:flex;flex-direction:column;gap:var(--space-xl)}
@@ -381,7 +400,7 @@ label.field span.req{color:var(--danger)}
 /* Metric card — Figma node 213:2780 */
 .metric-card{display:flex;flex-direction:column;align-items:center;gap:var(--space-sm)}
 .metric-card-head{display:flex;flex-direction:column;align-items:center;gap:var(--space-xs);text-align:center}
-.metric-card-ico{width:1.25rem;height:1.25rem;flex:none;color:var(--ink)}
+.metric-card-ico{width:1.25rem;height:1.25rem;flex:none;color:var(--ink);padding:.45rem;border-radius:50%;background:var(--ico-bg, var(--stat-duree));box-sizing:content-box}
 .metric-card-label{margin:0;font-size:var(--fs-base);font-weight:var(--fw-base);line-height:var(--lh-base);letter-spacing:var(--ls-base);color:var(--ink-soft);text-align:center}
 .metric-card-body{display:flex;flex-direction:column;gap:.25rem;align-items:center;width:100%}
 .metric-card-value{margin:0;font-size:var(--fs-md);font-weight:var(--fw-md);line-height:var(--lh-md);letter-spacing:var(--ls-md);color:var(--ink);text-align:center;font-variant-numeric:tabular-nums}
@@ -414,10 +433,10 @@ label.field span.req{color:var(--danger)}
 .days.mini .tick svg{width:.6rem;height:.6rem}
 
 /* En-tête de l'accueil */
-.app-header{display:flex;justify-content:space-between;align-items:center;gap:var(--space-md);position:sticky;top:0;z-index:6;background:var(--surface);margin:0 calc(-1 * var(--space-gutter));padding:calc(var(--space-sm) + env(safe-area-inset-top,0px)) var(--space-gutter) var(--space-sm)}
+.app-header{display:flex;justify-content:space-between;align-items:center;gap:var(--space-md);position:sticky;top:0;z-index:6;background:var(--header-bg);margin:0 calc(-1 * var(--space-gutter));padding:calc(var(--space-sm) + env(safe-area-inset-top,0px)) var(--space-gutter) var(--space-sm)}
 .brand-mini{display:flex;align-items:center}
 .logo-sm{width:2.3rem;height:2.3rem}
-.app-header .icon-btn{--btn-ink:var(--ink-soft);border:0}
+.app-header .icon-btn{--btn-ink:var(--ink-soft);border:0;background:transparent}
 .header-icons{display:flex;gap:var(--space-sm)}
 .header-icons .icon-btn{width:2.75rem;height:2.75rem;position:relative}
 .header-icons svg{width:1.35rem;height:1.35rem}
@@ -682,7 +701,7 @@ h1,h2,h3,p,label,legend,strong,span{overflow-wrap:break-word}
 .chip-moderee{background:#EBD73F;border:0}
 
 .bal-link{cursor:pointer}
-.next-walk{display:flex;flex-direction:column;gap:var(--space-sm);background:linear-gradient(90deg,#B5D7FE 0%,#B5D7FE 60%,#F9FBC5 100%);border:2px solid var(--g-white);padding:var(--card-pad)}
+.next-walk{display:flex;flex-direction:column;gap:var(--space-sm);background:var(--surface);padding:var(--card-pad)}
 .next-walk,.next-walk .bal-title,.next-walk .bal-when,.next-walk .small{color:var(--g-black)}
 .next-walk-link{display:flex;flex-wrap:wrap;text-decoration:none;color:inherit}
 .next-walk-link .bal-body{padding:0;flex:1}
