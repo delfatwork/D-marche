@@ -23,12 +23,12 @@ function BaladeVis({ p, tone, photo }: { p: Parcours; tone: "v1" | "v2"; photo?:
 export function SoloBaladeCard({ p }: { p: Parcours }) {
   const diff = balDiff(p);
   return (
-    <Link className="card bal-card bal-compact bal-link" href={`/balade/solo/${p.id}`}>
+    <Link className={`card bal-card bal-compact bal-square bal-link bal-diff-${diff.cls}`} href={`/balade/solo/${p.id}`}>
       <BaladeVis p={p} tone="v1" />
       <div className="bal-body">
         <p className="small bal-when"><UserIcon /><span>Solo</span></p>
         <p className="bal-title">{p.name}</p>
-        <p className="small bal-when">{p.km} · <span className={`chip chip-${diff.cls}`}>{diff.label}</span></p>
+        <p className="text-sm bal-when">{p.km} · <span className={`chip chip-${diff.cls}`}>{diff.label}</span></p>
       </div>
     </Link>
   );
@@ -78,13 +78,13 @@ export function NextWalkCard({
 export function GroupeBaladeCard({ c, p }: { c: Creneau; p: Parcours }) {
   const diff = balDiff(p);
   return (
-    <Link className="card bal-card bal-compact bal-link" href={`/balade/groupe/${c.id}`}>
+    <Link className={`card bal-card bal-compact bal-square bal-link bal-diff-${diff.cls}`} href={`/balade/groupe/${c.id}`}>
       <BaladeVis p={p} tone="v2" photo={c.photo} />
       <div className="bal-body">
         <p className="small bal-when"><UsersIcon /><span>Groupe</span></p>
         <p className="bal-title">{c.title}</p>
         <p className="small bal-when"><span>{creneauWhen(c)}</span></p>
-        <p className="small bal-when">{p.km} · <span className={`chip chip-${diff.cls}`}>{diff.label}</span></p>
+        <p className="text-sm bal-when">{p.km} · <span className={`chip chip-${diff.cls}`}>{diff.label}</span></p>
       </div>
     </Link>
   );

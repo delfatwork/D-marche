@@ -85,7 +85,7 @@ export default function BaladesPage() {
   }
 
   return (
-    <section className="screen">
+    <section className="screen bal-screen">
       <div className="topbar pas-top tab-top">
         <h1 tabIndex={-1}>Balades</h1>
         <Link className="icon-btn" href="/settings" aria-label="Réglages"><SettingsIcon /></Link>
