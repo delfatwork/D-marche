@@ -688,7 +688,7 @@ h1,h2,h3,p,label,legend,strong,span{overflow-wrap:break-word}
 .bal-compact .bal-actions{margin-top:var(--space-2xs);gap:var(--space-sm)}
 .bal-compact .badge{font-size:var(--fs-xs);padding:var(--space-2xs) var(--space-sm);line-height:var(--lh-xs);font-weight:var(--fw-xs);letter-spacing:var(--ls-xs);}
 .bal-card.bal-square{padding:var(--card-pad);padding-bottom:calc(var(--card-pad) + 8px);gap:var(--card-pad);align-items:flex-start}
-.bal-card.bal-square .bal-vis{width:4.5rem;height:4.5rem;min-height:0;aspect-ratio:1/1;border-radius:calc(var(--card-radius) - var(--card-pad))}
+.bal-card.bal-square .bal-vis{width:48px;height:48px;min-height:0;aspect-ratio:1/1;border-radius:calc(var(--card-radius) - var(--card-pad));border:2px solid var(--g-white)}
 .bal-card.bal-square .bal-body{padding:0}
 
 .bal-chips{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-sm);margin:var(--space-2xs) 0 var(--space-sm)}
